@@ -7,24 +7,28 @@
 
 import UIKit
 
-class FoodListTableViewController: UITableViewController {
-    
+class FoodListTableViewController: UITableViewController, UISearchResultsUpdating, AddNewFoodItemDelegate {
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
-    let CELL_FOOD = "heroFood"
+    let CELL_FOOD = "foodCell"
     let CELL_INFO = "foodNumberCell"
     
     var foodList: [Food] = []
-
+    var filteredFoodList: [Food] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        filteredFoodList = foodList
+        
+        // Set up search controller
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search All Food Items"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
 
     
@@ -54,9 +58,8 @@ class FoodListTableViewController: UITableViewController {
             let food = foodList[indexPath.row]
             content.text = food.name
             
-            if let expiryDate = food.expiryDate {
-                content.secondaryText = formatDate(date: expiryDate)
-            }
+            let expiryDate = food.expiryDate
+            content.secondaryText = formatDate(date: expiryDate)
             
             foodCell.contentConfiguration = content
             return foodCell
@@ -83,18 +86,6 @@ class FoodListTableViewController: UITableViewController {
             return false
         }
     }
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-     */
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -106,15 +97,59 @@ class FoodListTableViewController: UITableViewController {
             }, completion: nil)
         }
     }
+    
+    
+    // MARK: - Search Bar
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if !searchController.isActive {
+            filteredFoodList = foodList
+            tableView.reloadData()
+            return
+        }
+        
+        guard let searchText = searchController.searchBar.text?.lowercased() else {
+            return
+        }
+        
+        if searchText.count > 0 {
+            filteredFoodList = foodList.filter({ (food: Food) -> Bool in
+                return (food.name.lowercased().contains(searchText))
+            })
+        } else {
+            filteredFoodList = foodList
+        }
+        
+        tableView.reloadData()
+    }
+    
+    
+    // MARK: - Delegate
+    
+    func addFood(_ newFood: Food) -> Bool {
+        tableView.performBatchUpdates({
+            // Safe because search can't be active when Add button is tapped.
+            foodList.append(newFood)
+            filteredFoodList.append(newFood)
+            
+            tableView.insertRows(at: [IndexPath(row: filteredFoodList.count - 1, section: SECTION_FOOD)], with: .automatic)
+            
+            tableView.reloadSections([SECTION_INFO], with: .automatic)
+        }, completion: nil)
+        
+        return true
+    }
 
 
     // MARK: - Navigation
-
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "addNewFoodItemSegue" {
+            let destination = segue.destination as! AddNewFoodItemViewController
+            destination.addNewFoodItemDelegate = self
+        }
     }
-    */
+
 }

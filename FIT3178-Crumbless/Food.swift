@@ -9,10 +9,11 @@ import UIKit
 
 class Food: NSObject {
     var name: String
-    var expiryDate: Date?
+    var expiryDate: Date
     var alert: Bool?
     
-    init(name: String) {
+    init(name: String, expiryDate: Date) {
         self.name = name
+        self.expiryDate = expiryDate
     }
 }

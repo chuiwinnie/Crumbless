@@ -67,7 +67,7 @@
                     <navigationItem key="navigationItem" title="Food List" id="qha-uM-CxD">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="54b-Mz-YB5">
                             <connections>
-                                <segue destination="FPV-lq-njt" kind="show" id="7Lv-s7-t84"/>
+                                <segue destination="FPV-lq-njt" kind="show" identifier="addNewFoodItemSegue" id="7Lv-s7-t84"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -121,6 +121,9 @@
                                 <rect key="frame" x="30" y="717.66666666666663" width="333" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add Item to List"/>
+                                <connections>
+                                    <action selector="addItem:" destination="FPV-lq-njt" eventType="touchUpInside" id="C3K-ZO-1wW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WEe-84-le4"/>

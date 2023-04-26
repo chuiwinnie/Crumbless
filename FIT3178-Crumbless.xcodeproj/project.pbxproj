@@ -18,6 +18,7 @@
 		80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */; };
 		80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */; };
 		80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */; };
+		80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemViewController.swift; sourceTree = "<group>"; };
 		80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
 		80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+formatDate.swift"; sourceTree = "<group>"; };
+		80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
 				80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */,
+				80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
 				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
+				80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
