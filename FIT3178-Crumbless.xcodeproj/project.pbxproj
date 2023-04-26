@@ -15,6 +15,9 @@
 		80186BCA29F8AA02009B410C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80186BC829F8AA02009B410C /* LaunchScreen.storyboard */; };
 		80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD129F8AF39009B410C /* FoodListTableViewController.swift */; };
 		80186BD429F8B056009B410C /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD329F8B056009B410C /* Food.swift */; };
+		80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */; };
+		80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */; };
+		80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		80186BCB29F8AA02009B410C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80186BD129F8AF39009B410C /* FoodListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewController.swift; sourceTree = "<group>"; };
 		80186BD329F8B056009B410C /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemViewController.swift; sourceTree = "<group>"; };
+		80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
+		80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+formatDate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +69,15 @@
 				80186BBD29F8AA01009B410C /* AppDelegate.swift */,
 				80186BBF29F8AA01009B410C /* SceneDelegate.swift */,
 				80186BC129F8AA01009B410C /* ViewController.swift */,
+				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 				80186BC329F8AA01009B410C /* Main.storyboard */,
 				80186BC629F8AA02009B410C /* Assets.xcassets */,
 				80186BC829F8AA02009B410C /* LaunchScreen.storyboard */,
 				80186BCB29F8AA02009B410C /* Info.plist */,
-				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD329F8B056009B410C /* Food.swift */,
+				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
+				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
+				80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -145,9 +154,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				80186BC229F8AA01009B410C /* ViewController.swift in Sources */,
+				80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */,
 				80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */,
 				80186BD429F8B056009B410C /* Food.swift in Sources */,
 				80186BBE29F8AA01009B410C /* AppDelegate.swift in Sources */,
+				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
+				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
