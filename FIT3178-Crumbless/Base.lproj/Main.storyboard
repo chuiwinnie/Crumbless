@@ -65,12 +65,97 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Food List" id="qha-uM-CxD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="54b-Mz-YB5"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="54b-Mz-YB5">
+                            <connections>
+                                <segue destination="FPV-lq-njt" kind="show" id="7Lv-s7-t84"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJu-Mm-5GM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1918" y="404"/>
+        </scene>
+        <!--Add New Food Item-->
+        <scene sceneID="NNv-Fx-zue">
+            <objects>
+                <viewController id="FPV-lq-njt" customClass="AddNewFoodItemViewController" customModule="FIT3178_Crumbless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9bq-5O-Vcn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnw-7y-Teh">
+                                <rect key="frame" x="30" y="133" width="95" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-ak-SWO">
+                                <rect key="frame" x="30" y="172" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Expiry Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gS-9q-gVy">
+                                <rect key="frame" x="30" y="236" width="144" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q27-y1-1QP">
+                                <rect key="frame" x="30" y="275" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-do-jOM">
+                                <rect key="frame" x="30" y="339" width="101" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vv6-4K-RYd">
+                                <rect key="frame" x="30" y="378" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-bZ-vci">
+                                <rect key="frame" x="30" y="717.66666666666663" width="333" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Add Item to List"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WEe-84-le4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6XP-do-jOM" firstAttribute="top" secondItem="q27-y1-1QP" secondAttribute="bottom" constant="30" id="1mU-x7-Khk"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="q27-y1-1QP" secondAttribute="trailing" constant="30" id="6lB-QF-Mix"/>
+                            <constraint firstItem="Vv6-4K-RYd" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="7EB-Ng-OUX"/>
+                            <constraint firstAttribute="bottom" secondItem="e7C-bZ-vci" secondAttribute="bottom" constant="100" id="7cs-lw-aeG"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="e7C-bZ-vci" secondAttribute="trailing" constant="30" id="7ib-pf-lnk"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="zeW-ak-SWO" secondAttribute="trailing" constant="30" id="8Yr-0L-hHw"/>
+                            <constraint firstItem="q27-y1-1QP" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="Bj4-hW-awh"/>
+                            <constraint firstItem="6XP-do-jOM" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="ITz-ET-FmE"/>
+                            <constraint firstItem="e7C-bZ-vci" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="NZo-dc-9Cd"/>
+                            <constraint firstItem="4gS-9q-gVy" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="OZv-YE-K8W"/>
+                            <constraint firstItem="Vv6-4K-RYd" firstAttribute="top" secondItem="6XP-do-jOM" secondAttribute="bottom" constant="15" id="OgC-Wj-cmp"/>
+                            <constraint firstItem="4gS-9q-gVy" firstAttribute="top" secondItem="zeW-ak-SWO" secondAttribute="bottom" constant="30" id="SPp-In-fLw"/>
+                            <constraint firstItem="q27-y1-1QP" firstAttribute="top" secondItem="4gS-9q-gVy" secondAttribute="bottom" constant="15" id="kD9-XD-jnS"/>
+                            <constraint firstItem="xnw-7y-Teh" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="mxD-5w-6YJ"/>
+                            <constraint firstItem="xnw-7y-Teh" firstAttribute="top" secondItem="WEe-84-le4" secondAttribute="top" constant="30" id="vDR-cm-gJM"/>
+                            <constraint firstItem="zeW-ak-SWO" firstAttribute="top" secondItem="xnw-7y-Teh" secondAttribute="bottom" constant="15" id="xvc-1f-EvD"/>
+                            <constraint firstItem="zeW-ak-SWO" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="yIW-pi-sm9"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="Vv6-4K-RYd" secondAttribute="trailing" constant="30" id="ySG-dH-Uyj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add New Food Item" id="oR0-mG-EtS"/>
+                    <connections>
+                        <outlet property="expiryAlertTextField" destination="Vv6-4K-RYd" id="EVb-9o-GDf"/>
+                        <outlet property="expiryDateTextField" destination="q27-y1-1QP" id="ZmD-oT-0Vf"/>
+                        <outlet property="nameTextField" destination="zeW-ak-SWO" id="9Yw-e5-B8g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9NF-QX-UK1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1918.3206106870227" y="1179.5774647887324"/>
         </scene>
         <!--Recipe Search-->
         <scene sceneID="1jB-1h-fGR">
