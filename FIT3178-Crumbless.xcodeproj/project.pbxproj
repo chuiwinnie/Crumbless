@@ -19,6 +19,9 @@
 		80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */; };
 		80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */; };
 		80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */; };
+		80186BDE29F8D82D009B410C /* RecipeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */; };
+		8025C5072A01C4C5005C381F /* FoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */; };
+		8025C5092A01C93E005C381F /* UpdateFoodItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8025C5082A01C93E005C381F /* UpdateFoodItemDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
 		80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+formatDate.swift"; sourceTree = "<group>"; };
 		80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemDelegate.swift; sourceTree = "<group>"; };
+		80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchTableViewController.swift; sourceTree = "<group>"; };
+		8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailsViewController.swift; sourceTree = "<group>"; };
+		8025C5082A01C93E005C381F /* UpdateFoodItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFoodItemDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,7 @@
 				80186BBF29F8AA01009B410C /* SceneDelegate.swift */,
 				80186BC129F8AA01009B410C /* ViewController.swift */,
 				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
+				80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */,
 				80186BC329F8AA01009B410C /* Main.storyboard */,
 				80186BC629F8AA02009B410C /* Assets.xcassets */,
 				80186BC829F8AA02009B410C /* LaunchScreen.storyboard */,
@@ -79,8 +86,10 @@
 				80186BD329F8B056009B410C /* Food.swift */,
 				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
-				80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */,
 				80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */,
+				80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */,
+				8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */,
+				8025C5082A01C93E005C381F /* UpdateFoodItemDelegate.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -156,8 +165,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8025C5092A01C93E005C381F /* UpdateFoodItemDelegate.swift in Sources */,
 				80186BC229F8AA01009B410C /* ViewController.swift in Sources */,
+				80186BDE29F8D82D009B410C /* RecipeSearchTableViewController.swift in Sources */,
 				80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */,
+				8025C5072A01C4C5005C381F /* FoodDetailsViewController.swift in Sources */,
 				80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */,
 				80186BD429F8B056009B410C /* Food.swift in Sources */,
 				80186BBE29F8AA01009B410C /* AppDelegate.swift in Sources */,

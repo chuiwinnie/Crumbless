@@ -40,6 +40,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="KiI-v4-6Gw" kind="show" identifier="showFoodDetailsSegue" id="Dj5-Hf-8P9"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="foodNumberCell" textLabel="Yd2-ke-ChF" style="IBUITableViewCellStyleDefault" id="7o2-Cw-FzE">
                                 <rect key="frame" x="0.0" y="99" width="393" height="43.666667938232422"/>
@@ -329,6 +332,90 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcS-gS-Phf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3184" y="404"/>
+        </scene>
+        <!--Food Item Details-->
+        <scene sceneID="4aL-wI-zMY">
+            <objects>
+                <viewController id="KiI-v4-6Gw" customClass="FoodDetailsViewController" customModule="FIT3178_Crumbless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mC8-JW-XVp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJS-CV-fby">
+                                <rect key="frame" x="30" y="133" width="95" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQ9-Tp-0vO">
+                                <rect key="frame" x="30" y="172" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Expiry Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IA-wq-lgO">
+                                <rect key="frame" x="30" y="236" width="144" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9At-1x-Dvs">
+                                <rect key="frame" x="30" y="275" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5m-By-RuR">
+                                <rect key="frame" x="30" y="339" width="101" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CSW-Rl-7Cl">
+                                <rect key="frame" x="30" y="378" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEV-7g-ab3">
+                                <rect key="frame" x="30" y="717" width="333" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Update Item"/>
+                                <connections>
+                                    <action selector="updateItem:" destination="KiI-v4-6Gw" eventType="touchUpInside" id="y5o-yB-0IG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vtN-jz-Kgr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9At-1x-Dvs" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="6VP-su-cwZ"/>
+                            <constraint firstItem="SJS-CV-fby" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="7hL-X5-R0v"/>
+                            <constraint firstItem="CSW-Rl-7Cl" firstAttribute="top" secondItem="o5m-By-RuR" secondAttribute="bottom" constant="15" id="EnU-TJ-uhs"/>
+                            <constraint firstItem="9At-1x-Dvs" firstAttribute="top" secondItem="2IA-wq-lgO" secondAttribute="bottom" constant="15" id="IW8-UI-9PV"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="CSW-Rl-7Cl" secondAttribute="trailing" constant="30" id="Lk9-Eh-nm1"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="9At-1x-Dvs" secondAttribute="trailing" constant="30" id="NIh-1i-dhi"/>
+                            <constraint firstItem="2IA-wq-lgO" firstAttribute="top" secondItem="bQ9-Tp-0vO" secondAttribute="bottom" constant="30" id="Obf-2D-9WY"/>
+                            <constraint firstItem="bQ9-Tp-0vO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="QbL-j2-Bpp"/>
+                            <constraint firstItem="CSW-Rl-7Cl" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="a2P-MY-bJ0"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bQ9-Tp-0vO" secondAttribute="trailing" constant="30" id="dLU-3t-bwp"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bEV-7g-ab3" secondAttribute="trailing" constant="30" id="eBf-Au-3pV"/>
+                            <constraint firstItem="2IA-wq-lgO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="fB6-dk-tDX"/>
+                            <constraint firstAttribute="bottom" secondItem="bEV-7g-ab3" secondAttribute="bottom" constant="100" id="gPz-tj-ZO1"/>
+                            <constraint firstItem="bQ9-Tp-0vO" firstAttribute="top" secondItem="SJS-CV-fby" secondAttribute="bottom" constant="15" id="nXn-RL-I0r"/>
+                            <constraint firstItem="bEV-7g-ab3" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="p3q-rM-cXq"/>
+                            <constraint firstItem="o5m-By-RuR" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="rQP-12-01o"/>
+                            <constraint firstItem="o5m-By-RuR" firstAttribute="top" secondItem="9At-1x-Dvs" secondAttribute="bottom" constant="30" id="sQG-EI-GWg"/>
+                            <constraint firstItem="SJS-CV-fby" firstAttribute="top" secondItem="vtN-jz-Kgr" secondAttribute="top" constant="30" id="ylj-Jj-vkb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Food Item Details" id="HwI-jk-nfw"/>
+                    <connections>
+                        <outlet property="expiryAlertTextField" destination="CSW-Rl-7Cl" id="mUi-Ua-9To"/>
+                        <outlet property="expiryDateTextField" destination="9At-1x-Dvs" id="JyL-Zr-8ge"/>
+                        <outlet property="nameTextField" destination="bQ9-Tp-0vO" id="cXe-S7-BIy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3u6-zq-aWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2767" y="1180"/>
         </scene>
     </scenes>
     <resources>

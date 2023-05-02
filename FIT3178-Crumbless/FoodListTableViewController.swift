@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FoodListTableViewController: UITableViewController, UISearchResultsUpdating, AddNewFoodItemDelegate {
+class FoodListTableViewController: UITableViewController, UISearchResultsUpdating, AddNewFoodItemDelegate, UpdateFoodItemDelegate {
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
@@ -41,7 +41,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case SECTION_FOOD:
-            return foodList.count
+            return filteredFoodList.count
         case SECTION_INFO:
             return 1
         default:
@@ -70,7 +70,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             if foodList.isEmpty {
             content.text = "No items in the list. Tap + to add new items."
             } else {
-            content.text = "Total number of item(s): \(foodList.count)"
+            content.text = "Total number of item(s): \(filteredFoodList.count)"
             }
             
             infoCell.contentConfiguration = content
@@ -91,7 +91,10 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete && indexPath.section == SECTION_FOOD {
             tableView.performBatchUpdates({
-                self.foodList.remove(at: indexPath.row)
+                if let index = self.foodList.firstIndex(of: filteredFoodList[indexPath.row]) {
+                    self.foodList.remove(at: index)
+                }
+                self.filteredFoodList.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.tableView.reloadSections([SECTION_INFO], with: .automatic)
             }, completion: nil)
@@ -139,16 +142,37 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         
         return true
     }
+    
+    func updateFood(updatedFood: Food, rowId: Int) -> Bool {
+        tableView.performBatchUpdates({
+            foodList[rowId] = updatedFood
+            filteredFoodList[rowId] = updatedFood
+            
+            tableView.reloadSections([SECTION_FOOD], with: .automatic)
+            tableView.reloadSections([SECTION_INFO], with: .automatic)
+        }, completion: nil)
+        
+        return true
+    }
 
 
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "addNewFoodItemSegue" {
             let destination = segue.destination as! AddNewFoodItemViewController
             destination.addNewFoodItemDelegate = self
+        } else if segue.identifier == "showFoodDetailsSegue" {
+            if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                let controller = segue.destination as! FoodDetailsViewController
+                controller.updateFoodItemDelegate = self
+                let food = foodList[indexPath.row]
+                controller.name = food.name
+                controller.expiryDate = formatDate(date: food.expiryDate)
+                controller.expiryAlert = food.alert
+                controller.rowId = indexPath.row
+                print(indexPath.row)
+            }
         }
     }
 

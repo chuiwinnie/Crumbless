@@ -1,21 +1,33 @@
 //
-//  AddNewFoodItemViewController.swift
+//  FoodDetailsViewController.swift
 //  FIT3178-Crumbless
 //
-//  Created by Winnie Chui on 26/4/2023.
+//  Created by Winnie Chui on 3/5/2023.
 //
 
 import UIKit
 
-class AddNewFoodItemViewController: UIViewController {
+class FoodDetailsViewController: UIViewController {
+    var name: String!
+    var expiryDate: String!
+    var expiryAlert: String?
+    var rowId: Int!
+    
+    weak var updateFoodItemDelegate: UpdateFoodItemDelegate?
+
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
     
-    weak var addNewFoodItemDelegate: AddNewFoodItemDelegate?
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set food item details
+        nameTextField.text = name
+        expiryDateTextField.text = expiryDate
+        expiryAlertTextField.text = expiryAlert
+        
+        // Show date picker for expiry date field
         showExpiryDatePicker()
     }
     
@@ -34,7 +46,7 @@ class AddNewFoodItemViewController: UIViewController {
         expiryDateTextField.text = formatDate(date: datePicker.date)
     }
     
-    @IBAction func addItem(_ sender: Any) {
+    @IBAction func updateItem(_ sender: Any) {
         guard var name = nameTextField.text, let expiryDate = expiryDateTextField.text else {
             return
         }
@@ -58,10 +70,12 @@ class AddNewFoodItemViewController: UIViewController {
         let date = dateFormatter.date(from: expiryDate)!
         
         let food = Food(name: name, expiryDate: date)
-        let foodAdded = addNewFoodItemDelegate?.addFood(food) ?? false
+        let foodUpdated = updateFoodItemDelegate?.updateFood(updatedFood: food, rowId: rowId) ?? false
+        print(foodUpdated)
         
         navigationController?.popViewController(animated: true)
     }
+    
     
     /*
     // MARK: - Navigation
