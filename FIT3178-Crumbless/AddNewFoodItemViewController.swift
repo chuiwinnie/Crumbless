@@ -58,7 +58,7 @@ class AddNewFoodItemViewController: UIViewController {
         let date = dateFormatter.date(from: expiryDate)!
         
         let food = Food(name: name, expiryDate: date)
-        let foodAdded = addNewFoodItemDelegate?.addFood(food) ?? false
+        _ = addNewFoodItemDelegate?.addFood(food) ?? false
         
         navigationController?.popViewController(animated: true)
     }

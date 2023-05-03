@@ -7,83 +7,128 @@
 
 import UIKit
 
-class RecipeSearchTableViewController: UITableViewController {
-
+class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDelegate {
+    let SECTION_FOOD = 0
+    let SECTION_INFO = 1
+    
+    let CELL_FOOD = "foodCell"
+    let CELL_INFO = "foodNumberCell"
+    
+    var foodList: [Food] = []
+    
+    @IBOutlet weak var searchRecipeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        updateButtonDisplay()
     }
-
+    
+    func updateButtonDisplay() {
+        if foodList.isEmpty {
+            searchRecipeButton.isEnabled = false
+        } else {
+            searchRecipeButton.isEnabled = true
+        }
+    }
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch (section) {
+        case SECTION_FOOD:
+            return foodList.count
+        case SECTION_INFO:
+            return 1
+        default:
+            return 0
+        }
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        if indexPath.section == SECTION_FOOD {
+            // Configure and return a food cell
+            let foodCell = tableView.dequeueReusableCell(withIdentifier: CELL_FOOD, for: indexPath)
+            var content = foodCell.defaultContentConfiguration()
+            
+            let food = foodList[indexPath.row]
+            content.text = food.name
+            
+            let expiryDate = food.expiryDate
+            content.secondaryText = formatDate(date: expiryDate)
+            
+            foodCell.contentConfiguration = content
+            return foodCell
+        } else {
+            let infoCell = tableView.dequeueReusableCell(withIdentifier: CELL_INFO, for: indexPath)
+            var content = infoCell.defaultContentConfiguration()
+            
+            if foodList.isEmpty {
+                content.text = "No food items added to the recipe search.\nTap + to add items to the search."
+            } else {
+                content.text = "Number of item(s) added to search: \(foodList.count)"
+            }
+            
+            infoCell.contentConfiguration = content
+            return infoCell
+        }
     }
-    */
-
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        if indexPath.section == SECTION_FOOD {
+            return true
+        } else {
+            return false
+        }
     }
-    */
-
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        if editingStyle == .delete && indexPath.section == SECTION_FOOD {
+            tableView.performBatchUpdates({
+                if let index = self.foodList.firstIndex(of: foodList[indexPath.row]) {
+                    self.foodList.remove(at: index)
+                }
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.reloadSections([SECTION_INFO], with: .automatic)
+            }, completion: nil)
+        }
+        
+        updateButtonDisplay()
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
+    
+    
+    // MARK: - Delegate
+    func addFood(_ food: Food) -> Bool {
+        tableView.performBatchUpdates({
+            // Safe because search can't be active when Add button is tapped.
+            foodList.append(food)
+            
+            tableView.insertRows(at: [IndexPath(row: foodList.count - 1, section: SECTION_FOOD)], with: .automatic)
+            
+            tableView.reloadSections([SECTION_INFO], with: .automatic)
+        }, completion: nil)
+        
+        updateButtonDisplay()
+        
         return true
     }
-    */
-
-    /*
+    
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "addItemToRecipeSearchSegue" {
+            let destination = segue.destination as! AddItemToRecipeSearchTableViewController
+            destination.addItemToRecipeSearchDelegate = self
+        }
+        
     }
-    */
-
+    
 }
