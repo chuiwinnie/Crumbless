@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol AddNewFoodItemDelegate: AnyObject {
     func addFood(_ newFood: Food) -> Bool
 }

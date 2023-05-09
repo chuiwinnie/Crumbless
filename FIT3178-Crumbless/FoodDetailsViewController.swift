@@ -70,7 +70,7 @@ class FoodDetailsViewController: UIViewController {
         let date = dateFormatter.date(from: expiryDate)!
         
         let food = Food(name: name, expiryDate: date)
-        let foodUpdated = updateFoodItemDelegate?.updateFood(updatedFood: food, rowId: rowId) ?? false
+        _ = updateFoodItemDelegate?.updateFood(updatedFood: food, rowId: rowId) ?? false
         
         navigationController?.popViewController(animated: true)
     }
