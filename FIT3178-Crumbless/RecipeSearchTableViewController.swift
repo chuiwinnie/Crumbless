@@ -18,10 +18,6 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
     
     @IBOutlet weak var searchRecipeButton: UIButton!
     
-    @IBAction func onSearchRecipeButtonClick(_ sender: Any) {
-
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButtonDisplay()
@@ -135,7 +131,6 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
             let destination = segue.destination as! RecipeSearchResultsTableViewController
             destination.ingredients = foodList
         }
-        
     }
     
 }

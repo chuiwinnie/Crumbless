@@ -14,19 +14,19 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     let CELL_RECIPE = "recipeCell"
     let CELL_INFO = "recipeNumberCell"
     
-    let REQUEST_STRING = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2"
-    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+    //    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+    let apiKey = "9967866fa4b14ddf91122861be29bf3f"
+    let MAX_ITEMS_PER_REQUEST = 50
     
     var recipeList: [Recipe] = []
     var ingredients: [Food] = []
-    var indicator = UIActivityIndicatorView()
     
-    let MAX_ITEMS_PER_REQUEST = 100
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up and add indicator to view controller's view
+        // Set up and start indicator
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(indicator)
@@ -34,16 +34,16 @@ class RecipeSearchResultsTableViewController: UITableViewController {
             indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+        indicator.startAnimating()
         
         // Search recipes with ingredients
         Task {
             await requestRecipes()
         }
     }
-        
-    // Make request to API & parse results
+    
+    // Make recipes by ingredients request to API & parse results
     func requestRecipes() async {
-        print("here")
         // Create URL for API request
         var searchURLComponents = URLComponents()
         searchURLComponents.scheme = "https"
@@ -76,9 +76,10 @@ class RecipeSearchResultsTableViewController: UITableViewController {
                 let decoder = JSONDecoder()
                 let recipeResults = try decoder.decode(Array<Recipe>.self, from: data)
                 
+                // Get a list of recipes
                 recipeList.append(contentsOf: recipeResults)
                 DispatchQueue.main.async {
-                    let selectedIndexPaths = self.tableView.indexPathsForSelectedRows
+                    _ = self.tableView.indexPathsForSelectedRows
                     self.tableView.reloadData()
                 }
             } catch let error {
@@ -128,9 +129,6 @@ class RecipeSearchResultsTableViewController: UITableViewController {
             let recipe = recipeList[indexPath.row]
             content.text = recipe.title
             
-            //  let expiryDate = food.expiryDate
-            //  content.secondaryText = formatDate(date: expiryDate)
-            
             recipeCell.contentConfiguration = content
             return recipeCell
         } else {
@@ -148,49 +146,21 @@ class RecipeSearchResultsTableViewController: UITableViewController {
         }
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
+    // MARK: - Navigation
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRecipeDetailsSegue" {
+            if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                let controller = segue.destination as! RecipeDetailsViewController
+                
+                // Set recipe ID & title in the recipe details view
+                let recipe = recipeList[indexPath.row]
+                controller.recipeId = recipe.id
+                controller.recipeTitle = recipe.title
+            }
+        }
+    }
     
 }

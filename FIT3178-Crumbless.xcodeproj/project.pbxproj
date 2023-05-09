@@ -25,7 +25,7 @@
 		8025C50D2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */; };
 		803F8CF92A01FE650061E39E /* RecipeSearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */; };
 		803F8CFB2A02017F0061E39E /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CFA2A02017F0061E39E /* Recipe.swift */; };
-		803F8CFD2A0201E20061E39E /* RecipeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CFC2A0201E20061E39E /* RecipeList.swift */; };
+		803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,7 @@
 		8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemToRecipeSearchTableViewController.swift; sourceTree = "<group>"; };
 		803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		803F8CFA2A02017F0061E39E /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
-		803F8CFC2A0201E20061E39E /* RecipeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeList.swift; sourceTree = "<group>"; };
+		803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +97,11 @@
 				80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */,
 				8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */,
 				8025C5082A01C93E005C381F /* UpdateFoodItemDelegate.swift */,
-				803F8CFC2A0201E20061E39E /* RecipeList.swift */,
 				803F8CFA2A02017F0061E39E /* Recipe.swift */,
 				80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */,
 				8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */,
 				803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */,
+				803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -188,11 +188,11 @@
 				803F8CF92A01FE650061E39E /* RecipeSearchResultsTableViewController.swift in Sources */,
 				803F8CFB2A02017F0061E39E /* Recipe.swift in Sources */,
 				8025C50D2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift in Sources */,
+				803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */,
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
 				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
 				80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */,
-				803F8CFD2A0201E20061E39E /* RecipeList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
