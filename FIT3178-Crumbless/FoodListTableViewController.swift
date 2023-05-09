@@ -173,7 +173,6 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
                 controller.expiryDate = formatDate(date: food.expiryDate)
                 controller.expiryAlert = food.alert
                 controller.rowId = indexPath.row
-                print(indexPath.row)
             }
         }
     }

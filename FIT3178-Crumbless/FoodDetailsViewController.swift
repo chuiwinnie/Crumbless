@@ -14,7 +14,7 @@ class FoodDetailsViewController: UIViewController {
     var rowId: Int!
     
     weak var updateFoodItemDelegate: UpdateFoodItemDelegate?
-
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
@@ -71,20 +71,8 @@ class FoodDetailsViewController: UIViewController {
         
         let food = Food(name: name, expiryDate: date)
         let foodUpdated = updateFoodItemDelegate?.updateFood(updatedFood: food, rowId: rowId) ?? false
-        print(foodUpdated)
         
         navigationController?.popViewController(animated: true)
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

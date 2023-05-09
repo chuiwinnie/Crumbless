@@ -14,7 +14,7 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     let CELL_RECIPE = "recipeCell"
     let CELL_INFO = "recipeNumberCell"
     
-    //    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+//    let apiKey = "25231069356d414fa201177ef0c1dfbd"
     let apiKey = "9967866fa4b14ddf91122861be29bf3f"
     let MAX_ITEMS_PER_REQUEST = 50
     

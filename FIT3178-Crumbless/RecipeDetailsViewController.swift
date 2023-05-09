@@ -16,7 +16,7 @@ class RecipeDetailsViewController: UIViewController {
     
     var indicator = UIActivityIndicatorView()
     
-    //    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+//    let apiKey = "25231069356d414fa201177ef0c1dfbd"
     let apiKey = "9967866fa4b14ddf91122861be29bf3f"
     
     @IBOutlet weak var totalTimeLabel: UILabel!

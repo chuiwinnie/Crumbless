@@ -13,7 +13,7 @@ class AddNewFoodItemViewController: UIViewController {
     @IBOutlet weak var expiryAlertTextField: UITextField!
     
     weak var addNewFoodItemDelegate: AddNewFoodItemDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showExpiryDatePicker()
@@ -64,13 +64,13 @@ class AddNewFoodItemViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
