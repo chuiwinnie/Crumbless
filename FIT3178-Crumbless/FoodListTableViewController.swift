@@ -30,14 +30,14 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
-
+    
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case SECTION_FOOD:
@@ -55,7 +55,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             let foodCell = tableView.dequeueReusableCell(withIdentifier: CELL_FOOD, for: indexPath)
             var content = foodCell.defaultContentConfiguration()
             
-            let food = foodList[indexPath.row]
+            let food = filteredFoodList[indexPath.row]
             content.text = food.name
             
             let expiryDate = food.expiryDate
@@ -68,16 +68,16 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             var content = infoCell.defaultContentConfiguration()
             
             if foodList.isEmpty {
-            content.text = "No items in the list. Tap + to add new items."
+                content.text = "No items in the list. Tap + to add new items."
             } else {
-            content.text = "Total number of item(s): \(filteredFoodList.count)"
+                content.text = "Total number of item(s): \(filteredFoodList.count)"
             }
             
             infoCell.contentConfiguration = content
             return infoCell
         }
     }
-
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == SECTION_FOOD {
@@ -145,7 +145,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     
     func updateFood(updatedFood: Food, rowId: Int) -> Bool {
         tableView.performBatchUpdates({
-            foodList[rowId] = updatedFood
+            if let index = self.foodList.firstIndex(of: filteredFoodList[rowId]) {
+                foodList[index] = updatedFood
+            }
             filteredFoodList[rowId] = updatedFood
             
             tableView.reloadSections([SECTION_FOOD], with: .automatic)
@@ -154,8 +156,8 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         
         return true
     }
-
-
+    
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -166,7 +168,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                 let controller = segue.destination as! FoodDetailsViewController
                 controller.updateFoodItemDelegate = self
-                let food = foodList[indexPath.row]
+                let food = filteredFoodList[indexPath.row]
                 controller.name = food.name
                 controller.expiryDate = formatDate(date: food.expiryDate)
                 controller.expiryAlert = food.alert
@@ -175,5 +177,5 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             }
         }
     }
-
+    
 }
