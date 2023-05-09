@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddItemToRecipeSearchTableViewController: UITableViewController {
+class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchResultsUpdating {
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
@@ -25,6 +25,14 @@ class AddItemToRecipeSearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         filteredFoodList = foodList
+        
+        // Set up search controller
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search All Food Items"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     
@@ -51,7 +59,7 @@ class AddItemToRecipeSearchTableViewController: UITableViewController {
             let foodCell = tableView.dequeueReusableCell(withIdentifier: CELL_FOOD, for: indexPath)
             var content = foodCell.defaultContentConfiguration()
             
-            let food = foodList[indexPath.row]
+            let food = filteredFoodList[indexPath.row]
             content.text = food.name
             
             let expiryDate = food.expiryDate
@@ -98,6 +106,31 @@ class AddItemToRecipeSearchTableViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    // MARK: - Search Bar
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if !searchController.isActive {
+            filteredFoodList = foodList
+            tableView.reloadData()
+            return
+        }
+        
+        guard let searchText = searchController.searchBar.text?.lowercased() else {
+            return
+        }
+        
+        if searchText.count > 0 {
+            filteredFoodList = foodList.filter({ (food: Food) -> Bool in
+                return (food.name.lowercased().contains(searchText))
+            })
+        } else {
+            filteredFoodList = foodList
+        }
+        
+        tableView.reloadData()
     }
     
 }
