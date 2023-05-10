@@ -96,7 +96,7 @@ class RecipeSearchResultsTableViewController: UITableViewController {
         var ingredientsName = ""
         
         for ingredient in ingredients {
-            ingredientsName += ingredient.name + ",+"
+            ingredientsName += ingredient.name! + ",+"
         }
         
         return ingredientsName

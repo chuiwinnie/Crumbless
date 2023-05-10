@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FoodListTableViewController: UITableViewController, UISearchResultsUpdating, AddNewFoodItemDelegate, UpdateFoodItemDelegate {
+class FoodListTableViewController: UITableViewController, UISearchResultsUpdating, DatabaseListener {
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
@@ -17,8 +17,14 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     var foodList: [Food] = []
     var filteredFoodList: [Food] = []
     
+    var listenerType = ListenerType.foodItems
+    weak var databaseController: DatabaseProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
         filteredFoodList = foodList
         
@@ -29,6 +35,21 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         searchController.searchBar.placeholder = "Search All Food Items"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
+    func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
+        foodList = foodItems
+        updateSearchResults(for: navigationItem.searchController!)
     }
     
     
@@ -59,7 +80,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             content.text = food.name
             
             let expiryDate = food.expiryDate
-            content.secondaryText = formatDate(date: expiryDate)
+            content.secondaryText = formatDate(date: expiryDate ?? Date())
             
             foodCell.contentConfiguration = content
             return foodCell
@@ -90,14 +111,8 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete && indexPath.section == SECTION_FOOD {
-            tableView.performBatchUpdates({
-                if let index = self.foodList.firstIndex(of: filteredFoodList[indexPath.row]) {
-                    self.foodList.remove(at: index)
-                }
-                self.filteredFoodList.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-                self.tableView.reloadSections([SECTION_INFO], with: .automatic)
-            }, completion: nil)
+            let food = filteredFoodList[indexPath.row]
+            databaseController?.deleteFood(food: food)
         }
     }
     
@@ -117,7 +132,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         
         if searchText.count > 0 {
             filteredFoodList = foodList.filter({ (food: Food) -> Bool in
-                return (food.name.lowercased().contains(searchText))
+                return (food.name?.lowercased().contains(searchText) ?? false)
             })
         } else {
             filteredFoodList = foodList
@@ -127,52 +142,13 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     
-    // MARK: - Delegate
-    
-    func addFood(_ newFood: Food) -> Bool {
-        tableView.performBatchUpdates({
-            // Safe because search can't be active when Add button is tapped.
-            foodList.append(newFood)
-            filteredFoodList.append(newFood)
-            
-            tableView.insertRows(at: [IndexPath(row: filteredFoodList.count - 1, section: SECTION_FOOD)], with: .automatic)
-            
-            tableView.reloadSections([SECTION_INFO], with: .automatic)
-        }, completion: nil)
-        
-        return true
-    }
-    
-    func updateFood(updatedFood: Food, rowId: Int) -> Bool {
-        tableView.performBatchUpdates({
-            if let index = self.foodList.firstIndex(of: filteredFoodList[rowId]) {
-                foodList[index] = updatedFood
-            }
-            filteredFoodList[rowId] = updatedFood
-            
-            tableView.reloadSections([SECTION_FOOD], with: .automatic)
-            tableView.reloadSections([SECTION_INFO], with: .automatic)
-        }, completion: nil)
-        
-        return true
-    }
-    
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addNewFoodItemSegue" {
-            let destination = segue.destination as! AddNewFoodItemViewController
-            destination.addNewFoodItemDelegate = self
-        } else if segue.identifier == "showFoodDetailsSegue" {
+        if segue.identifier == "showFoodDetailsSegue" {
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                let controller = segue.destination as! FoodDetailsViewController
-                controller.updateFoodItemDelegate = self
-                let food = filteredFoodList[indexPath.row]
-                controller.name = food.name
-                controller.expiryDate = formatDate(date: food.expiryDate)
-                controller.expiryAlert = food.alert
-                controller.rowId = indexPath.row
+                let destination = segue.destination as! FoodDetailsViewController
+                destination.food = filteredFoodList[indexPath.row]
             }
         }
     }

@@ -59,7 +59,7 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
             content.text = food.name
             
             let expiryDate = food.expiryDate
-            content.secondaryText = formatDate(date: expiryDate)
+            content.secondaryText = formatDate(date: expiryDate ?? Date())
             
             foodCell.contentConfiguration = content
             return foodCell

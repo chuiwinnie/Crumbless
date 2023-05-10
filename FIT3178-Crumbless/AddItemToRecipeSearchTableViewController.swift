@@ -14,10 +14,10 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
     let CELL_FOOD = "foodCell"
     let CELL_INFO = "foodNumberCell"
     
-    //    var foodList: [Food] = []
-    var foodList = [Food(name: "bread", expiryDate: Date()),
-                    Food(name: "eggs", expiryDate: Date()),
-                    Food(name: "broccoli", expiryDate: Date())]
+    var foodList: [Food] = []
+//    var foodList = [Food(name: "bread", expiryDate: Date()),
+//                    Food(name: "eggs", expiryDate: Date()),
+//                    Food(name: "broccoli", expiryDate: Date())]
     var filteredFoodList: [Food] = []
     
     weak var addItemToRecipeSearchDelegate: AddNewFoodItemDelegate?
@@ -63,7 +63,7 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
             content.text = food.name
             
             let expiryDate = food.expiryDate
-            content.secondaryText = formatDate(date: expiryDate)
+            content.secondaryText = formatDate(date: expiryDate ?? Date())
             
             foodCell.contentConfiguration = content
             return foodCell
@@ -124,7 +124,7 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         
         if searchText.count > 0 {
             filteredFoodList = foodList.filter({ (food: Food) -> Bool in
-                return (food.name.lowercased().contains(searchText))
+                return (food.name?.lowercased().contains(searchText) ?? false)
             })
         } else {
             filteredFoodList = foodList

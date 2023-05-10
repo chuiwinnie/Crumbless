@@ -26,6 +26,13 @@
 		803F8CF92A01FE650061E39E /* RecipeSearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */; };
 		803F8CFB2A02017F0061E39E /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CFA2A02017F0061E39E /* Recipe.swift */; };
 		803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */; };
+		803F8D0C2A0A8C0D0061E39E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 803F8D0B2A0A8C0D0061E39E /* FirebaseAuth */; };
+		803F8D0E2A0A8C0D0061E39E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 803F8D0D2A0A8C0D0061E39E /* FirebaseFirestore */; };
+		803F8D102A0A8C0D0061E39E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 803F8D0F2A0A8C0D0061E39E /* FirebaseFirestoreSwift */; };
+		803F8D122A0B2D000061E39E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 803F8D112A0B2D000061E39E /* GoogleService-Info.plist */; };
+		803F8D142A0B2F840061E39E /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D132A0B2F840061E39E /* FirebaseController.swift */; };
+		803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */; };
+		803F8D182A0B30E60061E39E /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D172A0B30E60061E39E /* MulticastDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +57,10 @@
 		803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		803F8CFA2A02017F0061E39E /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
+		803F8D112A0B2D000061E39E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		803F8D132A0B2F840061E39E /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		803F8D172A0B30E60061E39E /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +68,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803F8D0C2A0A8C0D0061E39E /* FirebaseAuth in Frameworks */,
+				803F8D0E2A0A8C0D0061E39E /* FirebaseFirestore in Frameworks */,
+				803F8D102A0A8C0D0061E39E /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,15 +96,19 @@
 		80186BBC29F8AA01009B410C /* FIT3178-Crumbless */ = {
 			isa = PBXGroup;
 			children = (
+				803F8D112A0B2D000061E39E /* GoogleService-Info.plist */,
 				80186BBD29F8AA01009B410C /* AppDelegate.swift */,
 				80186BBF29F8AA01009B410C /* SceneDelegate.swift */,
 				80186BC129F8AA01009B410C /* ViewController.swift */,
 				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 				80186BD929F8C4E2009B410C /* UIViewController+formatDate.swift */,
+				803F8D172A0B30E60061E39E /* MulticastDelegate.swift */,
 				80186BC329F8AA01009B410C /* Main.storyboard */,
 				80186BC629F8AA02009B410C /* Assets.xcassets */,
 				80186BC829F8AA02009B410C /* LaunchScreen.storyboard */,
 				80186BCB29F8AA02009B410C /* Info.plist */,
+				803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */,
+				803F8D132A0B2F840061E39E /* FirebaseController.swift */,
 				80186BD329F8B056009B410C /* Food.swift */,
 				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
@@ -122,6 +140,11 @@
 			dependencies = (
 			);
 			name = "FIT3178-Crumbless";
+			packageProductDependencies = (
+				803F8D0B2A0A8C0D0061E39E /* FirebaseAuth */,
+				803F8D0D2A0A8C0D0061E39E /* FirebaseFirestore */,
+				803F8D0F2A0A8C0D0061E39E /* FirebaseFirestoreSwift */,
+			);
 			productName = "FIT3178-Crumbless";
 			productReference = 80186BBA29F8AA01009B410C /* FIT3178-Crumbless.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +173,9 @@
 				Base,
 			);
 			mainGroup = 80186BB129F8AA01009B410C;
+			packageReferences = (
+				803F8D0A2A0A8C0D0061E39E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 80186BBB29F8AA01009B410C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -165,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80186BCA29F8AA02009B410C /* LaunchScreen.storyboard in Resources */,
+				803F8D122A0B2D000061E39E /* GoogleService-Info.plist in Resources */,
 				80186BC729F8AA02009B410C /* Assets.xcassets in Resources */,
 				80186BC529F8AA01009B410C /* Main.storyboard in Resources */,
 			);
@@ -185,8 +212,11 @@
 				80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */,
 				80186BD429F8B056009B410C /* Food.swift in Sources */,
 				80186BBE29F8AA01009B410C /* AppDelegate.swift in Sources */,
+				803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */,
+				803F8D142A0B2F840061E39E /* FirebaseController.swift in Sources */,
 				803F8CF92A01FE650061E39E /* RecipeSearchResultsTableViewController.swift in Sources */,
 				803F8CFB2A02017F0061E39E /* Recipe.swift in Sources */,
+				803F8D182A0B30E60061E39E /* MulticastDelegate.swift in Sources */,
 				8025C50D2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift in Sources */,
 				803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */,
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
@@ -408,6 +438,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		803F8D0A2A0A8C0D0061E39E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		803F8D0B2A0A8C0D0061E39E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 803F8D0A2A0A8C0D0061E39E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		803F8D0D2A0A8C0D0061E39E /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 803F8D0A2A0A8C0D0061E39E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		803F8D0F2A0A8C0D0061E39E /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 803F8D0A2A0A8C0D0061E39E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80186BB229F8AA01009B410C /* Project object */;
 }

@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import FirebaseFirestoreSwift
 
-class Food: NSObject {
-    var name: String
-    var expiryDate: Date
+class Food: NSObject, Codable {
+    @DocumentID var id: String?
+    var name: String?
+    var expiryDate: Date?
     var alert: String?
-    
-    init(name: String, expiryDate: Date) {
-        self.name = name
-        self.expiryDate = expiryDate
-    }
+}
+
+// CodingKeys to ensure they are exculded from the encode & decode process
+enum CodingKeys: String, CodingKey {
+    case id
+    case name
+    case expiryDate
+    case alert
 }

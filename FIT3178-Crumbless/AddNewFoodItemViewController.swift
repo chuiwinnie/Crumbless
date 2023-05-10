@@ -12,11 +12,15 @@ class AddNewFoodItemViewController: UIViewController {
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
     
-    weak var addNewFoodItemDelegate: AddNewFoodItemDelegate?
+    weak var databaseController: DatabaseProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         showExpiryDatePicker()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
     }
     
     func showExpiryDatePicker() {
@@ -35,7 +39,7 @@ class AddNewFoodItemViewController: UIViewController {
     }
     
     @IBAction func addItem(_ sender: Any) {
-        guard var name = nameTextField.text, let expiryDate = expiryDateTextField.text else {
+        guard var name = nameTextField.text, let expiryDate = expiryDateTextField.text, let alert = expiryAlertTextField.text else {
             return
         }
         
@@ -57,20 +61,9 @@ class AddNewFoodItemViewController: UIViewController {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.date(from: expiryDate)!
         
-        let food = Food(name: name, expiryDate: date)
-        _ = addNewFoodItemDelegate?.addFood(food) ?? false
+        let _ = databaseController?.addFood(name: name, expiryDate: date, alert: alert)
         
         navigationController?.popViewController(animated: true)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

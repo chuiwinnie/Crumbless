@@ -8,12 +8,9 @@
 import UIKit
 
 class FoodDetailsViewController: UIViewController {
-    var name: String!
-    var expiryDate: String!
-    var expiryAlert: String?
-    var rowId: Int!
+    var food: Food!
     
-    weak var updateFoodItemDelegate: UpdateFoodItemDelegate?
+    weak var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
@@ -23,12 +20,15 @@ class FoodDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         // Set food item details
-        nameTextField.text = name
-        expiryDateTextField.text = expiryDate
-        expiryAlertTextField.text = expiryAlert
+        nameTextField.text = food.name
+        expiryDateTextField.text = formatDate(date: food.expiryDate!)
+        expiryAlertTextField.text = food.alert
         
         // Show date picker for expiry date field
         showExpiryDatePicker()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
     }
     
     func showExpiryDatePicker() {
@@ -47,7 +47,7 @@ class FoodDetailsViewController: UIViewController {
     }
     
     @IBAction func updateItem(_ sender: Any) {
-        guard var name = nameTextField.text, let expiryDate = expiryDateTextField.text else {
+        guard var name = nameTextField.text, let expiryDate = expiryDateTextField.text, let alert = expiryAlertTextField.text else {
             return
         }
         
@@ -69,8 +69,10 @@ class FoodDetailsViewController: UIViewController {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.date(from: expiryDate)!
         
-        let food = Food(name: name, expiryDate: date)
-        _ = updateFoodItemDelegate?.updateFood(updatedFood: food, rowId: rowId) ?? false
+        food.name = name
+        food.expiryDate = date
+        food.alert = alert
+        databaseController?.updateFood(food: food)
         
         navigationController?.popViewController(animated: true)
     }
