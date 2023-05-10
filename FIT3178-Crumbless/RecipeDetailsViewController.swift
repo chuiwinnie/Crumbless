@@ -100,7 +100,7 @@ class RecipeDetailsViewController: UIViewController {
                 totalTime = recipe.totalTime ?? 0
                 
                 // Get each ingredient
-                if let ingredientsResult = recipe.ingredients {
+                if let ingredientsResult = recipe.ingredients, !(ingredientsResult.isEmpty) {
                     for ingredient in ingredientsResult {
                         ingredients.append(ingredient.original)
                     }
