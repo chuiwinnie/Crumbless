@@ -246,18 +246,58 @@
         <!--Analytics-->
         <scene sceneID="Lgi-ha-IU1">
             <objects>
-                <viewController id="9Z8-gj-wE7" sceneMemberID="viewController">
+                <viewController id="9Z8-gj-wE7" customClass="AnalyticsViewController" customModule="FIT3178_Crumbless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uBy-Ed-egZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Xr-a5-qDX">
+                                <rect key="frame" x="5" y="459" width="383" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="fkn-kR-Q4I"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="foodCell" textLabel="cfI-rg-7m1" style="IBUITableViewCellStyleDefault" id="iZO-ec-WPX">
+                                        <rect key="frame" x="0.0" y="50" width="383" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iZO-ec-WPX" id="Xr2-o2-JzE">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cfI-rg-7m1">
+                                                    <rect key="frame" x="20" y="0.0" width="343" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9Z8-gj-wE7" id="zwp-Cb-NXP"/>
+                                    <outlet property="delegate" destination="9Z8-gj-wE7" id="4e6-SZ-GBe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Osy-80-fRG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Xr-a5-qDX" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="5" id="5Ra-ov-Wc0"/>
+                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="6Xr-a5-qDX" secondAttribute="trailing" constant="5" id="ShR-Lj-5eE"/>
+                            <constraint firstItem="Osy-80-fRG" firstAttribute="bottom" secondItem="6Xr-a5-qDX" secondAttribute="bottom" constant="10" id="x2Z-ty-mUj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Analytics" id="KLt-qW-qJL"/>
+                    <connections>
+                        <outlet property="tableView" destination="6Xr-a5-qDX" id="6Qi-9d-vJc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQr-Iu-SMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2114" y="404"/>
+            <point key="canvasLocation" x="2113.740458015267" y="403.52112676056339"/>
         </scene>
         <!--Setting-->
         <scene sceneID="Bii-02-qhx">
@@ -268,7 +308,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tvA-Ij-QiC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingCell" id="tvA-Ij-QiC">
                                 <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tvA-Ij-QiC" id="eah-F3-yUN">

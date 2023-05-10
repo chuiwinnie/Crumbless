@@ -32,6 +32,7 @@
 		803F8D142A0B2F840061E39E /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D132A0B2F840061E39E /* FirebaseController.swift */; };
 		803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */; };
 		803F8D182A0B30E60061E39E /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D172A0B30E60061E39E /* MulticastDelegate.swift */; };
+		803F8D1A2A0BF0B30061E39E /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		803F8D132A0B2F840061E39E /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		803F8D172A0B30E60061E39E /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */,
 				803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */,
 				803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */,
+				803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				8025C5072A01C4C5005C381F /* FoodDetailsViewController.swift in Sources */,
 				80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */,
 				80186BD429F8B056009B410C /* Food.swift in Sources */,
+				803F8D1A2A0BF0B30061E39E /* AnalyticsViewController.swift in Sources */,
 				80186BBE29F8AA01009B410C /* AppDelegate.swift in Sources */,
 				803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */,
 				803F8D142A0B2F840061E39E /* FirebaseController.swift in Sources */,
