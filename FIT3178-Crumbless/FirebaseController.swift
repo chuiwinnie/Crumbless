@@ -11,13 +11,15 @@ import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
     var foodList: [Food]
+    var consumedFoodList: [Food]
     
     var listeners = MulticastDelegate<DatabaseListener>()
     
-    // Reference to Firebase Authentication System, Firebase Firestore Database, heroes & teams collections, current user
+    // Reference to Firebase Authentication System, Firebase Firestore Database, foodItems & consumedFoodItems collections, current user
     var authController: Auth
     var database: Firestore
     var foodItemsRef: CollectionReference?
+    var consumedFoodItemsRef: CollectionReference?
     var currentUser: FirebaseAuth.User?
     
     // Configure each of Firebase frameworks & set up heroList & defaultTeam
@@ -27,6 +29,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         database = Firestore.firestore()
         foodList = [Food]()
+        consumedFoodList = [Food]()
         
         super.init()
         
@@ -40,6 +43,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 fatalError("Firebase Authentication Failed with Error\(String(describing: error))")
             }
             self.setupFoodListener()
+            self.setupConsumedFoodListener()
         }
     }
     
@@ -48,6 +52,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         if listener.listenerType == .foodItems {
             listener.onFoodItemsChange(change: .update, foodItems: foodList)
+        } else if listener.listenerType == .consumedFoodItems {
+            listener.onConsumedFoodItemsChange(change: .update, consumedFoodItems: consumedFoodList)
         }
     }
     
@@ -56,7 +62,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addFood(name: String, expiryDate: Date, alert: String) -> Food {
-        print("called")
         let food = Food()
         food.name = name
         food.expiryDate = expiryDate
@@ -90,6 +95,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
         if let foodId = food.id {
             foodItemsRef?.document(foodId).delete()
         }
+    }
+    
+    func addConsumedFood(food: Food) -> Food {
+        // Add consumed food to Firestore by using Codable protocol to serialize the data
+        do {
+            // consumedFoodItemsRef holds a reference to the consumedFoodItems collection in Firebase
+            if let consumedFoodRef = try consumedFoodItemsRef?.addDocument(from: food) {
+                food.id = consumedFoodRef.documentID
+            }
+        } catch {
+            print("Failed to serialize food")
+        }
+        
+        return food
     }
     
     func cleanup() {}
@@ -153,6 +172,58 @@ class FirebaseController: NSObject, DatabaseProtocol {
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.foodItems {
                     listener.onFoodItemsChange(change: .update, foodItems: foodList)
+                }
+            }
+        }
+    }
+    
+    // Called once we have received an authentication result from Firebase
+    func setupConsumedFoodListener() {
+        // Set up snapshotListener to listen fo all changes on a specified Firestore reference (consumedFoodItems collection)
+        consumedFoodItemsRef = database.collection("consumedFoodItems")
+        consumedFoodItemsRef?.addSnapshotListener() { (querySnapshot, error) in
+            // Execute this closure every time a change is detected on foodItems collection
+            guard let querySnapshot = querySnapshot else {
+                print("Failed to fetch documents with error: \(String(describing: error))")
+                return
+            }
+            
+            // Parse changes made on Firestore
+            self.parseConsumedFoodItemsSnapshot(snapshot: querySnapshot)
+        }
+    }
+    
+    // Parse the snapshot & make any required changes to local properties & call local listeners
+    func parseConsumedFoodItemsSnapshot(snapshot: QuerySnapshot) {
+        // Go through each document change in the snapshot
+        snapshot.documentChanges.forEach { (change) in
+            var parsedConsumedFood: Food?
+            
+            // Decode document's data as Superhero object using Codable
+            do {
+                parsedConsumedFood = try change.document.data(as: Food.self)
+            } catch {
+                print("Unable to decode food. Is the food malformed?")
+                return
+            }
+            
+            guard let consumedFood = parsedConsumedFood else {
+                print("Document doesn't exist")
+                return;
+            }
+            
+            if change.type == .added {
+                consumedFoodList.insert(consumedFood, at: Int(change.newIndex))  // Need the order to match Firesotre
+            } else if change.type == .modified {
+                consumedFoodList[Int(change.oldIndex)] = consumedFood
+            } else if change.type == .removed {
+                consumedFoodList.remove(at: Int(change.oldIndex))
+            }
+            
+            // Use multicast delegate's invoke method to call onFoodItemsChange on each listener
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.consumedFoodItems {
+                    listener.onConsumedFoodItemsChange(change: .update, consumedFoodItems: consumedFoodList)
                 }
             }
         }

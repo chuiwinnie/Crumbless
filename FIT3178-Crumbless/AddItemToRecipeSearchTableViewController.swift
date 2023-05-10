@@ -54,6 +54,10 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         updateSearchResults(for: navigationItem.searchController!)
     }
     
+    func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food]) {
+        // do nothing
+    }
+    
     
     // MARK: - Table view data source
     

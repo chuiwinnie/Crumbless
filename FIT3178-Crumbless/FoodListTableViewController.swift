@@ -52,6 +52,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         updateSearchResults(for: navigationItem.searchController!)
     }
     
+    func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food]) {
+        // do nothing
+    }
     
     // MARK: - Table view data source
     
@@ -108,12 +111,23 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         }
     }
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete && indexPath.section == SECTION_FOOD {
-            let food = filteredFoodList[indexPath.row]
-            databaseController?.deleteFood(food: food)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            let food = self.filteredFoodList[indexPath.row]
+            self.databaseController?.deleteFood(food: food)
         }
+        deleteAction.backgroundColor = .systemRed
+        
+        let consumeAction = UIContextualAction(style: .normal, title: "Consume") { (action, view, handler) in
+            let food = self.filteredFoodList[indexPath.row]
+            self.databaseController?.deleteFood(food: food)
+            let _ = self.databaseController?.addConsumedFood(food: food)
+        }
+        consumeAction.backgroundColor = .systemGreen
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, consumeAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
     
     
