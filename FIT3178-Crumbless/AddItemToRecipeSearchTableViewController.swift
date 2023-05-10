@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchResultsUpdating {
+class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchResultsUpdating, DatabaseListener {
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
@@ -15,15 +15,19 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
     let CELL_INFO = "foodNumberCell"
     
     var foodList: [Food] = []
-//    var foodList = [Food(name: "bread", expiryDate: Date()),
-//                    Food(name: "eggs", expiryDate: Date()),
-//                    Food(name: "broccoli", expiryDate: Date())]
     var filteredFoodList: [Food] = []
+    
+    var listenerType = ListenerType.foodItems
+    weak var databaseController: DatabaseProtocol?
     
     weak var addItemToRecipeSearchDelegate: AddNewFoodItemDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
         filteredFoodList = foodList
         
         // Set up search controller
@@ -33,6 +37,21 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         searchController.searchBar.placeholder = "Search All Food Items"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
+    func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
+        foodList = foodItems
+        updateSearchResults(for: navigationItem.searchController!)
     }
     
     

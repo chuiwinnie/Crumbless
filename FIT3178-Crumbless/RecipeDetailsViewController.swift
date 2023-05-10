@@ -16,7 +16,7 @@ class RecipeDetailsViewController: UIViewController {
     
     var indicator = UIActivityIndicatorView()
     
-//    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+    //    let apiKey = "25231069356d414fa201177ef0c1dfbd"
     let apiKey = "9967866fa4b14ddf91122861be29bf3f"
     
     @IBOutlet weak var totalTimeLabel: UILabel!
@@ -100,13 +100,21 @@ class RecipeDetailsViewController: UIViewController {
                 totalTime = recipe.totalTime ?? 0
                 
                 // Get each ingredient
-                for ingredient in recipe.ingredients ?? [] {
-                    ingredients.append(ingredient.original)
+                if let ingredientsResult = recipe.ingredients {
+                    for ingredient in ingredientsResult {
+                        ingredients.append(ingredient.original)
+                    }
+                } else {
+                    ingredients.append("No ingredients available.")
                 }
                 
                 // Get each instruction step
-                for step in recipe.instructions?[0].steps ?? [] {
-                    instructions.append(step.step)
+                if let instructionsResult = recipe.instructions, !(instructionsResult.isEmpty) {
+                    for step in instructionsResult[0].steps {
+                        instructions.append(step.step)
+                    }
+                } else {
+                    instructions.append("No instructions availalbe.")
                 }
             } catch let error {
                 print(error)
