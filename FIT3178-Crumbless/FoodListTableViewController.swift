@@ -118,7 +118,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         deleteAction.backgroundColor = .systemRed
         
-        let consumeAction = UIContextualAction(style: .normal, title: "Consume") { (action, view, handler) in
+        let consumeAction = UIContextualAction(style: .normal, title: "Consumed") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
             let _ = self.databaseController?.addConsumedFood(food: food)

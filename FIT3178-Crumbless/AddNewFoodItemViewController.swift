@@ -24,6 +24,12 @@ class AddNewFoodItemViewController: UIViewController {
     }
     
     func showExpiryDatePicker() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonClicked))
+        toolbar.setItems([doneButton], animated: true)
+        
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
@@ -31,11 +37,16 @@ class AddNewFoodItemViewController: UIViewController {
         datePicker.frame.size = CGSize(width: 0, height: 300)
         datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
         
+        expiryAlertTextField.inputAccessoryView = toolbar
         expiryDateTextField.inputView = datePicker
     }
-    
+
     @objc func dateChange(datePicker: UIDatePicker) {
         expiryDateTextField.text = formatDate(date: datePicker.date)
+    }
+    
+    @objc func doneButtonClicked() {
+        view.endEditing(true)
     }
     
     @IBAction func addItem(_ sender: Any) {
