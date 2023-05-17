@@ -13,6 +13,7 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     let CELL_FOOD = "foodCell"
     
     var consumedFoodList: [Food] = []
+    var expiredFoodList: [Food] = []
     
     var listenerType = ListenerType.consumedFoodItems
     weak var databaseController: DatabaseProtocol?
@@ -40,6 +41,11 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food]) {
         consumedFoodList = consumedFoodItems
+        tableView.reloadData()
+    }
+    
+    func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food]) {
+        expiredFoodList = expiredFoodItems
         tableView.reloadData()
     }
     

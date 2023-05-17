@@ -56,6 +56,10 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         // do nothing
     }
     
+    func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food]) {
+        // do nothing
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -118,14 +122,21 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         deleteAction.backgroundColor = .systemRed
         
-        let consumeAction = UIContextualAction(style: .normal, title: "Consumed") { (action, view, handler) in
+        let expireAction = UIContextualAction(style: .normal, title: "Expired") { (action, view, handler) in
+            let food = self.filteredFoodList[indexPath.row]
+            self.databaseController?.deleteFood(food: food)
+            let _ = self.databaseController?.addExpiredFood(food: food)
+        }
+        expireAction.backgroundColor = .systemYellow
+        
+        let consumeAction = UIContextualAction(style: .normal, title: "Used") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
             let _ = self.databaseController?.addConsumedFood(food: food)
         }
         consumeAction.backgroundColor = .systemGreen
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, consumeAction])
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, expireAction, consumeAction])
         configuration.performsFirstActionWithFullSwipe = true
         return configuration
     }

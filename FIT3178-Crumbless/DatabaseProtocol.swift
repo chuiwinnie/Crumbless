@@ -16,12 +16,14 @@ enum DatabaseChange {
 enum ListenerType {
     case foodItems
     case consumedFoodItems
+    case expiredFoodItems
 }
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food])
     func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food])
+    func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food])
 }
 
 protocol DatabaseProtocol: AnyObject {
@@ -35,4 +37,6 @@ protocol DatabaseProtocol: AnyObject {
     func deleteFood(food: Food)
     
     func addConsumedFood(food: Food) -> Food
+    
+    func addExpiredFood(food: Food) -> Food
 }

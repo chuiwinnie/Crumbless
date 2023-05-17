@@ -58,6 +58,10 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         // do nothing
     }
     
+    func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food]) {
+        // do nothing
+    }
+    
     
     // MARK: - Table view data source
     
