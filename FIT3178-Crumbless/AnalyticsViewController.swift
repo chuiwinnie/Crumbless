@@ -49,6 +49,10 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.reloadData()
     }
     
+    func onUsersChange(change: DatabaseChange, users: [User]) {
+        // do nothing
+    }
+    
     
     // MARK: - Table view data source
     

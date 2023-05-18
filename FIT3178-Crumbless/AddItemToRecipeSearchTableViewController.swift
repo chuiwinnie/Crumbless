@@ -62,6 +62,10 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         // do nothing
     }
     
+    func onUsersChange(change: DatabaseChange, users: [User]) {
+        // do nothing
+    }
+    
     
     // MARK: - Table view data source
     

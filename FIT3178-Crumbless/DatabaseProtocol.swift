@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum DatabaseChange {
     case add
@@ -17,6 +18,7 @@ enum ListenerType {
     case foodItems
     case consumedFoodItems
     case expiredFoodItems
+    case users
 }
 
 protocol DatabaseListener: AnyObject {
@@ -24,6 +26,7 @@ protocol DatabaseListener: AnyObject {
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food])
     func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food])
     func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food])
+    func onUsersChange(change: DatabaseChange, users: [User])
 }
 
 protocol DatabaseProtocol: AnyObject {
@@ -39,4 +42,7 @@ protocol DatabaseProtocol: AnyObject {
     func addConsumedFood(food: Food) -> Food
     
     func addExpiredFood(food: Food) -> Food
+    
+    func login(email: String, password: String, completion: @escaping ((Bool, String) -> Void))
+    func signUp(email: String, password: String)
 }

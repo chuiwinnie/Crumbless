@@ -33,6 +33,11 @@
 		803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */; };
 		803F8D182A0B30E60061E39E /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D172A0B30E60061E39E /* MulticastDelegate.swift */; };
 		803F8D1A2A0BF0B30061E39E /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */; };
+		803F8D1C2A1467F50061E39E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D1B2A1467F50061E39E /* SettingsTableViewController.swift */; };
+		803F8D202A1474D50061E39E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D1F2A1474D50061E39E /* LoginViewController.swift */; };
+		803F8D222A148AE80061E39E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D212A148AE70061E39E /* AccountViewController.swift */; };
+		803F8D242A148BE50061E39E /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D232A148BE50061E39E /* SignupViewController.swift */; };
+		803F8D262A149F570061E39E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D252A149F570061E39E /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +66,11 @@
 		803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		803F8D172A0B30E60061E39E /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
+		803F8D1B2A1467F50061E39E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		803F8D1F2A1474D50061E39E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		803F8D212A148AE70061E39E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		803F8D232A148BE50061E39E /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		803F8D252A149F570061E39E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +130,11 @@
 				803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */,
 				803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */,
 				803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */,
+				803F8D1B2A1467F50061E39E /* SettingsTableViewController.swift */,
+				803F8D252A149F570061E39E /* User.swift */,
+				803F8D212A148AE70061E39E /* AccountViewController.swift */,
+				803F8D1F2A1474D50061E39E /* LoginViewController.swift */,
+				803F8D232A148BE50061E39E /* SignupViewController.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -206,6 +221,7 @@
 			files = (
 				80186BC229F8AA01009B410C /* ViewController.swift in Sources */,
 				80186BDE29F8D82D009B410C /* RecipeSearchTableViewController.swift in Sources */,
+				803F8D262A149F570061E39E /* User.swift in Sources */,
 				80186BDA29F8C4E2009B410C /* UIViewController+formatDate.swift in Sources */,
 				8025C5072A01C4C5005C381F /* FoodDetailsViewController.swift in Sources */,
 				80186BD229F8AF39009B410C /* FoodListTableViewController.swift in Sources */,
@@ -213,13 +229,17 @@
 				803F8D1A2A0BF0B30061E39E /* AnalyticsViewController.swift in Sources */,
 				80186BBE29F8AA01009B410C /* AppDelegate.swift in Sources */,
 				803F8D162A0B2FD20061E39E /* DatabaseProtocol.swift in Sources */,
+				803F8D202A1474D50061E39E /* LoginViewController.swift in Sources */,
 				803F8D142A0B2F840061E39E /* FirebaseController.swift in Sources */,
 				803F8CF92A01FE650061E39E /* RecipeSearchResultsTableViewController.swift in Sources */,
 				803F8CFB2A02017F0061E39E /* Recipe.swift in Sources */,
 				803F8D182A0B30E60061E39E /* MulticastDelegate.swift in Sources */,
 				8025C50D2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift in Sources */,
+				803F8D222A148AE80061E39E /* AccountViewController.swift in Sources */,
 				803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */,
+				803F8D242A148BE50061E39E /* SignupViewController.swift in Sources */,
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
+				803F8D1C2A1467F50061E39E /* SettingsTableViewController.swift in Sources */,
 				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
 				80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */,
