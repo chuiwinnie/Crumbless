@@ -10,7 +10,16 @@ import FirebaseFirestoreSwift
 
 class User: NSObject, Codable  {
     var id: String?
-    var foodItems: [Food] = []
-    var consumedFoodItems: [Food] = []
-    var expiredFoodItems: [Food] = []
+    var email: String?
+    var foodItems: [Food]?
+    var consumedFoodItems: [Food]?
+    var expiredFoodItems: [Food]?
+}
+
+// UserCodingKeys to ensure they are exculded from the encode & decode process
+enum UserCodingKeys: String, CodingKey {
+    case id
+    case foodItems
+    case consumedFoodItems
+    case expiredFoodItems
 }

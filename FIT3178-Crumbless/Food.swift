@@ -15,8 +15,8 @@ class Food: NSObject, Codable {
     var alert: String?
 }
 
-// CodingKeys to ensure they are exculded from the encode & decode process
-enum CodingKeys: String, CodingKey {
+// FoodCodingKeys to ensure they are exculded from the encode & decode process
+enum FoodCodingKeys: String, CodingKey {
     case id
     case name
     case expiryDate

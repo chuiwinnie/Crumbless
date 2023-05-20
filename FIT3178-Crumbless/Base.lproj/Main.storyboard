@@ -946,7 +946,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Signup"/>
                                 <connections>
-                                    <action selector="signupBtnClicked:" destination="ny1-jT-ujY" eventType="touchUpInside" id="d8D-sK-1GC"/>
+                                    <action selector="signUpBtnClicked:" destination="ny1-jT-ujY" eventType="touchUpInside" id="n5x-x3-3Sa"/>
                                 </connections>
                             </button>
                         </subviews>

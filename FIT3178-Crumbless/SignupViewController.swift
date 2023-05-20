@@ -13,64 +13,52 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()}
+    weak var databaseController: DatabaseProtocol?
+    var handle: AuthStateDidChangeListenerHandle?
     
-    @IBAction func signupBtnClicked (_ sender: Any) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        handle = Auth.auth().addStateDidChangeListener { auth, user in
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
+    }
+    
+    @IBAction func signUpBtnClicked (_ sender: Any) {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
         
         if !isValidEmail(email: email) || !isValidPassword(password: password) {
             var errorMsg = "Please ensure all fields are valid:\n"
-            if email.isEmpty {
+            if !isValidEmail(email: email) {
                 errorMsg += "- Must enter a valid email\n"
             }
-            if password.isEmpty {
+            if !isValidPassword(password: password) {
                 errorMsg += "- Password must be 6 characters long or more"
             }
             displayMessage(title: "Invalid account details", message: errorMsg)
             return
         }
         
-        let signupSuccessfully = signup(email: email, password: password)
-        
-        print("before: \(signupSuccessfully)")
-        if signupSuccessfully {
-            print("after: \(signupSuccessfully)")
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func signup(email: String, password: String) -> Bool {
-        var signupSuccessfully = false
-        
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error as? NSError {
-                var errorMsg = "Unable to login"
-                switch AuthErrorCode.Code(rawValue: (error.code)) {
-                case .emailAlreadyInUse:
-                    // The email address is already in use by another account
-                    errorMsg = "The email address is already in use by another account"
-                case .invalidEmail:
-                    // The email address is badly formatted
-                    errorMsg = "The email address is invalid"
-                case .weakPassword:
-                    // The password must be 6 characters long or more.
-                    errorMsg = "The password must be 6 characters long or more"
-                default:
-                    errorMsg = "\(error.localizedDescription)"
+        databaseController?.signUp(email: email, password: password) { (signUpSuccess, error) in
+            DispatchQueue.main.async {
+                if signUpSuccess {
+                    self.navigationController?.popViewController(animated: true)
+                    return
                 }
-                self.displayMessage(title: "Signup Failed", message: errorMsg)
-            } else {
-                let newUserInfo = Auth.auth().currentUser
-                let email = newUserInfo?.email
-                print("User (\(email!)) signs up successfully")
-                signupSuccessfully = true
+                self.displayMessage(title: "Sign Up Failed", message: error)
             }
         }
-        
-        return signupSuccessfully
     }
     
     func isValidEmail(email: String) -> Bool {
@@ -85,14 +73,8 @@ class SignupViewController: UIViewController {
     }
     
     
-    /*
      // MARK: - Navigation
      
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
      }
-     */
-    
 }
