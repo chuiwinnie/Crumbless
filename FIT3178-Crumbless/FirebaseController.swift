@@ -95,6 +95,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return food
     }
     
+    func addFood(food: Food) -> Food {
+        // Add food to Firestore by using Codable protocol to serialize the data
+        do {
+            // foodItemsRef holds a reference to the foodItems collection in Firebase
+            if let foodRef = try foodItemsRef?.addDocument(from: food) {
+                food.id = foodRef.documentID
+            }
+        } catch {
+            print("Failed to serialize food")
+        }
+        
+        return food
+    }
+    
     func updateFood(food: Food) {
         if let foodId = food.id {
             do {
@@ -123,7 +137,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 food.id = consumedFoodRef.documentID
             }
         } catch {
-            print("Failed to serialize food")
+            print("Failed to serialize consumed food")
         }
         
         return food
@@ -140,7 +154,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 food.id = expiredFoodRef.documentID
             }
         } catch {
-            print("Failed to serialize food")
+            print("Failed to serialize expired food")
         }
         
         return food
@@ -173,6 +187,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do {
                 let authDataResult = try await authController.createUser(withEmail: email, password: password)
                 currentUser = authDataResult.user
+                foodItemsRef = usersRef?.document(currentUser!.uid).collection("foodItems")
+                consumedFoodItemsRef = usersRef?.document(currentUser!.uid).collection("consumedFoodItems")
+                expiredFoodItemsRef = usersRef?.document(currentUser!.uid).collection("expiredFoodItems")
                 addUser(email: email)
                 completion(true, "")
                 print("User (\(email)) signs up successfully")
@@ -188,27 +205,34 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addUser(email: String) {
-        let user = User()
-        user.email = email
-        
-        // Add created user to Firestore by using Codable protocol to serialize the data
-        do {
-            // usersRef holds a reference to the users collection in Firebase
-//            let userRef = try usersRef?.addDocument(from: user)
-            usersRef?.document(currentUser!.uid).setData([
-                "email": email,
-            ]) { error in
-                if let error = error {
-                    print("Error: \(error)")
-                } else {
-                    print("User document successfully written")
-                }
+        print("current user uid: " + currentUser!.uid)
+        usersRef?.document(currentUser!.uid).setData([
+            "email": email,
+        ]) { error in
+            if let error = error {
+                print("Failed to serialize user: \(error)")
             }
-            
-            print("current user uid: " + currentUser!.uid)
-            
-        } catch {
-            print("Failed to serialize user: \(error)")
+        }
+        
+        let tempFoodList = foodList
+        foodList = []
+        for food in tempFoodList {
+            let food = self.addFood(food: food)
+            print("food: " + (food.name ?? "NA"))
+        }
+        
+        let tempConsumedFoodList = consumedFoodList
+        consumedFoodList = []
+        for consumedFood in tempConsumedFoodList {
+            let consumedFood = self.addConsumedFood(food: consumedFood)
+            print("consumedFood: " + (consumedFood.name ?? "NA"))
+        }
+        
+        let tempExpiredFoodList = expiredFoodList
+        expiredFoodList = []
+        for expiredFood in tempExpiredFoodList {
+            let expiredFood = self.addExpiredFood(food: expiredFood)
+            print("expiredFood: " + (expiredFood.name ?? "NA"))
         }
     }
     
@@ -227,11 +251,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     // Called once we have received an authentication result from Firebase
     func setupFoodListener() {
         // Set up snapshotListener to listen fo all changes on a specified Firestore reference (foodItems collection)
-        foodItemsRef = database.collection("users").document(currentUser!.uid).collection("foodItems")
+        foodItemsRef = usersRef?.document(currentUser!.uid).collection("foodItems")
         foodItemsRef?.addSnapshotListener() { (querySnapshot, error) in
             // Execute this closure every time a change is detected on foodItems collection
             guard let querySnapshot = querySnapshot else {
-                print("Failed to fetch documents with error: \(String(describing: error))")
+                print("Failed to fetch food documents with error: \(String(describing: error))")
                 return
             }
             
@@ -253,12 +277,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 print("Unable to decode food. Is the food malformed?")
                 return
             }
-            
+
             guard let food = parsedFood else {
                 print("Document doesn't exist")
                 return;
             }
-            
+
             if change.type == .added {
                 foodList.insert(food, at: Int(change.newIndex))  // Need the order to match Firesotre
             } else if change.type == .modified {
@@ -266,7 +290,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } else if change.type == .removed {
                 foodList.remove(at: Int(change.oldIndex))
             }
-            
+
             // Use multicast delegate's invoke method to call onFoodItemsChange on each listener
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.foodItems {
@@ -279,11 +303,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     // Called once we have received an authentication result from Firebase
     func setupConsumedFoodListener() {
         // Set up snapshotListener to listen fo all changes on a specified Firestore reference (consumedFoodItems collection)
-        consumedFoodItemsRef = database.collection("users").document(currentUser!.uid).collection("consumedFoodItems")
+        consumedFoodItemsRef = usersRef?.document(currentUser!.uid).collection("consumedFoodItems")
         consumedFoodItemsRef?.addSnapshotListener() { (querySnapshot, error) in
             // Execute this closure every time a change is detected on consumedFoodItems collection
             guard let querySnapshot = querySnapshot else {
-                print("Failed to fetch documents with error: \(String(describing: error))")
+                print("Failed to fetch consumed food documents with error: \(String(describing: error))")
                 return
             }
             
@@ -331,11 +355,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     // Called once we have received an authentication result from Firebase
     func setupExpiredFoodListener() {
         // Set up snapshotListener to listen fo all changes on a specified Firestore reference (expiredFoodItems collection)
-        expiredFoodItemsRef = database.collection("users").document(currentUser!.uid).collection("expiredFoodItems")
+        expiredFoodItemsRef = usersRef?.document(currentUser!.uid).collection("expiredFoodItems")
         expiredFoodItemsRef?.addSnapshotListener() { (querySnapshot, error) in
             // Execute this closure every time a change is detected on expiredFoodItems collection
             guard let querySnapshot = querySnapshot else {
-                print("Failed to fetch documents with error: \(String(describing: error))")
+                print("Failed to fetch expired food documents with error: \(String(describing: error))")
                 return
             }
             
@@ -385,15 +409,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         usersRef = database.collection("users")
         usersRef?.addSnapshotListener() { (querySnapshot, error) in
             // Execute this closure every time a change is detected on users collection
-            guard let querySnapshot = querySnapshot else {
+            guard querySnapshot != nil else {
                 print("Failed to fetch documents with error: \(String(describing: error))")
                 return
             }
-            
-            // Parse changes made on Firestore
-            self.parseFoodItemsSnapshot(snapshot: querySnapshot)
-            self.parseExpiredFoodItemsSnapshot(snapshot: querySnapshot)
-            self.parseConsumedFoodItemsSnapshot(snapshot: querySnapshot)
             
             if self.usersRef == nil {
                 self.setupUsersListener()

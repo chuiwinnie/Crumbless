@@ -21,7 +21,7 @@ class FoodDetailsViewController: UIViewController {
         
         // Set food item details
         nameTextField.text = food.name
-        expiryDateTextField.text = formatDate(date: food.expiryDate!)
+        expiryDateTextField.text = formatDate(date: food.expiryDate ?? Date())
         expiryAlertTextField.text = food.alert
         
         // Show date picker for expiry date field
