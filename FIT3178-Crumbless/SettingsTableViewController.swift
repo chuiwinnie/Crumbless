@@ -16,8 +16,17 @@ class SettingsTableViewController: UITableViewController {
     let CELL_DARK_MODE = "darkModeCell"
     let CELL_DATE_FORMAT = "dateFormatCell"
     
+    weak var databaseController: DatabaseProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     
@@ -38,7 +47,11 @@ class SettingsTableViewController: UITableViewController {
             
             var content = accountCell.defaultContentConfiguration()
             content.text = "Account"
-            content.secondaryText = "Not logged in"
+            if databaseController?.userSingedIn ?? false {
+                content.secondaryText = databaseController?.user?.name
+            } else {
+                content.secondaryText = "Not logged in"
+            }
             
             accountCell.contentConfiguration = content
             return accountCell
@@ -61,36 +74,4 @@ class SettingsTableViewController: UITableViewController {
             return dateFormatCell
         }
     }
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

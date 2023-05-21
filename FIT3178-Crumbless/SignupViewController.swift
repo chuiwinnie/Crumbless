@@ -26,15 +26,15 @@ class SignupViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        handle = Auth.auth().addStateDidChangeListener { auth, user in
-        }
+        //        handle = Auth.auth().addStateDidChangeListener { auth, user in
+        //        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Auth.auth().removeStateDidChangeListener(handle!)
+        //        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
-    @IBAction func signUpBtnClicked (_ sender: Any) {
+    @IBAction func signUp (_ sender: Any) {
         guard var name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
@@ -77,10 +77,4 @@ class SignupViewController: UIViewController {
         let minPasswordLength = 6
         return password.count >= minPasswordLength
     }
-    
-    
-     // MARK: - Navigation
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     }
 }

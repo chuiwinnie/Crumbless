@@ -24,11 +24,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var expiredFoodItemsRef: CollectionReference?
     var usersRef: CollectionReference?
     var currentUser: FirebaseAuth.User?
+    var userSingedIn: Bool
+    var user: User?
     
     // Configure each of Firebase frameworks & set up foodList, consumedFoodList and expiredFoodList
     override init() {
         FirebaseApp.configure()
         authController = Auth.auth()
+        userSingedIn = false
         
         database = Firestore.firestore()
         foodList = [Food]()
@@ -40,8 +43,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         // Authenticate with Firebase to read/write to database by signing in anonymously
         Task {
             do {
-                let authDataResult = try await authController.signInAnonymously()
-                currentUser = authDataResult.user  // Set currentUser as fetched user info
+                let user = authController.currentUser
+                var authDataResult: AuthDataResult
+                if user != nil {
+                    userSingedIn = true
+                    currentUser = user
+                    await getUser()
+                    print("User (\(currentUser?.email ?? "NA")) is signed in")
+                } else {
+                    authDataResult = try await authController.signInAnonymously()
+                    currentUser = authDataResult.user
+                    print("Signed in anonymously")
+                }
             }
             catch {
                 fatalError("Firebase Authentication Failed with Error\(String(describing: error))")
@@ -169,10 +182,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         Task {
             do {
                 let authDataResult = try await authController.signIn(withEmail: email, password: password)
+                userSingedIn = true
                 currentUser = authDataResult.user
+                await getUser()
+                
                 foodList = []
                 consumedFoodList = []
                 expiredFoodList = []
+                
                 completion(true, "")
                 print("User (\(email)) logs in successfully")
             } catch {
@@ -189,9 +206,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
         Task {
             do {
                 let authDataResult = try await authController.createUser(withEmail: email, password: password)
+                userSingedIn = true
                 currentUser = authDataResult.user
+                await getUser()
+                
                 updateRefs()
                 addUser(name: name, email: email)
+                
                 completion(true, "")
                 print("User (\(email)) signs up successfully")
             }
@@ -225,19 +246,52 @@ class FirebaseController: NSObject, DatabaseProtocol {
         let tempFoodList = foodList
         foodList = []
         for food in tempFoodList {
-            let food = self.addFood(food: food)
+            let _ = self.addFood(food: food)
         }
         
         let tempConsumedFoodList = consumedFoodList
         consumedFoodList = []
         for consumedFood in tempConsumedFoodList {
-            let consumedFood = self.addConsumedFood(food: consumedFood)
+            let _ = self.addConsumedFood(food: consumedFood)
         }
         
         let tempExpiredFoodList = expiredFoodList
         expiredFoodList = []
         for expiredFood in tempExpiredFoodList {
-            let expiredFood = self.addExpiredFood(food: expiredFood)
+            let _ = self.addExpiredFood(food: expiredFood)
+        }
+    }
+    
+    func signOut() {
+        Task {
+            do {
+                try authController.signOut()
+                userSingedIn = false
+                let authDataResult = try await authController.signInAnonymously()
+                currentUser = authDataResult.user
+                user = nil
+                
+                foodList = []
+                consumedFoodList = []
+                expiredFoodList = []
+                
+                print("User signs out successfully")
+            }
+            catch {
+                print("Failed to sign out with error: \(error.localizedDescription)")
+            }
+            
+            self.setupFoodListener()
+            self.setupConsumedFoodListener()
+            self.setupExpiredFoodListener()
+        }
+    }
+    
+    func getUser() async {
+        do {
+            user = try await database.collection("users").document(currentUser!.uid).getDocument(as: User.self)
+        } catch {
+            print("Unable to decode user. Is the user malformed?")
         }
     }
     
@@ -282,12 +336,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 print("Unable to decode food. Is the food malformed?")
                 return
             }
-
+            
             guard let food = parsedFood else {
                 print("Food document doesn't exist")
                 return;
             }
-
+            
             if change.type == .added {
                 foodList.insert(food, at: Int(change.newIndex))  // Need the order to match Firesotre
             } else if change.type == .modified {
@@ -295,7 +349,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } else if change.type == .removed {
                 foodList.remove(at: Int(change.oldIndex))
             }
-
+            
             // Use multicast delegate's invoke method to call onFoodItemsChange on each listener
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.foodItems {

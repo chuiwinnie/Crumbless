@@ -25,15 +25,15 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        handle = Auth.auth().addStateDidChangeListener { auth, user in
-        }
+        //        handle = Auth.auth().addStateDidChangeListener { auth, user in
+        //        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Auth.auth().removeStateDidChangeListener(handle!)
+        //        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
-    @IBAction func loginBtnClicked(_ sender: Any) {
+    @IBAction func login(_ sender: Any) {
         guard var email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
             displayMessage(title: "Not all fields filled", message: errorMsg)
             return
         }
-
+        
         databaseController?.login(email: email, password: password) { (loginSuccess, error) in
             DispatchQueue.main.async {
                 if loginSuccess {
@@ -61,11 +61,5 @@ class LoginViewController: UIViewController {
                 self.displayMessage(title: "Login Failed", message: error)
             }
         }
-    }
-
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }

@@ -18,7 +18,8 @@ class User: NSObject, Codable  {
 
 // UserCodingKeys to ensure they are exculded from the encode & decode process
 enum UserCodingKeys: String, CodingKey {
-    case id
+    case name
+    case email
     case foodItems
     case consumedFoodItems
     case expiredFoodItems

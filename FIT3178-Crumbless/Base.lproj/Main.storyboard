@@ -391,17 +391,11 @@
         <!--Account-->
         <scene sceneID="Pxs-YP-v5k">
             <objects>
-                <viewController id="lip-5D-ITq" sceneMemberID="viewController">
+                <viewController id="lip-5D-ITq" customClass="AccountViewController" customModule="FIT3178_Crumbless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dZZ-Bp-3yH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to view account's details." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfK-N1-weB">
-                                <rect key="frame" x="30" y="133" width="333" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvo-Mx-2Oi">
                                 <rect key="frame" x="30" y="590" width="333" height="35"/>
                                 <state key="normal" title="Button"/>
@@ -413,7 +407,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR7-2u-0ab">
                                 <rect key="frame" x="30" y="694" width="333" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Signup"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign Up"/>
                                 <connections>
                                     <segue destination="ny1-jT-ujY" kind="show" id="fbx-Gp-7ez"/>
                                 </connections>
@@ -424,25 +418,52 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Log in to view account's details." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1Mm-cd-lwf">
+                                <rect key="frame" x="30" y="133" width="333" height="427"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="destructive" translatesAutoresizingMaskIntoConstraints="NO" id="iuQ-tR-ueF">
+                                <rect key="frame" x="30" y="684" width="333" height="35"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOut:" destination="lip-5D-ITq" eventType="touchUpInside" id="ra5-JC-NC3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Flb-GO-5DF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="iuQ-tR-ueF" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="1j0-el-4tw"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="bWl-zq-QoX" secondAttribute="trailing" constant="30" id="4yU-5v-41z"/>
-                            <constraint firstItem="tfK-N1-weB" firstAttribute="top" secondItem="Flb-GO-5DF" secondAttribute="top" constant="30" id="9My-8V-W22"/>
+                            <constraint firstItem="1Mm-cd-lwf" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="6Vk-d8-Wge"/>
+                            <constraint firstItem="1Mm-cd-lwf" firstAttribute="top" secondItem="Flb-GO-5DF" secondAttribute="top" constant="30" id="8YL-PB-2bh"/>
                             <constraint firstItem="LR7-2u-0ab" firstAttribute="top" secondItem="bWl-zq-QoX" secondAttribute="bottom" constant="15" id="FQs-A5-XIH"/>
+                            <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="iuQ-tR-ueF" secondAttribute="trailing" constant="30" id="NIe-HC-xu9"/>
                             <constraint firstItem="bWl-zq-QoX" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="NWE-FI-vvs"/>
-                            <constraint firstItem="tfK-N1-weB" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="O8J-0J-GK5"/>
                             <constraint firstItem="LR7-2u-0ab" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="SGH-EJ-FOE"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="LR7-2u-0ab" secondAttribute="trailing" constant="30" id="X57-Lm-MVF"/>
+                            <constraint firstItem="lvo-Mx-2Oi" firstAttribute="top" secondItem="1Mm-cd-lwf" secondAttribute="bottom" constant="30" id="Xy2-Db-t2W"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="bottom" secondItem="LR7-2u-0ab" secondAttribute="bottom" constant="40" id="YxT-dW-tHb"/>
+                            <constraint firstItem="Flb-GO-5DF" firstAttribute="bottom" secondItem="iuQ-tR-ueF" secondAttribute="bottom" constant="50" id="ZLG-g7-upI"/>
                             <constraint firstItem="lvo-Mx-2Oi" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="dIr-um-Qel"/>
-                            <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="tfK-N1-weB" secondAttribute="trailing" constant="30" id="iFe-BZ-ZL7"/>
+                            <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="1Mm-cd-lwf" secondAttribute="trailing" constant="30" id="dVS-uB-TQ3"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="lvo-Mx-2Oi" secondAttribute="trailing" constant="30" id="oyM-Zx-rIF"/>
                             <constraint firstItem="bWl-zq-QoX" firstAttribute="top" secondItem="lvo-Mx-2Oi" secondAttribute="bottom" constant="30" id="pIQ-vd-jqz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Account" id="Lag-Z5-TXU"/>
+                    <connections>
+                        <outlet property="loginButton" destination="lvo-Mx-2Oi" id="6kn-NQ-eWg"/>
+                        <outlet property="signOutButton" destination="iuQ-tR-ueF" id="VeA-RX-1Je"/>
+                        <outlet property="signUpButton" destination="LR7-2u-0ab" id="c1e-6v-7p7"/>
+                        <outlet property="signUpLabel" destination="bWl-zq-QoX" id="GnL-4p-Lk6"/>
+                        <outlet property="textView" destination="1Mm-cd-lwf" id="hfg-bV-cKh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUU-n8-fYD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -483,7 +504,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login"/>
                                 <connections>
-                                    <action selector="loginBtnClicked:" destination="Be3-bi-Fo8" eventType="touchUpInside" id="0bQ-SK-56x"/>
+                                    <action selector="login:" destination="Be3-bi-Fo8" eventType="touchUpInside" id="Qdo-45-INw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -946,7 +967,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Signup"/>
                                 <connections>
-                                    <action selector="signUpBtnClicked:" destination="ny1-jT-ujY" eventType="touchUpInside" id="n5x-x3-3Sa"/>
+                                    <action selector="signUp:" destination="ny1-jT-ujY" eventType="touchUpInside" id="JE0-Mg-vXr"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eay-d3-SDQ">
@@ -1009,6 +1030,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

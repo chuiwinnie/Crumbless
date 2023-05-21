@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
 enum DatabaseChange {
     case add
@@ -43,6 +45,9 @@ protocol DatabaseProtocol: AnyObject {
     
     func addExpiredFood(food: Food) -> Food
     
+    var user: User? { get }
+    var userSingedIn: Bool { get }
     func login(email: String, password: String, completion: @escaping ((Bool, String) -> Void))
     func signUp(name: String, email: String, password: String, completion: @escaping ((Bool, String) -> Void))
+    func signOut()
 }
