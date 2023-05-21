@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestoreSwift
 
 class User: NSObject, Codable  {
-    var id: String?
+    var name: String?
     var email: String?
     var foodItems: [Food]?
     var consumedFoodItems: [Food]?

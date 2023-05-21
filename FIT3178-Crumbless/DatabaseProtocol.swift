@@ -44,5 +44,5 @@ protocol DatabaseProtocol: AnyObject {
     func addExpiredFood(food: Food) -> Food
     
     func login(email: String, password: String, completion: @escaping ((Bool, String) -> Void))
-    func signUp(email: String, password: String, completion: @escaping ((Bool, String) -> Void))
+    func signUp(name: String, email: String, password: String, completion: @escaping ((Bool, String) -> Void))
 }

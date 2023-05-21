@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class SignupViewController: UIViewController {
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -34,12 +35,17 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func signUpBtnClicked (_ sender: Any) {
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard var name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
         
-        if !isValidEmail(email: email) || !isValidPassword(password: password) {
+        name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if name.isEmpty || !isValidEmail(email: email) || !isValidPassword(password: password) {
             var errorMsg = "Please ensure all fields are valid:\n"
+            if name.isEmpty {
+                errorMsg += "- Must enter a name\n"
+            }
             if !isValidEmail(email: email) {
                 errorMsg += "- Must enter a valid email\n"
             }
@@ -50,7 +56,7 @@ class SignupViewController: UIViewController {
             return
         }
         
-        databaseController?.signUp(email: email, password: password) { (signUpSuccess, error) in
+        databaseController?.signUp(name: name, email: email, password: password) { (signUpSuccess, error) in
             DispatchQueue.main.async {
                 if signUpSuccess {
                     self.navigationController?.popViewController(animated: true)

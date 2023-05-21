@@ -170,6 +170,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do {
                 let authDataResult = try await authController.signIn(withEmail: email, password: password)
                 currentUser = authDataResult.user
+                foodList = []
+                consumedFoodList = []
+                expiredFoodList = []
                 completion(true, "")
                 print("User (\(email)) logs in successfully")
             } catch {
@@ -182,15 +185,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func signUp(email: String, password: String, completion: @escaping ((Bool, String) -> Void)) {
+    func signUp(name: String, email: String, password: String, completion: @escaping ((Bool, String) -> Void)) {
         Task {
             do {
                 let authDataResult = try await authController.createUser(withEmail: email, password: password)
                 currentUser = authDataResult.user
-                foodItemsRef = usersRef?.document(currentUser!.uid).collection("foodItems")
-                consumedFoodItemsRef = usersRef?.document(currentUser!.uid).collection("consumedFoodItems")
-                expiredFoodItemsRef = usersRef?.document(currentUser!.uid).collection("expiredFoodItems")
-                addUser(email: email)
+                updateRefs()
+                addUser(name: name, email: email)
                 completion(true, "")
                 print("User (\(email)) signs up successfully")
             }
@@ -204,9 +205,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func addUser(email: String) {
+    func updateRefs() {
+        foodItemsRef = usersRef?.document(currentUser!.uid).collection("foodItems")
+        consumedFoodItemsRef = usersRef?.document(currentUser!.uid).collection("consumedFoodItems")
+        expiredFoodItemsRef = usersRef?.document(currentUser!.uid).collection("expiredFoodItems")
+    }
+    
+    func addUser(name: String, email: String) {
         print("current user uid: " + currentUser!.uid)
         usersRef?.document(currentUser!.uid).setData([
+            "name": name,
             "email": email,
         ]) { error in
             if let error = error {
@@ -218,21 +226,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         foodList = []
         for food in tempFoodList {
             let food = self.addFood(food: food)
-            print("food: " + (food.name ?? "NA"))
         }
         
         let tempConsumedFoodList = consumedFoodList
         consumedFoodList = []
         for consumedFood in tempConsumedFoodList {
             let consumedFood = self.addConsumedFood(food: consumedFood)
-            print("consumedFood: " + (consumedFood.name ?? "NA"))
         }
         
         let tempExpiredFoodList = expiredFoodList
         expiredFoodList = []
         for expiredFood in tempExpiredFoodList {
             let expiredFood = self.addExpiredFood(food: expiredFood)
-            print("expiredFood: " + (expiredFood.name ?? "NA"))
         }
     }
     
@@ -279,7 +284,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
 
             guard let food = parsedFood else {
-                print("Document doesn't exist")
+                print("Food document doesn't exist")
                 return;
             }
 
@@ -331,7 +336,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             
             guard let consumedFood = parsedConsumedFood else {
-                print("Document doesn't exist")
+                print("Consumed food document doesn't exist")
                 return;
             }
             
@@ -383,7 +388,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             
             guard let expiredFood = parsedExpiredFood else {
-                print("Document doesn't exist")
+                print("Expired food document doesn't exist")
                 return;
             }
             
@@ -410,7 +415,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         usersRef?.addSnapshotListener() { (querySnapshot, error) in
             // Execute this closure every time a change is detected on users collection
             guard querySnapshot != nil else {
-                print("Failed to fetch documents with error: \(String(describing: error))")
+                print("Failed to fetch user documents with error: \(String(describing: error))")
                 return
             }
             
