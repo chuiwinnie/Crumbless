@@ -24,34 +24,35 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var expiredFoodItemsRef: CollectionReference?
     var usersRef: CollectionReference?
     var currentUser: FirebaseAuth.User?
-    var userSingedIn: Bool
+    
+    // Keep track of if/which an existing user is currently signed in
     var user: User?
+    var userDefaults: UserDefaults?
+    var userSignedIn: Bool?
     
     // Configure each of Firebase frameworks & set up foodList, consumedFoodList and expiredFoodList
     override init() {
         FirebaseApp.configure()
         authController = Auth.auth()
-        userSingedIn = false
-        
         database = Firestore.firestore()
         foodList = [Food]()
         consumedFoodList = [Food]()
         expiredFoodList = [Food]()
+        
+        userDefaults = UserDefaults.standard
+        userSignedIn = userDefaults?.bool(forKey: "userSignedIn")
         
         super.init()
         
         // Authenticate with Firebase to read/write to database by signing in anonymously
         Task {
             do {
-                let user = authController.currentUser
-                var authDataResult: AuthDataResult
-                if user != nil {
-                    userSingedIn = true
-                    currentUser = user
+                if userSignedIn ?? false {
+                    currentUser = authController.currentUser
                     await getUser()
-                    print("User (\(currentUser?.email ?? "NA")) is signed in")
+                    print("User (\(user?.email ?? "NA")) is signed in")
                 } else {
-                    authDataResult = try await authController.signInAnonymously()
+                    let authDataResult = try await authController.signInAnonymously()
                     currentUser = authDataResult.user
                     print("Signed in anonymously")
                 }
@@ -182,16 +183,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         Task {
             do {
                 let authDataResult = try await authController.signIn(withEmail: email, password: password)
-                userSingedIn = true
                 currentUser = authDataResult.user
+                
                 await getUser()
+                userDefaults?.set(true, forKey: "userSignedIn")
+                userSignedIn =  userDefaults?.bool(forKey: "userSignedIn")
                 
                 foodList = []
                 consumedFoodList = []
                 expiredFoodList = []
                 
                 completion(true, "")
-                print("User (\(email)) logs in successfully")
+                print("User (\(user?.email ?? "NA")) logs in successfully")
             } catch {
                 completion(false, "\(error.localizedDescription)")
             }
@@ -206,15 +209,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
         Task {
             do {
                 let authDataResult = try await authController.createUser(withEmail: email, password: password)
-                userSingedIn = true
                 currentUser = authDataResult.user
-                await getUser()
                 
                 updateRefs()
                 addUser(name: name, email: email)
                 
+                await getUser()
+                userDefaults?.set(true, forKey: "userSignedIn")
+                userSignedIn =  userDefaults?.bool(forKey: "userSignedIn")
+                
                 completion(true, "")
-                print("User (\(email)) signs up successfully")
+                print("User (\(user?.email ?? "NA")) signs up successfully")
             }
             catch {
                 completion(false, "\(error.localizedDescription)")
@@ -262,23 +267,27 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func signOut() {
+    func signOut(completion: @escaping ((Bool, String) -> Void)) {
         Task {
             do {
                 try authController.signOut()
-                userSingedIn = false
+                                
                 let authDataResult = try await authController.signInAnonymously()
                 currentUser = authDataResult.user
+                
                 user = nil
+                userDefaults?.set(false, forKey: "userSignedIn")
+                userSignedIn =  userDefaults?.bool(forKey: "userSignedIn")
                 
                 foodList = []
                 consumedFoodList = []
                 expiredFoodList = []
                 
+                completion(true, "")
                 print("User signs out successfully")
             }
             catch {
-                print("Failed to sign out with error: \(error.localizedDescription)")
+                completion(false, "\(error.localizedDescription)")
             }
             
             self.setupFoodListener()

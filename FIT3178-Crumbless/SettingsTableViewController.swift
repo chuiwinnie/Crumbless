@@ -47,7 +47,7 @@ class SettingsTableViewController: UITableViewController {
             
             var content = accountCell.defaultContentConfiguration()
             content.text = "Account"
-            if databaseController?.userSingedIn ?? false {
+            if databaseController?.userSignedIn ?? false {
                 content.secondaryText = databaseController?.user?.name
             } else {
                 content.secondaryText = "Not logged in"

@@ -24,7 +24,7 @@ class AccountViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if databaseController?.userSingedIn ?? false {
+        if databaseController?.userSignedIn ?? false {
             setAccountDetailsTextView()
             loginButton.isHidden = true
             signUpLabel.isHidden = true
@@ -39,9 +39,15 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func signOut(_ sender: Any) {
-        databaseController?.signOut()
-        self.navigationController?.popViewController(animated: true)
-        return
+        databaseController?.signOut() { (signOutSuccess, error) in
+            DispatchQueue.main.async {
+                if signOutSuccess {
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                }
+                self.displayMessage(title: "Sign Out Failed", message: error)
+            }
+        }
     }
     
     func setAccountDetailsTextView() {
