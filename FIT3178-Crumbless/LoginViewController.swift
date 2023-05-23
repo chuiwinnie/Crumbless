@@ -41,14 +41,14 @@ class LoginViewController: UIViewController {
         email = email.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if email.isEmpty || password.isEmpty {
-            var errorMsg = "Please ensure all fields are filled:\n"
+            var errorMsg = "Please ensure all fields are filled:"
             if email.isEmpty {
-                errorMsg += "- Must enter an email\n"
+                errorMsg += "\n- Must enter an email"
             }
             if password.isEmpty {
-                errorMsg += "- Must enter a password"
+                errorMsg += "\n- Must enter a password"
             }
-            displayMessage(title: "Not all fields filled", message: errorMsg)
+            displayMessage(title: "Invalid Account Details", message: errorMsg)
             return
         }
         

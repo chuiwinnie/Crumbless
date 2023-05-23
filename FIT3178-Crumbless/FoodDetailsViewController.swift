@@ -61,7 +61,7 @@ class FoodDetailsViewController: UIViewController {
             if expiryDate.isEmpty {
                 errorMsg += "- Must provide an expiry date"
             }
-            displayMessage(title: "Not all fields filled", message: errorMsg)
+            displayMessage(title: "Invalid Food Details", message: errorMsg)
             return
         }
         
