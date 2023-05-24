@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, SelectExpiryAlertDelegate {
     @IBOutlet weak var nameTextField: UITextField!
@@ -25,9 +26,17 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
+            if !granted {
+                print("Permission was not granted!")
+                return
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        expiryAlertTextField.isEnabled = true
         if let option = selectedExpiryAlertOption {
             expiryAlertTextField.text = option
         } else {
@@ -61,13 +70,11 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         view.endEditing(true)
     }
     
-//    @IBAction func expiryAlertTextFieldClicked(_ sender: Any) {
-//        performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
-//    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == expiryAlertTextField {
+            view.endEditing(true)
             performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
+            expiryAlertTextField.isEnabled = false
         }
     }
     
@@ -79,12 +86,12 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if name.isEmpty || expiryDate.isEmpty {
-            var errorMsg = "Please ensure all fields are filled:\n"
+            var errorMsg = "Please ensure all fields are filled:"
             if name.isEmpty {
-                errorMsg += "- Must provide a name\n"
+                errorMsg += "\n- Must provide a name\n"
             }
             if expiryDate.isEmpty {
-                errorMsg += "- Must provide an expiry date"
+                errorMsg += "\n- Must provide an expiry date"
             }
             displayMessage(title: "Invalid Food Details", message: errorMsg)
             return
@@ -96,7 +103,37 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         
         let _ = databaseController?.addFood(name: name, expiryDate: date, alert: alert)
         
+        if !(alert == "None") {
+            scheduleAlert(name: name, alert: alert)
+        }
+        
         navigationController?.popViewController(animated: true)
+    }
+    
+    func scheduleAlert(name: String, alert: String) {
+        var timeRemaining: String
+        switch alert {
+        case "1 day before":
+            timeRemaining = "1 day"
+        case "2 days before":
+            timeRemaining = "2 days"
+        case "3 days before":
+            timeRemaining = "3 days"
+        case "1 week before":
+            timeRemaining = "1 week"
+        case "2 weeks before":
+            timeRemaining = "2 weeks"
+        default:
+            timeRemaining = "NA"
+        }
+        
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Food Expiry Alert"
+        notificationContent.body = "\(name) is expiring in \(timeRemaining)!"
+        
+        let timeInterval = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: timeInterval)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     
