@@ -7,20 +7,32 @@
 
 import UIKit
 
-class AddNewFoodItemViewController: UIViewController {
+class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, SelectExpiryAlertDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
     
     weak var databaseController: DatabaseProtocol?
     
+    var selectedExpiryAlertOption: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         showExpiryDatePicker()
         
+        expiryAlertTextField.delegate = self
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let option = selectedExpiryAlertOption {
+            expiryAlertTextField.text = option
+        } else {
+            expiryAlertTextField.text = "None"
+        }
     }
     
     func showExpiryDatePicker() {
@@ -37,16 +49,26 @@ class AddNewFoodItemViewController: UIViewController {
         datePicker.frame.size = CGSize(width: 0, height: 300)
         datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
         
-        expiryAlertTextField.inputAccessoryView = toolbar
+        expiryDateTextField.inputAccessoryView = toolbar
         expiryDateTextField.inputView = datePicker
     }
-
+    
     @objc func dateChange(datePicker: UIDatePicker) {
         expiryDateTextField.text = formatDate(date: datePicker.date)
     }
     
     @objc func doneButtonClicked() {
         view.endEditing(true)
+    }
+    
+//    @IBAction func expiryAlertTextFieldClicked(_ sender: Any) {
+//        performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
+//    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == expiryAlertTextField {
+            performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
+        }
     }
     
     @IBAction func addItem(_ sender: Any) {
@@ -75,6 +97,16 @@ class AddNewFoodItemViewController: UIViewController {
         let _ = databaseController?.addFood(name: name, expiryDate: date, alert: alert)
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showExpiryAlertSegue" {
+            let destination = segue.destination as! ExpiryAlertTableViewController
+            destination.selectExpiryAlertDelegate = self
+            destination.selectedExpiryAlert = expiryAlertTextField.text
+        }
     }
     
 }
