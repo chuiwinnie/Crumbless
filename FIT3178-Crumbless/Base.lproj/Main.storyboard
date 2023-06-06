@@ -711,6 +711,7 @@
                         <outlet property="expiryAlertTextField" destination="CSW-Rl-7Cl" id="mUi-Ua-9To"/>
                         <outlet property="expiryDateTextField" destination="9At-1x-Dvs" id="JyL-Zr-8ge"/>
                         <outlet property="nameTextField" destination="bQ9-Tp-0vO" id="cXe-S7-BIy"/>
+                        <segue destination="2EK-zm-oak" kind="show" identifier="showExpiryAlertSegue" id="F35-2j-P6n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3u6-zq-aWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1077,6 +1078,9 @@
             <point key="canvasLocation" x="4111" y="1923"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="F35-2j-P6n"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
         <image name="doc.text.magnifyingglass" catalog="system" width="110" height="128"/>

@@ -21,16 +21,16 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
         // Set up date picker for expiry date field
         expiryDateTextField.delegate = self
         showExpiryDatePicker()
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
-        
-        // Set up database controller
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        databaseController = appDelegate?.databaseController
         
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
@@ -70,14 +70,14 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         expiryDateTextField.inputView = datePicker
     }
     
-    // Update expiry date field if date picker date changed
-    @objc func dateChange(datePicker: UIDatePicker) {
-        expiryDateTextField.text = formatDate(date: datePicker.date)
-    }
-    
     // Close expiry date field date picker
     @objc func doneButtonClicked() {
         view.endEditing(true)
+    }
+    
+    // Update expiry date field if date picker date changed
+    @objc func dateChange(datePicker: UIDatePicker) {
+        expiryDateTextField.text = formatDate(date: datePicker.date)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -124,7 +124,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         let food = databaseController?.addFood(name: name, expiryDate: date, alert: alert)
         
         // Schedule local notification
-        if !(alert == expiryAlertOptions[0]) {
+        if alert != expiryAlertOptions[0] {
             let id = food?.id ?? "NA"
             scheduleAlert(id: id, name: name, alert: alert, expiryDate: date)
         }
@@ -134,12 +134,46 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     
     // Check if the alert is set before the expiry date
     func validateAlert(expiryDate: Date, alert: String) -> Bool {
+        // Prevent setting alert for food expiring today
+        let expiry = Calendar.current.dateComponents([.day, .year, .month], from: expiryDate)
+        let today = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+        if expiry == today {
+            return false
+        }
+        
+        // Prevent setting alert on past date
         let daysBeforeExpiry = getDaysBeforeExpiry(expiryDate: expiryDate)
         let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
-        if daysBeforeAlert <= 0 {
+        if daysBeforeAlert < 0 {
             return false
         }
         return true
+    }
+    
+    // Get the number of days remaining before food expiry
+    func getDaysBeforeExpiry(expiryDate: Date) -> Int{
+        let daysBeforeExpiry = (Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day ?? -1) + 1
+        return daysBeforeExpiry
+    }
+    
+    // Get the number of days between the alert date and expiry date
+    func getAlertDaysBeforeExpiry(alert: String) -> Int {
+        var daysBeforeExpiry: Int
+        switch alert {
+        case expiryAlertOptions[1]:
+            daysBeforeExpiry = 1
+        case expiryAlertOptions[2]:
+            daysBeforeExpiry = 2
+        case expiryAlertOptions[3]:
+            daysBeforeExpiry = 3
+        case expiryAlertOptions[4]:
+            daysBeforeExpiry = 7
+        case expiryAlertOptions[5]:
+            daysBeforeExpiry = 14
+        default:
+            daysBeforeExpiry = 0
+        }
+        return daysBeforeExpiry
     }
     
     func scheduleAlert(id: String, name: String, alert: String, expiryDate: Date) {
@@ -155,9 +189,9 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
         let alertDate = Calendar.current.date(byAdding: .day, value: daysBeforeAlert, to: Date()) ?? Date()
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: alertDate)
-        dateComponents.hour = 4
-        dateComponents.minute = 53
-        print("Alert set for: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
+        dateComponents.hour = 6
+        dateComponents.minute = 32
+        print("Alert for \(name) set for: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
         
         // Schedule notification
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -185,36 +219,11 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         return timeRemaining
     }
     
-    // Get the number of days remaining before food expiry
-    func getDaysBeforeExpiry(expiryDate: Date) -> Int{
-        let daysBeforeExpiry = (Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day ?? 0) + 1
-        return daysBeforeExpiry
-    }
-    
-    // Get the number of days between the alert date and expiry date
-    func getAlertDaysBeforeExpiry(alert: String) -> Int {
-        var daysBeforeExpiry: Int
-        switch alert {
-        case expiryAlertOptions[1]:
-            daysBeforeExpiry = 1
-        case expiryAlertOptions[2]:
-            daysBeforeExpiry = 2
-        case expiryAlertOptions[3]:
-            daysBeforeExpiry = 3
-        case expiryAlertOptions[4]:
-            daysBeforeExpiry = 7
-        case expiryAlertOptions[5]:
-            daysBeforeExpiry = 14
-        default:
-            daysBeforeExpiry = 0
-        }
-        return daysBeforeExpiry
-    }
-    
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Preset to previously selected expiry alert option before showing the expiry alert table view
         if segue.identifier == "showExpiryAlertSegue" {
             let destination = segue.destination as! ExpiryAlertTableViewController
             destination.selectExpiryAlertDelegate = self
