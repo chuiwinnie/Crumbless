@@ -88,7 +88,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnw-7y-Teh">
-                                <rect key="frame" x="30" y="133" width="95" height="24"/>
+                                <rect key="frame" x="30" y="133" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -99,7 +99,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Expiry Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gS-9q-gVy">
-                                <rect key="frame" x="30" y="236" width="144" height="24"/>
+                                <rect key="frame" x="30" y="236" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -110,7 +110,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-do-jOM">
-                                <rect key="frame" x="30" y="339" width="101" height="24"/>
+                                <rect key="frame" x="30" y="339" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -128,33 +128,55 @@
                                     <action selector="addItem:" destination="FPV-lq-njt" eventType="touchUpInside" id="C3K-ZO-1wW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OaM-Sm-hFz">
+                                <rect key="frame" x="30" y="442" width="333" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6d-QX-WSD">
+                                <rect key="frame" x="30" y="481" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WEe-84-le4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="h6d-QX-WSD" firstAttribute="top" secondItem="OaM-Sm-hFz" secondAttribute="bottom" constant="15" id="0u2-WT-OCi"/>
                             <constraint firstItem="6XP-do-jOM" firstAttribute="top" secondItem="q27-y1-1QP" secondAttribute="bottom" constant="30" id="1mU-x7-Khk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="q27-y1-1QP" secondAttribute="trailing" constant="30" id="6lB-QF-Mix"/>
                             <constraint firstItem="Vv6-4K-RYd" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="7EB-Ng-OUX"/>
                             <constraint firstAttribute="bottom" secondItem="e7C-bZ-vci" secondAttribute="bottom" constant="100" id="7cs-lw-aeG"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="e7C-bZ-vci" secondAttribute="trailing" constant="30" id="7ib-pf-lnk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="zeW-ak-SWO" secondAttribute="trailing" constant="30" id="8Yr-0L-hHw"/>
+                            <constraint firstItem="OaM-Sm-hFz" firstAttribute="top" secondItem="Vv6-4K-RYd" secondAttribute="bottom" constant="30" id="B2h-Su-WlQ"/>
                             <constraint firstItem="q27-y1-1QP" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="Bj4-hW-awh"/>
                             <constraint firstItem="6XP-do-jOM" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="ITz-ET-FmE"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="6XP-do-jOM" secondAttribute="trailing" constant="30" id="J7c-DL-R3u"/>
+                            <constraint firstItem="h6d-QX-WSD" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="KYa-10-LhH"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="4gS-9q-gVy" secondAttribute="trailing" constant="30" id="NKn-qg-RUY"/>
                             <constraint firstItem="e7C-bZ-vci" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="NZo-dc-9Cd"/>
+                            <constraint firstItem="OaM-Sm-hFz" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="NhD-1z-DFO"/>
                             <constraint firstItem="4gS-9q-gVy" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="OZv-YE-K8W"/>
                             <constraint firstItem="Vv6-4K-RYd" firstAttribute="top" secondItem="6XP-do-jOM" secondAttribute="bottom" constant="15" id="OgC-Wj-cmp"/>
                             <constraint firstItem="4gS-9q-gVy" firstAttribute="top" secondItem="zeW-ak-SWO" secondAttribute="bottom" constant="30" id="SPp-In-fLw"/>
                             <constraint firstItem="q27-y1-1QP" firstAttribute="top" secondItem="4gS-9q-gVy" secondAttribute="bottom" constant="15" id="kD9-XD-jnS"/>
                             <constraint firstItem="xnw-7y-Teh" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="mxD-5w-6YJ"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="OaM-Sm-hFz" secondAttribute="trailing" constant="30" id="oPI-1i-nqJ"/>
                             <constraint firstItem="xnw-7y-Teh" firstAttribute="top" secondItem="WEe-84-le4" secondAttribute="top" constant="30" id="vDR-cm-gJM"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="h6d-QX-WSD" secondAttribute="trailing" constant="30" id="wfD-kU-jz9"/>
                             <constraint firstItem="zeW-ak-SWO" firstAttribute="top" secondItem="xnw-7y-Teh" secondAttribute="bottom" constant="15" id="xvc-1f-EvD"/>
                             <constraint firstItem="zeW-ak-SWO" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="yIW-pi-sm9"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="xnw-7y-Teh" secondAttribute="trailing" constant="30" id="yOD-zw-EQc"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="Vv6-4K-RYd" secondAttribute="trailing" constant="30" id="ySG-dH-Uyj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Food Item" id="oR0-mG-EtS"/>
                     <connections>
                         <outlet property="expiryAlertTextField" destination="Vv6-4K-RYd" id="EVb-9o-GDf"/>
+                        <outlet property="expiryAlertTimeLabel" destination="OaM-Sm-hFz" id="z9a-22-sPX"/>
+                        <outlet property="expiryAlertTimeTextField" destination="h6d-QX-WSD" id="Jin-9q-g3n"/>
                         <outlet property="expiryDateTextField" destination="q27-y1-1QP" id="ZmD-oT-0Vf"/>
                         <outlet property="nameTextField" destination="zeW-ak-SWO" id="9Yw-e5-B8g"/>
                         <segue destination="2EK-zm-oak" kind="show" identifier="showExpiryAlertSegue" id="4N8-YN-80f"/>
@@ -642,7 +664,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJS-CV-fby">
-                                <rect key="frame" x="30" y="133" width="95" height="24"/>
+                                <rect key="frame" x="30" y="133" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -653,7 +675,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Expiry Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IA-wq-lgO">
-                                <rect key="frame" x="30" y="236" width="144" height="24"/>
+                                <rect key="frame" x="30" y="236" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -664,7 +686,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5m-By-RuR">
-                                <rect key="frame" x="30" y="339" width="101" height="24"/>
+                                <rect key="frame" x="30" y="339" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -699,10 +721,13 @@
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bEV-7g-ab3" secondAttribute="trailing" constant="30" id="eBf-Au-3pV"/>
                             <constraint firstItem="2IA-wq-lgO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="fB6-dk-tDX"/>
                             <constraint firstAttribute="bottom" secondItem="bEV-7g-ab3" secondAttribute="bottom" constant="100" id="gPz-tj-ZO1"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="2IA-wq-lgO" secondAttribute="trailing" constant="30" id="iWH-AT-dS1"/>
                             <constraint firstItem="bQ9-Tp-0vO" firstAttribute="top" secondItem="SJS-CV-fby" secondAttribute="bottom" constant="15" id="nXn-RL-I0r"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="o5m-By-RuR" secondAttribute="trailing" constant="30" id="oln-dx-Q6a"/>
                             <constraint firstItem="bEV-7g-ab3" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="p3q-rM-cXq"/>
                             <constraint firstItem="o5m-By-RuR" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="rQP-12-01o"/>
                             <constraint firstItem="o5m-By-RuR" firstAttribute="top" secondItem="9At-1x-Dvs" secondAttribute="bottom" constant="30" id="sQG-EI-GWg"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="SJS-CV-fby" secondAttribute="trailing" constant="30" id="xlu-Ze-sUb"/>
                             <constraint firstItem="SJS-CV-fby" firstAttribute="top" secondItem="vtN-jz-Kgr" secondAttribute="top" constant="30" id="ylj-Jj-vkb"/>
                         </constraints>
                     </view>
@@ -1079,7 +1104,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="F35-2j-P6n"/>
+        <segue reference="4N8-YN-80f"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>

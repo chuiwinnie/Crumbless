@@ -12,6 +12,8 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
+    @IBOutlet weak var expiryAlertTimeLabel: UILabel!
+    @IBOutlet weak var expiryAlertTimeTextField: UITextField!
     
     weak var databaseController: DatabaseProtocol?
     
@@ -32,6 +34,11 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
         
+        // Set up time picker for expiry alert time field
+        expiryAlertTimeTextField.delegate = self
+        expiryAlertTimeTextField.text = "09:00 am"
+        showExpiryAlertTimePicker()
+        
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
             if !granted {
@@ -48,6 +55,15 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
             expiryAlertTextField.text = option
         } else {
             expiryAlertTextField.text = "None"
+        }
+        
+        // Only show option to set expiry alert time if expiry alert selected
+        if expiryAlertTextField.text == "None" {
+            expiryAlertTimeLabel.isHidden = true
+            expiryAlertTimeTextField.isHidden = true
+        } else {
+            expiryAlertTimeLabel.isHidden = false
+            expiryAlertTimeTextField.isHidden = false
         }
     }
     
@@ -78,6 +94,35 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     // Update expiry date field if date picker date changed
     @objc func dateChange(datePicker: UIDatePicker) {
         expiryDateTextField.text = formatDate(date: datePicker.date)
+    }
+    
+    func showExpiryAlertTimePicker() {
+        let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
+        
+        // Set up done button for closing time picker
+        let doneButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(doneButtonClicked))
+        toolbar.setItems([UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil), doneButton], animated: true)
+        
+        // Set up time picker
+        let datePicker = UIDatePicker.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 300))
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.addTarget(self, action: #selector(timeChange(timePicker:)), for: UIControl.Event.valueChanged)
+        
+        // Preset default time (9am) for alert
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        let date = dateFormatter.date(from: "09:00 am")
+        datePicker.date = date ?? Date()
+        
+        // Attach date picker to expiry alert time field
+        expiryAlertTimeTextField.inputAccessoryView = toolbar
+        expiryAlertTimeTextField.inputView = datePicker
+    }
+    
+    // Update expiry alert time field if time picker time changed
+    @objc func timeChange(timePicker: UIDatePicker) {
+        expiryAlertTimeTextField.text = formatTime(date: timePicker.date)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
