@@ -40,7 +40,7 @@
 		803F8D262A149F570061E39E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F8D252A149F570061E39E /* User.swift */; };
 		805766A72A1DA31C00CCD0A7 /* ExpiryAlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805766A62A1DA31C00CCD0A7 /* ExpiryAlertTableViewController.swift */; };
 		805766A92A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */; };
-		80BEDCFF2A2FDADB0046C2EF /* UIViewController+localNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDCFE2A2FDADB0046C2EF /* UIViewController+localNotifications.swift */; };
+		80BEDCFF2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */; };
 		80BEDD012A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +77,7 @@
 		803F8D252A149F570061E39E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		805766A62A1DA31C00CCD0A7 /* ExpiryAlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpiryAlertTableViewController.swift; sourceTree = "<group>"; };
 		805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExpiryAlertDelegate.swift; sourceTree = "<group>"; };
-		80BEDCFE2A2FDADB0046C2EF /* UIViewController+localNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+localNotifications.swift"; sourceTree = "<group>"; };
+		80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+setExpiryAlert.swift"; sourceTree = "<group>"; };
 		80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayDateTimePicker.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,7 +121,7 @@
 				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 				80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */,
 				80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */,
-				80BEDCFE2A2FDADB0046C2EF /* UIViewController+localNotifications.swift */,
+				80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */,
 				803F8D172A0B30E60061E39E /* MulticastDelegate.swift */,
 				80186BC329F8AA01009B410C /* Main.storyboard */,
 				80186BC629F8AA02009B410C /* Assets.xcassets */,
@@ -255,7 +255,7 @@
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
 				80BEDD012A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift in Sources */,
 				803F8D1C2A1467F50061E39E /* SettingsTableViewController.swift in Sources */,
-				80BEDCFF2A2FDADB0046C2EF /* UIViewController+localNotifications.swift in Sources */,
+				80BEDCFF2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift in Sources */,
 				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
 				80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */,

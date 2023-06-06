@@ -41,7 +41,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self
-        expiryAlertTimeTextField.text = "09:00 am"
+        expiryAlertTimeTextField.text = food.alertTime
         showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField)
         
         // Request permission for local notification
@@ -112,10 +112,13 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
             return
         }
         
+        let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
+        
         // Update food details in database
         food.name = name
         food.expiryDate = date
         food.alert = alert
+        food.alertTime = alertTime
         databaseController?.updateFood(food: food)
         
         // Reschedule local notification

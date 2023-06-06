@@ -13,6 +13,7 @@ class Food: NSObject, Codable {
     var name: String?
     var expiryDate: Date?
     var alert: String?
+    var alertTime: String?
 }
 
 // FoodCodingKeys to ensure they are exculded from the encode & decode process
@@ -21,4 +22,5 @@ enum FoodCodingKeys: String, CodingKey {
     case name
     case expiryDate
     case alert
+    case alertTime
 }

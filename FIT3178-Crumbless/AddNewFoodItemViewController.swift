@@ -106,8 +106,10 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
             return
         }
         
+        let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
+        
         // Add food to database
-        let food = databaseController?.addFood(name: name, expiryDate: date, alert: alert)
+        let food = databaseController?.addFood(name: name, expiryDate: date, alert: alert, alertTime: alertTime)
         
         // Schedule local notification
         if alert != expiryAlertOptions.none.rawValue {

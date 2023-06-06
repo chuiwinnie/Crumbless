@@ -90,11 +90,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     // MARK: - Food Items
     
-    func addFood(name: String, expiryDate: Date, alert: String) -> Food {
+    func addFood(name: String, expiryDate: Date, alert: String, alertTime: String) -> Food {
         let food = Food()
         food.name = name
         food.expiryDate = expiryDate
         food.alert = alert
+        food.alertTime = alertTime
         
         // Add created food to Firestore by using Codable protocol to serialize the data
         do {

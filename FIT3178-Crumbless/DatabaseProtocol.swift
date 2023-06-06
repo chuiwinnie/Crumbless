@@ -37,7 +37,7 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
     
-    func addFood(name: String, expiryDate: Date, alert: String) -> Food
+    func addFood(name: String, expiryDate: Date, alert: String, alertTime: String) -> Food
     func updateFood(food: Food)
     func deleteFood(food: Food)
     
