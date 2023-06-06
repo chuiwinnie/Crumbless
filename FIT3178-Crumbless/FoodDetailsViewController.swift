@@ -16,7 +16,6 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     
     var food: Food!
     
-    var expiryAlertOptions = ["None", "1 day before", "2 days before", "3 days before", "1 week before", "2 weeks before"]
     var selectedExpiryAlertOption: String?
     
     override func viewDidLoad() {
@@ -135,103 +134,11 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         // Reschedule local notification
         let id = food?.id ?? "NA"
         cancelAlert(id: id)
-        if alert != expiryAlertOptions[0] {
+        if alert != expiryAlertOptions.none.rawValue {
             scheduleAlert(id: id, name: name, alert: alert, expiryDate: date)
         }
         
         navigationController?.popViewController(animated: true)
-    }
-    
-    // Check if the alert is set before the expiry date
-    func validateAlert(expiryDate: Date, alert: String) -> Bool {
-        // Prevent setting alert for food expiring today
-        let expiry = Calendar.current.dateComponents([.day, .year, .month], from: expiryDate)
-        let today = Calendar.current.dateComponents([.day, .year, .month], from: Date())
-        if expiry == today {
-            return false
-        }
-        
-        // Prevent setting alert on past date
-        let daysBeforeExpiry = getDaysBeforeExpiry(expiryDate: expiryDate)
-        let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
-        if daysBeforeAlert < 0 {
-            return false
-        }
-        return true
-    }
-    
-    // Get the number of days remaining before food expiry
-    func getDaysBeforeExpiry(expiryDate: Date) -> Int{
-        let daysBeforeExpiry = (Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day ?? 0) + 1
-        return daysBeforeExpiry
-    }
-    
-    // Get the number of days between the alert date and expiry date
-    func getAlertDaysBeforeExpiry(alert: String) -> Int {
-        var daysBeforeExpiry: Int
-        switch alert {
-        case expiryAlertOptions[1]:
-            daysBeforeExpiry = 1
-        case expiryAlertOptions[2]:
-            daysBeforeExpiry = 2
-        case expiryAlertOptions[3]:
-            daysBeforeExpiry = 3
-        case expiryAlertOptions[4]:
-            daysBeforeExpiry = 7
-        case expiryAlertOptions[5]:
-            daysBeforeExpiry = 14
-        default:
-            daysBeforeExpiry = 0
-        }
-        return daysBeforeExpiry
-    }
-    
-    func scheduleAlert(id: String, name: String, alert: String, expiryDate: Date) {
-        let timeRemaining = getTimeRemaining(alert: alert)
-        
-        // Configure notification content
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "Food Expiry Alert"
-        notificationContent.body = "\(name) is expiring in \(timeRemaining)!"
-        
-        // Calculate the date for alert
-        let daysBeforeExpiry = getDaysBeforeExpiry(expiryDate: expiryDate)
-        let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
-        let alertDate = Calendar.current.date(byAdding: .day, value: daysBeforeAlert, to: Date()) ?? Date()
-        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: alertDate)
-        dateComponents.hour = 6
-        dateComponents.minute = 28
-        print("Alert for \(name) reset for: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
-        
-        // Schedule notification
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let request = UNNotificationRequest(identifier: id, content: notificationContent, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
-    
-    func cancelAlert(id: String) {
-        // Cancel the local notification with the specified id
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
-    }
-    
-    // Get the amount of time remaining before food expiry as a string
-    func getTimeRemaining(alert: String) -> String {
-        var timeRemaining: String
-        switch alert {
-        case expiryAlertOptions[1]:
-            timeRemaining = "1 day"
-        case expiryAlertOptions[2]:
-            timeRemaining = "2 days"
-        case expiryAlertOptions[3]:
-            timeRemaining = "3 days"
-        case expiryAlertOptions[4]:
-            timeRemaining = "1 week"
-        case expiryAlertOptions[5]:
-            timeRemaining = "2 weeks"
-        default:
-            timeRemaining = "NA"
-        }
-        return timeRemaining
     }
     
     
@@ -251,5 +158,5 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
 
 /**
  References:
- - Cancelling local notification: https://stackoverflow.com/questions/31951142/how-to-cancel-a-localnotification-with-the-press-of-a-button-in-swift
+ 
  */

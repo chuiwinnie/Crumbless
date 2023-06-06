@@ -10,7 +10,7 @@ import UIKit
 class ExpiryAlertTableViewController: UITableViewController {
     let CELL_EXPIRY_ALERT = "expiryAlertCell"
     
-    var expiryAlertOptions = ["None", "1 day before", "2 days before", "3 days before", "1 week before", "2 weeks before"]
+    var expiryAlertTableOptions = ["None", "1 day before", "2 days before", "3 days before", "1 week before", "2 weeks before"]
     var selectedExpiryAlertIndex: Int?
     var selectedExpiryAlertOption: String?
     
@@ -29,17 +29,17 @@ class ExpiryAlertTableViewController: UITableViewController {
     // Initialise selectedExpiryAlertIndex based on the previously selected expiry alert option retrieved from AddNewFoodItemViewController
     func showSelectedOption() {
         switch selectedExpiryAlertOption {
-        case expiryAlertOptions[0]:
+        case expiryAlertTableOptions[0]:
             selectedExpiryAlertIndex = 0
-        case expiryAlertOptions[1]:
+        case expiryAlertTableOptions[1]:
             selectedExpiryAlertIndex = 1
-        case expiryAlertOptions[2]:
+        case expiryAlertTableOptions[2]:
             selectedExpiryAlertIndex = 2
-        case expiryAlertOptions[3]:
+        case expiryAlertTableOptions[3]:
             selectedExpiryAlertIndex = 3
-        case expiryAlertOptions[4]:
+        case expiryAlertTableOptions[4]:
             selectedExpiryAlertIndex = 4
-        case expiryAlertOptions[5]:
+        case expiryAlertTableOptions[5]:
             selectedExpiryAlertIndex = 5
         default:
             selectedExpiryAlertIndex = 0
@@ -54,7 +54,7 @@ class ExpiryAlertTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expiryAlertOptions.count
+        return expiryAlertTableOptions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +62,7 @@ class ExpiryAlertTableViewController: UITableViewController {
         let expiryAlertCell = tableView.dequeueReusableCell(withIdentifier: CELL_EXPIRY_ALERT, for: indexPath)
         var content = expiryAlertCell.defaultContentConfiguration()
         
-        let alert = expiryAlertOptions[indexPath.row]
+        let alert = expiryAlertTableOptions[indexPath.row]
         content.text = alert
         
         // Only add checkmark to the selected alert option
@@ -82,7 +82,7 @@ class ExpiryAlertTableViewController: UITableViewController {
         tableView.reloadData()
         
         // Inform AddNewFoodItemViewController of newly selected expiry alert and navigate back
-        selectExpiryAlertDelegate?.selectedExpiryAlertOption = expiryAlertOptions[selectedExpiryAlertIndex ?? 0]
+        selectExpiryAlertDelegate?.selectedExpiryAlertOption = expiryAlertTableOptions[selectedExpiryAlertIndex ?? 0]
         navigationController?.popViewController(animated: true)
     }
     
