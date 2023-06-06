@@ -10,6 +10,7 @@ import UIKit
 
 extension UIViewController {
     class CustomDatePicker: UIDatePicker {
+        // The text field that the custom date/time picker is attached to
         var textField: UITextField?
     }
     
@@ -25,17 +26,19 @@ extension UIViewController {
         let datePicker = CustomDatePicker.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 300))
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
-        datePicker.minimumDate = Date()
-        datePicker.date = expiryDate
         datePicker.textField = expiryDateTextField
         datePicker.addTarget(self, action: #selector(dateChange(datePicker: )), for: UIControl.Event.valueChanged)
+        
+        // Set minimum date and default/previously selected date for expiry
+        datePicker.minimumDate = Date()
+        datePicker.date = expiryDate
         
         // Attach date picker to expiry date field
         expiryDateTextField.inputAccessoryView = toolbar
         expiryDateTextField.inputView = datePicker
     }
     
-    // Close expiry date field date picker
+    // Close text field date/time picker
     @objc func doneButtonClicked() {
         view.endEditing(true)
     }
@@ -60,13 +63,13 @@ extension UIViewController {
         timePicker.textField = expiryAlertTimeTextField
         timePicker.addTarget(self, action: #selector(timeChange(timePicker: )), for: UIControl.Event.valueChanged)
         
-        // Preset default time (9am) for alert
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        let date = dateFormatter.date(from: alertTime)
-        timePicker.date = date ?? Date()
+        // Set default/previously selected time for alert
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh:mm a"
+        let time = timeFormatter.date(from: alertTime)
+        timePicker.date = time ?? Date()
         
-        // Attach date picker to expiry alert time field
+        // Attach time picker to expiry alert time field
         expiryAlertTimeTextField.inputAccessoryView = toolbar
         expiryAlertTimeTextField.inputView = timePicker
     }
