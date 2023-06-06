@@ -28,7 +28,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         
         // Set up date picker for expiry date field
         expiryDateTextField.delegate = self
-        showExpiryDatePicker(expiryDateTextField: expiryDateTextField)
+        showExpiryDatePicker(expiryDateTextField: expiryDateTextField, expiryDate: Date())
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
@@ -36,7 +36,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self
         expiryAlertTimeTextField.text = "09:00 am"
-        showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField)
+        showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField, alertTime: "09:00 am")
         
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
@@ -100,13 +100,12 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         let date = dateFormatter.date(from: expiryDate)!
         
         // Validate expiry alert
-        let validAlert = validateAlert(expiryDate: date, alert: alert)
+        let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
+        let validAlert = validateAlert(expiry: date, alert: alert, alertTime: alertTime)
         if !validAlert {
             displayMessage(title: "Invalid Alert", message: "Please set an alert before the expiry date.")
             return
         }
-        
-        let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
         
         // Add food to database
         let food = databaseController?.addFood(name: name, expiryDate: date, alert: alert, alertTime: alertTime)
@@ -114,7 +113,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Schedule local notification
         if alert != expiryAlertOptions.none.rawValue {
             let id = food?.id ?? "NA"
-            scheduleAlert(id: id, name: name, alert: alert, expiryDate: date)
+            scheduleAlert(id: id, name: name, alert: alert, alertTime: alertTime, expiryDate: date)
         }
         
         navigationController?.popViewController(animated: true)

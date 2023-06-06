@@ -14,7 +14,7 @@ extension UIViewController {
     }
     
     // Set up date picker for expiry date text field
-    func showExpiryDatePicker(expiryDateTextField: UITextField) {
+    func showExpiryDatePicker(expiryDateTextField: UITextField, expiryDate: Date) {
         let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
         
         // Set up done button for closing date picker
@@ -26,6 +26,7 @@ extension UIViewController {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
         datePicker.minimumDate = Date()
+        datePicker.date = expiryDate
         datePicker.textField = expiryDateTextField
         datePicker.addTarget(self, action: #selector(dateChange(datePicker: )), for: UIControl.Event.valueChanged)
         
@@ -45,7 +46,7 @@ extension UIViewController {
     }
     
     // Set up time picker for expiry alert time text field
-    func showExpiryAlertTimePicker(expiryAlertTimeTextField: UITextField) {
+    func showExpiryAlertTimePicker(expiryAlertTimeTextField: UITextField, alertTime: String) {
         let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
         
         // Set up done button for closing time picker
@@ -62,7 +63,7 @@ extension UIViewController {
         // Preset default time (9am) for alert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
-        let date = dateFormatter.date(from: "09:00 am")
+        let date = dateFormatter.date(from: alertTime)
         timePicker.date = date ?? Date()
         
         // Attach date picker to expiry alert time field

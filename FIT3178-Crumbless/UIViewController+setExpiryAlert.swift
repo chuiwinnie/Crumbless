@@ -20,20 +20,38 @@ extension UIViewController {
     }
     
     // Check if the alert is set before the expiry date
-    func validateAlert(expiryDate: Date, alert: String) -> Bool {
+    func validateAlert(expiry: Date, alert: String, alertTime: String) -> Bool {
         // Prevent setting alert for food expiring today
-        let expiry = Calendar.current.dateComponents([.day, .year, .month], from: expiryDate)
+        let expiryDate = Calendar.current.dateComponents([.day, .year, .month], from: expiry)
         let today = Calendar.current.dateComponents([.day, .year, .month], from: Date())
-        if expiry == today {
+        if expiryDate == today {
             return false
         }
         
-        // Prevent setting alert on past date
-        let daysBeforeExpiry = getDaysBeforeExpiry(expiryDate: expiryDate)
+        // Prevent setting alert on past date or time
+        let daysBeforeExpiry = getDaysBeforeExpiry(expiryDate: expiry)
         let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
-        if daysBeforeAlert < 0 {
+        
+        if daysBeforeAlert == 0 {
+            // Check time if alert is set on today
+            let currentTime = Calendar.current.dateComponents([.hour, .minute], from: Date())
+            
+            let timeFormater = DateFormatter()
+            timeFormater.dateFormat = "hh:mm a"
+            let time = Calendar.current.dateComponents([.hour, .minute], from: timeFormater.date(from: alertTime) ?? Date())
+            
+            if currentTime.hour! < time.hour! {
+                return true
+            } else if currentTime.hour! == time.hour! && currentTime.minute! < time.minute! {
+                return true
+            } else {
+                return false
+            }
+        } else if daysBeforeAlert < 0 {
+            // Invalid alert if alert set before today
             return false
         }
+        
         return true
     }
     
@@ -63,7 +81,8 @@ extension UIViewController {
         return daysBeforeExpiry
     }
     
-    func scheduleAlert(id: String, name: String, alert: String, expiryDate: Date) {
+    // Schedule local notification for the food with the specified id
+    func scheduleAlert(id: String, name: String, alert: String, alertTime: String, expiryDate: Date) {
         let timeRemaining = getTimeRemaining(alert: alert)
         
         // Configure notification content
@@ -76,8 +95,14 @@ extension UIViewController {
         let daysBeforeAlert = daysBeforeExpiry - getAlertDaysBeforeExpiry(alert: alert)
         let alertDate = Calendar.current.date(byAdding: .day, value: daysBeforeAlert, to: Date()) ?? Date()
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: alertDate)
-        dateComponents.hour = 6
-        dateComponents.minute = 32
+        
+        // Set the time for alert
+        let timeFormater = DateFormatter()
+        timeFormater.dateFormat = "hh:mm a"
+        let time = timeFormater.date(from: alertTime) ?? Date()
+        dateComponents.hour = Calendar.current.component(.hour, from: time)
+        dateComponents.minute = Calendar.current.component(.minute, from: time)
+        
         print("Alert for \(name) set for: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
         
         // Schedule notification
@@ -106,6 +131,7 @@ extension UIViewController {
         return timeRemaining
     }
     
+    // Cancel pending local notification for the food with the specified id
     func cancelAlert(id: String) {
         // Cancel the local notification with the specified id
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
@@ -121,5 +147,7 @@ extension UIViewController {
  - Calculating date from now: https://www.appsdeveloperblog.com/add-days-months-or-years-to-current-date-in-swift/
  - Calculating difference between 2 dates: https://iostutorialjunction.com/2019/09/get-number-of-days-between-two-dates-swift.html
  - Converting Date to DateComponents: https://stackoverflow.com/questions/42042215/convert-date-to-datecomponents-in-function-to-schedule-local-notification-in-swi
+ - Converting String to Time: https://stackoverflow.com/questions/28624821/swift-how-to-convert-string-to-string-with-time-format
+ - Retrieving only the time of the day: https://stackoverflow.com/questions/24137692/how-to-get-the-hour-of-the-day-with-swift
  - Cancelling local notification: https://stackoverflow.com/questions/31951142/how-to-cancel-a-localnotification-with-the-press-of-a-button-in-swift
  */
