@@ -8,12 +8,19 @@
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var databaseController: DatabaseProtocol?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         databaseController = FirebaseController()
+        UNUserNotificationCenter.current().delegate = self
         return true
+    }
+    
+    // Show notification banner even when the app is in the foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Show a banner
+        completionHandler(.banner)
     }
     
     
@@ -32,3 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
+
+
+/**
+ References
+ - Showing notification while the app is in the foreground: https://sarunw.com/posts/notification-in-foreground/
+ */
