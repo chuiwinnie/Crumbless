@@ -11,6 +11,8 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var expiryDateTextField: UITextField!
     @IBOutlet weak var expiryAlertTextField: UITextField!
+    @IBOutlet weak var expiryAlertTimeLabel: UILabel!
+    @IBOutlet weak var expiryAlertTimeTextField: UITextField!
     
     weak var databaseController: DatabaseProtocol?
     
@@ -32,10 +34,15 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Set up date picker for expiry date field
         expiryDateTextField.delegate = self
-        showExpiryDatePicker()
+        showExpiryDatePicker(expiryDateTextField: expiryDateTextField)
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
+        
+        // Set up time picker for expiry alert time field
+        expiryAlertTimeTextField.delegate = self
+        expiryAlertTimeTextField.text = "09:00 am"
+        showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField)
         
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
@@ -54,35 +61,15 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         } else {
             expiryAlertTextField.text = "None"
         }
-    }
-    
-    func showExpiryDatePicker() {
-        let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
         
-        // Set up done button for closing date picker
-        let doneButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(doneButtonClicked))
-        toolbar.setItems([UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil), doneButton], animated: true)
-        
-        // Set up date picker
-        let datePicker = UIDatePicker.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 300))
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .inline
-        datePicker.minimumDate = Date()
-        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-        
-        // Attach date picker to expiry date field
-        expiryDateTextField.inputAccessoryView = toolbar
-        expiryDateTextField.inputView = datePicker
-    }
-    
-    // Close expiry date field date picker
-    @objc func doneButtonClicked() {
-        view.endEditing(true)
-    }
-    
-    // Update expiry date field if date picker date changed
-    @objc func dateChange(datePicker: UIDatePicker) {
-        expiryDateTextField.text = formatDate(date: datePicker.date)
+        // Only show option to set expiry alert time if expiry alert selected
+        if expiryAlertTextField.text == "None" {
+            expiryAlertTimeLabel.isHidden = true
+            expiryAlertTimeTextField.isHidden = true
+        } else {
+            expiryAlertTimeLabel.isHidden = false
+            expiryAlertTimeTextField.isHidden = false
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -157,6 +144,6 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
 
 
 /**
- References:
+ References
  
  */

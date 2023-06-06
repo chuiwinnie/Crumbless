@@ -114,7 +114,7 @@ extension UIViewController {
 
 
 /**
- References:
+ References
  - Scheduling local notification: https://www.hackingwithswift.com/books/ios-swiftui/scheduling-local-notifications
  - Scheduling local notification on a specific date: https://stackoverflow.com/questions/44632876/swift-3-how-to-set-up-local-notification-at-specific-date
  - Scheduling local notification at a specific time: https://stackoverflow.com/questions/52009454/how-do-i-send-local-notifications-at-a-specific-time-in-swift

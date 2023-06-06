@@ -24,6 +24,6 @@ extension UIViewController {
 
 
 /**
- References:
+ References
  - Formatting time: https://stackoverflow.com/questions/61546387/how-to-get-only-time-from-date-in-swift
  */

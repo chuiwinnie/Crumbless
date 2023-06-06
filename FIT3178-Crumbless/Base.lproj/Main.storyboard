@@ -143,13 +143,13 @@
                         <viewLayoutGuide key="safeArea" id="WEe-84-le4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="h6d-QX-WSD" firstAttribute="top" secondItem="OaM-Sm-hFz" secondAttribute="bottom" constant="15" id="0u2-WT-OCi"/>
                             <constraint firstItem="6XP-do-jOM" firstAttribute="top" secondItem="q27-y1-1QP" secondAttribute="bottom" constant="30" id="1mU-x7-Khk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="q27-y1-1QP" secondAttribute="trailing" constant="30" id="6lB-QF-Mix"/>
                             <constraint firstItem="Vv6-4K-RYd" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="7EB-Ng-OUX"/>
                             <constraint firstAttribute="bottom" secondItem="e7C-bZ-vci" secondAttribute="bottom" constant="100" id="7cs-lw-aeG"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="e7C-bZ-vci" secondAttribute="trailing" constant="30" id="7ib-pf-lnk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="zeW-ak-SWO" secondAttribute="trailing" constant="30" id="8Yr-0L-hHw"/>
+                            <constraint firstItem="h6d-QX-WSD" firstAttribute="top" secondItem="OaM-Sm-hFz" secondAttribute="bottom" constant="15" id="8yi-35-8tt"/>
                             <constraint firstItem="OaM-Sm-hFz" firstAttribute="top" secondItem="Vv6-4K-RYd" secondAttribute="bottom" constant="30" id="B2h-Su-WlQ"/>
                             <constraint firstItem="q27-y1-1QP" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="Bj4-hW-awh"/>
                             <constraint firstItem="6XP-do-jOM" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="ITz-ET-FmE"/>
@@ -704,19 +704,33 @@
                                     <action selector="updateItem:" destination="KiI-v4-6Gw" eventType="touchUpInside" id="y5o-yB-0IG"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Alert Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwP-h6-Xhm">
+                                <rect key="frame" x="30" y="442" width="333" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8tL-Tr-JPV">
+                                <rect key="frame" x="30" y="481" width="333" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vtN-jz-Kgr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VwP-h6-Xhm" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="5Kp-Xw-18L"/>
                             <constraint firstItem="9At-1x-Dvs" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="6VP-su-cwZ"/>
                             <constraint firstItem="SJS-CV-fby" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="7hL-X5-R0v"/>
                             <constraint firstItem="CSW-Rl-7Cl" firstAttribute="top" secondItem="o5m-By-RuR" secondAttribute="bottom" constant="15" id="EnU-TJ-uhs"/>
+                            <constraint firstItem="VwP-h6-Xhm" firstAttribute="top" secondItem="CSW-Rl-7Cl" secondAttribute="bottom" constant="30" id="IDM-RG-y67"/>
                             <constraint firstItem="9At-1x-Dvs" firstAttribute="top" secondItem="2IA-wq-lgO" secondAttribute="bottom" constant="15" id="IW8-UI-9PV"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="CSW-Rl-7Cl" secondAttribute="trailing" constant="30" id="Lk9-Eh-nm1"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="9At-1x-Dvs" secondAttribute="trailing" constant="30" id="NIh-1i-dhi"/>
                             <constraint firstItem="2IA-wq-lgO" firstAttribute="top" secondItem="bQ9-Tp-0vO" secondAttribute="bottom" constant="30" id="Obf-2D-9WY"/>
                             <constraint firstItem="bQ9-Tp-0vO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="QbL-j2-Bpp"/>
                             <constraint firstItem="CSW-Rl-7Cl" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="a2P-MY-bJ0"/>
+                            <constraint firstItem="8tL-Tr-JPV" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="bys-TD-Pyv"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bQ9-Tp-0vO" secondAttribute="trailing" constant="30" id="dLU-3t-bwp"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bEV-7g-ab3" secondAttribute="trailing" constant="30" id="eBf-Au-3pV"/>
                             <constraint firstItem="2IA-wq-lgO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="fB6-dk-tDX"/>
@@ -725,8 +739,11 @@
                             <constraint firstItem="bQ9-Tp-0vO" firstAttribute="top" secondItem="SJS-CV-fby" secondAttribute="bottom" constant="15" id="nXn-RL-I0r"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="o5m-By-RuR" secondAttribute="trailing" constant="30" id="oln-dx-Q6a"/>
                             <constraint firstItem="bEV-7g-ab3" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="p3q-rM-cXq"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="VwP-h6-Xhm" secondAttribute="trailing" constant="30" id="r6h-DU-hW8"/>
                             <constraint firstItem="o5m-By-RuR" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="rQP-12-01o"/>
                             <constraint firstItem="o5m-By-RuR" firstAttribute="top" secondItem="9At-1x-Dvs" secondAttribute="bottom" constant="30" id="sQG-EI-GWg"/>
+                            <constraint firstItem="8tL-Tr-JPV" firstAttribute="top" secondItem="VwP-h6-Xhm" secondAttribute="bottom" constant="15" id="vN3-cE-R6J"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="8tL-Tr-JPV" secondAttribute="trailing" constant="30" id="x1G-Sw-TlQ"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="SJS-CV-fby" secondAttribute="trailing" constant="30" id="xlu-Ze-sUb"/>
                             <constraint firstItem="SJS-CV-fby" firstAttribute="top" secondItem="vtN-jz-Kgr" secondAttribute="top" constant="30" id="ylj-Jj-vkb"/>
                         </constraints>
@@ -734,6 +751,8 @@
                     <navigationItem key="navigationItem" title="Food Item Details" id="HwI-jk-nfw"/>
                     <connections>
                         <outlet property="expiryAlertTextField" destination="CSW-Rl-7Cl" id="mUi-Ua-9To"/>
+                        <outlet property="expiryAlertTimeLabel" destination="VwP-h6-Xhm" id="NoV-tr-O7D"/>
+                        <outlet property="expiryAlertTimeTextField" destination="8tL-Tr-JPV" id="zdl-eJ-nNX"/>
                         <outlet property="expiryDateTextField" destination="9At-1x-Dvs" id="JyL-Zr-8ge"/>
                         <outlet property="nameTextField" destination="bQ9-Tp-0vO" id="cXe-S7-BIy"/>
                         <segue destination="2EK-zm-oak" kind="show" identifier="showExpiryAlertSegue" id="F35-2j-P6n"/>
@@ -1104,7 +1123,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4N8-YN-80f"/>
+        <segue reference="F35-2j-P6n"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
