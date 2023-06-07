@@ -109,9 +109,8 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Validate expiry alert
         let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
-        let validAlert = validateAlert(expiry: date, alert: alert, alertTime: alertTime)
-        if !validAlert {
-            displayMessage(title: "Invalid Alert", message: "Please set an alert in between the current time and the expiry date.")
+        if alert != expiryAlertOptions.none.rawValue && !validateAlert(expiry: date, alert: alert, alertTime: alertTime) {
+            displayMessage(title: "Invalid Alert", message: "Please set an alert in between the current time and the expiry date")
             return
         }
         
