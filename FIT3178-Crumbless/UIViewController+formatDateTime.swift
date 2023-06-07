@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = UserDefaults.standard.string(forKey: "dateFormat") ?? "dd-MM-yyyy"
         return dateFormatter.string(from: date)
     }
     
@@ -26,5 +26,6 @@ extension UIViewController {
 
 /**
  References
+ - Date format options: https://auth0.com/blog/introduction-date-time-programming-swift-2/
  - Formatting time: https://stackoverflow.com/questions/61546387/how-to-get-only-time-from-date-in-swift
  */

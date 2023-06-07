@@ -23,6 +23,11 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
         updateButtonDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // Reload table to reflect updated preferred date format
+        tableView.reloadData()
+    }
+    
     func updateButtonDisplay() {
         if foodList.isEmpty {
             searchRecipeButton.isEnabled = false

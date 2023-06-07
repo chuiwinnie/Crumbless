@@ -10,7 +10,7 @@ import UIKit
 class ExpiryAlertTableViewController: UITableViewController {
     let CELL_EXPIRY_ALERT = "expiryAlertCell"
     
-    var expiryAlertTableOptions = ["None", "1 day before", "2 days before", "3 days before", "1 week before", "2 weeks before"]
+    let expiryAlertTableOptions = ["None", "1 day before", "2 days before", "3 days before", "1 week before", "2 weeks before"]
     var selectedExpiryAlertIndex: Int?
     var selectedExpiryAlertOption: String?
     
@@ -77,11 +77,11 @@ class ExpiryAlertTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Update selectedIndex and checkmark based on selected alert option
+        // Update selectedExpiryAlertIndex and checkmark based on selected alert option
         selectedExpiryAlertIndex = indexPath.row
         tableView.reloadData()
         
-        // Inform AddNewFoodItemViewController of newly selected expiry alert and navigate back
+        // Inform AddNewFoodItemViewController of the newly selected expiry alert and navigate back
         selectExpiryAlertDelegate?.selectedExpiryAlertOption = expiryAlertTableOptions[selectedExpiryAlertIndex ?? 0]
         navigationController?.popViewController(animated: true)
     }

@@ -123,7 +123,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Preset to previously selected expiry alert option before showing the expiry alert table view
+        // Set the previously selected expiry alert option before showing the expiry alert table view
         if segue.identifier == "showExpiryAlertSegue" {
             let destination = segue.destination as! ExpiryAlertTableViewController
             destination.selectExpiryAlertDelegate = self

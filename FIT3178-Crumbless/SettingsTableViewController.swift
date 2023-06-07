@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, SelectDateFormatDelegate {
     let SECTION_ACCOUNT = 0
     let SECTION_DARK_MODE = 1
     let SECTION_DATE_FORMAT = 2
@@ -19,6 +19,8 @@ class SettingsTableViewController: UITableViewController {
     weak var databaseController: DatabaseProtocol?
     
     var userDefaults: UserDefaults?
+    
+    var selectedDateFormatOption: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,9 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        
+        // Retrieve selected preferred date format
+        selectedDateFormatOption = userDefaults?.string(forKey: "dateFormat") ?? "DD-MM-YYYY"
     }
     
     
@@ -81,7 +86,7 @@ class SettingsTableViewController: UITableViewController {
             // Display preferred date format
             var content = dateFormatCell.defaultContentConfiguration()
             content.text = "Date Format"
-            content.secondaryText = "DD-MM-YYYY"
+            content.secondaryText = userDefaults?.string(forKey: "dateFormat") ?? "DD-MM-YYYY"
             
             dateFormatCell.contentConfiguration = content
             return dateFormatCell
@@ -115,6 +120,18 @@ class SettingsTableViewController: UITableViewController {
         
         // Update light or dark mode
         setAppearance()
+    }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Set the previously selected preferred date format before showing the date format table view
+        if segue.identifier == "showDateFormatSegue" {
+            let destination = segue.destination as! DateFormatTableViewController
+            destination.selectDateFormatDelegate = self
+            destination.selectedDateFormatOption = selectedDateFormatOption
+        }
     }
     
 }
