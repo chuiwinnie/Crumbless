@@ -76,9 +76,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         if listener.listenerType == .foodItems {
             listener.onFoodItemsChange(change: .update, foodItems: foodList)
-        } else if listener.listenerType == .consumedFoodItems {
+        } else if listener.listenerType == .consumedOrExpiredFoodItems {
             listener.onConsumedFoodItemsChange(change: .update, consumedFoodItems: consumedFoodList)
-        } else if listener.listenerType == .expiredFoodItems {
             listener.onExpiredFoodItemsChange(change: .update, expiredFoodItems: expiredFoodList)
         }
     }
@@ -414,7 +413,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             
             // Use multicast delegate's invoke method to call onConsumedFoodItemsChange on each listener
             listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.consumedFoodItems {
+                if listener.listenerType == ListenerType.consumedOrExpiredFoodItems {
                     listener.onConsumedFoodItemsChange(change: .update, consumedFoodItems: consumedFoodList)
                 }
             }
@@ -466,7 +465,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             
             // Use multicast delegate's invoke method to call onExpiredFoodItemsChange on each listener
             listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.consumedFoodItems {
+                if listener.listenerType == ListenerType.consumedOrExpiredFoodItems {
                     listener.onExpiredFoodItemsChange(change: .update, expiredFoodItems: expiredFoodList)
                 }
             }

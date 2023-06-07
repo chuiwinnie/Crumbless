@@ -18,8 +18,7 @@ enum DatabaseChange {
 
 enum ListenerType {
     case foodItems
-    case consumedFoodItems
-    case expiredFoodItems
+    case consumedOrExpiredFoodItems
     case users
 }
 
