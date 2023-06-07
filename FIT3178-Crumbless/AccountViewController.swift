@@ -16,13 +16,26 @@ class AccountViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
     
+    var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Disable account details text view editing
         textView.isEditable = false
+        
+        // Set up indicator
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,15 +55,29 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func signOut(_ sender: Any) {
-        databaseController?.signOut() { (signOutSuccess, error) in
-            DispatchQueue.main.async {
-                if signOutSuccess {
-                    self.navigationController?.popViewController(animated: true)
-                    return
+        // Confirm sign out
+        let alertController = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        
+        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
+            // Start animating indicator
+            self.indicator.startAnimating()
+            
+            // Sign out if confirmed
+            self.databaseController?.signOut() { (signOutSuccess, error) in
+                DispatchQueue.main.async {
+                    if signOutSuccess {
+                        self.navigationController?.popViewController(animated: true)
+                        return
+                    }
+                    self.indicator.stopAnimating()
+                    self.displayMessage(title: "Sign Out Failed", message: error)
                 }
-                self.displayMessage(title: "Sign Out Failed", message: error)
             }
-        }
+        }))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     func setAccountDetailsTextView() {
@@ -82,3 +109,9 @@ class AccountViewController: UIViewController {
     }
     
 }
+
+
+/**
+ References
+ - Sign out confirmation message: https://stackoverflow.com/questions/25511945/swift-alert-view-with-ok-and-cancel-which-button-tapped
+ */

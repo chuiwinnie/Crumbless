@@ -14,23 +14,24 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     
     weak var databaseController: DatabaseProtocol?
-    var handle: AuthStateDidChangeListenerHandle?
+    
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //        handle = Auth.auth().addStateDidChangeListener { auth, user in
-        //        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //        Auth.auth().removeStateDidChangeListener(handle!)
+        
+        // Set up indicator
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     @IBAction func login(_ sender: Any) {
@@ -52,14 +53,19 @@ class LoginViewController: UIViewController {
             return
         }
         
+        // Start animating indicator
+        indicator.startAnimating()
+        
         databaseController?.login(email: email, password: password) { (loginSuccess, error) in
             DispatchQueue.main.async {
                 if loginSuccess {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
+                self.indicator.stopAnimating()
                 self.displayMessage(title: "Login Failed", message: error)
             }
         }
     }
+    
 }
