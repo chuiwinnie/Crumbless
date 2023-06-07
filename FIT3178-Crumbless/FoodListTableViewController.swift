@@ -99,9 +99,13 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             
             // Set the secondary text of each cell as the expiry date
             let expiryDate = food.expiryDate
-            content.secondaryText = formatDate(date: expiryDate ?? Date())
+            content.secondaryText = dateToString(date: expiryDate ?? Date())
+            
+            // Set the accessory view of each cell as the number of days left before the expiry date with a chevron symbol
+            let accessoryView = getFoodCellAccessoryView(expiryDate: expiryDate ?? Date())
             
             foodCell.contentConfiguration = content
+            foodCell.accessoryView = accessoryView
             return foodCell
         } else {
             // Configure a info cell
@@ -118,6 +122,34 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             infoCell.contentConfiguration = content
             return infoCell
         }
+    }
+    
+    // Create and return the accessory view to attach to each food cell
+    func getFoodCellAccessoryView(expiryDate: Date) -> UIView {
+        // Create label for remaining number of days
+        let remainingDaysLabel = UILabel.init(frame: CGRect(x:0, y:0, width:80, height:20))
+        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
+        remainingDaysLabel.text = String(remainingDays)
+        if remainingDays == 0 {
+            remainingDaysLabel.text = "Today"
+        } else if remainingDays == 1 {
+            remainingDaysLabel.text! += " Day"
+        } else {
+            remainingDaysLabel.text! += " Days"
+        }
+        remainingDaysLabel.textAlignment = .right
+        
+        // Create image view for chevron symbol
+        let chevronImageView = UIImageView(frame:CGRectMake(0, 0, 20, 20))
+        chevronImageView.image = UIImage(systemName: "chevron.right")
+        
+        // Create accessory view for food cell
+        let accessoryView = UIStackView.init(frame: CGRect(x:0, y:0, width:100, height:20))
+        accessoryView.addArrangedSubview(remainingDaysLabel)
+        accessoryView.addArrangedSubview(chevronImageView)
+        accessoryView.spacing = 15
+        
+        return accessoryView
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -192,7 +224,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Preset the food to display before showing the food details page
+        // Set the food to display before showing the food details page
         if segue.identifier == "showFoodDetailsSegue" {
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                 let destination = segue.destination as! FoodDetailsViewController
@@ -202,3 +234,12 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
 }
+
+
+/**
+ References
+ - Adding number of days before food expiry to the right of each food cell: https://stackoverflow.com/questions/49473959/ios-swift-uitableviewcell-with-left-detail-and-right-detail-and-subtitle
+ - Right aligning text for number of days before food expiry: https://stackoverflow.com/questions/24034300/swift-uilabel-text-alignment
+ - Adding chevron to the right of each food cell: https://stackoverflow.com/questions/18717830/how-to-get-system-images-programmatically-example-disclosure-chevron
+ - Creating stack view for food cell accessory view: https://www.kodeco.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views#toc-anchor-011
+ */
