@@ -38,6 +38,10 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
+        expiryAlertTextField.rightViewMode = .always
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(UIImageView(image: UIImage(systemName: "chevron.right")))
+        expiryAlertTextField.rightView = stackView
         
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self

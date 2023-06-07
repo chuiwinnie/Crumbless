@@ -32,6 +32,10 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
+        expiryAlertTextField.rightViewMode = .always
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(UIImageView(image: UIImage(systemName: "chevron.right")))
+        expiryAlertTextField.rightView = stackView
         
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self
@@ -133,5 +137,5 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
 
 /**
  References
- -
+ - Adding chevron at the end of expiry alert text field: https://stackoverflow.com/questions/27903500/swift-add-icon-image-in-uitextfield
  */
