@@ -15,25 +15,86 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     var consumedFoodList: [Food] = []
     var expiredFoodList: [Food] = []
     
-    var listenerType = ListenerType.consumedFoodItems
+    var listenerType = ListenerType.consumedOrExpiredFoodItems
     weak var databaseController: DatabaseProtocol?
+    
+    var chartView: UIView = UIView.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        // Add the chart view as a subview
+        if consumedFoodList.count + expiredFoodList.count == 0 {
+            chartView = setUpLabelView()
+        } else {
+            chartView = setUpPieChartView()
+        }
+        view.addSubview(chartView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+        
+        // Update chart view
+        updateChartView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
+    
+    
+    // MARK: - Chart
+    
+    func updateChartView() {
+        // Create a new pie chart or message label
+        var newChartView: UIView
+        if consumedFoodList.count + expiredFoodList.count == 0 {
+            newChartView = setUpLabelView()
+        } else {
+            newChartView = setUpPieChartView()
+        }
+        
+        // Replace the chart view
+        if let index = view.subviews.firstIndex(of: chartView) {
+            chartView.removeFromSuperview()
+            view.insertSubview(newChartView, at: index)
+            chartView = newChartView
+        }
+    }
+    
+    func setUpLabelView() -> UILabel {
+        // Create a no items message label view
+        let labelView = UILabel.init(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: 20))
+        labelView.text = "No food items consumed or expired yet."
+        labelView.textAlignment = .center
+        labelView.center = CGPoint(x: view.center.x, y: view.center.y*0.63)
+        
+        return labelView
+    }
+    
+    func setUpPieChartView() -> PieChartView {
+        // Create a pie chart view
+        let pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: view.bounds.width))
+        pieChartView.backgroundColor = .clear
+        pieChartView.center = CGPoint(x: view.center.x, y: view.center.y*0.63)
+        
+        // Set the segments for the pie chart
+        let consumedFoodSegment = Segment(name: "Consumed Food", colour: UIColor.systemGreen, value: CGFloat(consumedFoodList.count))
+        let expiredFoodSegment = Segment(name: "Expired Food", colour: UIColor.systemRed, value: CGFloat(expiredFoodList.count))
+        pieChartView.segments = [consumedFoodSegment, expiredFoodSegment]
+        
+        return pieChartView
+    }
+    
+    
+    // MARK: - Database
     
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
         // do nothing

@@ -51,6 +51,8 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         databaseController?.removeListener(listener: self)
     }
     
+    // MARK: - Database
+    
     // Update food list table on database food items change
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
         foodList = foodItems
