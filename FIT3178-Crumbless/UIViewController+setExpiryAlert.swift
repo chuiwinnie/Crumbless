@@ -111,7 +111,7 @@ extension UIViewController {
         dateComponents.hour = Calendar.current.component(.hour, from: time)
         dateComponents.minute = Calendar.current.component(.minute, from: time)
         
-        print("Alert for \(name) set for: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
+        print("Alert set for \(name) (\(id)) on: \(dateComponents.year!)-\(dateComponents.month!)-\(dateComponents.day!) \(dateComponents.hour!):\(dateComponents.minute!)")
         
         // Schedule notification
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -143,6 +143,7 @@ extension UIViewController {
     func cancelAlert(id: String) {
         // Cancel the local notification with the specified id
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+        print("Alert removed for food with ID: \(id)")
     }
     
 }

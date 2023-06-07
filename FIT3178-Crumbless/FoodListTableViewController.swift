@@ -166,8 +166,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
-            // Cancel relevant local notification
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [food.id ?? "NA"])
+            
+            // Cancel relevant expiry alert
+            self.cancelAlert(id: food.id ?? "NA")
         }
         deleteAction.backgroundColor = .systemRed
         
@@ -175,6 +176,11 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         let expireAction = UIContextualAction(style: .normal, title: "Expired") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
+            
+            // Cancel relevant expiry alert
+            self.cancelAlert(id: food.id ?? "NA")
+            
+            // Add expired food
             let _ = self.databaseController?.addExpiredFood(food: food)
         }
         expireAction.backgroundColor = .systemYellow
@@ -183,6 +189,11 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         let consumeAction = UIContextualAction(style: .normal, title: "Used") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
+            
+            // Cancel relevant expiry alert
+            self.cancelAlert(id: food.id ?? "NA")
+            
+            // Add consumed food
             let _ = self.databaseController?.addConsumedFood(food: food)
         }
         consumeAction.backgroundColor = .systemGreen
