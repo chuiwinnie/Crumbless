@@ -7,12 +7,14 @@
 
 import UIKit
 
+// Struct for a segment in the pie chart
 struct Segment {
     let name: String
     let colour: UIColor
     let value: CGFloat
 }
 
+// Custom Pie Chart View class
 class PieChartView: UIView {
     var segments: [Segment] = []
     
@@ -57,10 +59,10 @@ class PieChartView: UIView {
         drawLegend()
     }
     
-    private func drawLegend() {
-        let legendOrigin = CGPoint(x: 0, y: bounds.height - 20)
+    func drawLegend() {
+        let legendOrigin = CGPoint(x: 10, y: bounds.height - 20)
         let legendItemSize = CGSize(width: 20, height: 20)
-        let legendSpacing: CGFloat = 8
+        let legendSpacing: CGFloat = 5
         var legendRectangle = CGRect(origin: legendOrigin, size: CGSize.zero)
         
         for segment in segments {
@@ -91,9 +93,20 @@ class PieChartView: UIView {
             legendTextAttributedString.draw(in: legendTextRectangle)
             
             // Update the legend rectangle for the next segment legend
-            let legendRectangleWidth = legendItemRectangle.width + legendTextWidth + legendSpacing * 4
+            let legendRectangleWidth = legendItemRectangle.width + legendTextWidth + legendSpacing * 5
             legendRectangle = legendRectangle.offsetBy(dx: legendRectangleWidth, dy: 0)
         }
     }
     
 }
+
+
+/**
+ References
+ - Drawing path: https://developer.apple.com/documentation/uikit/uibezierpath
+ - Drawing and filling shapes defined by path: https://stackoverflow.com/questions/31569051/how-to-draw-a-line-in-the-simplest-way-in-swift
+ - Calculating pie chart angles: https://stackoverflow.com/questions/29179692/how-can-i-convert-from-degrees-to-radians
+ - Creating rectangles for legend elements: https://developer.apple.com/documentation/corefoundation/cgrect
+ - Positioning legend element rectangles: https://developer.apple.com/documentation/corefoundation/cgpoint
+ - Writing legend text: https://developer.apple.com/documentation/foundation/nsattributedstring
+ */

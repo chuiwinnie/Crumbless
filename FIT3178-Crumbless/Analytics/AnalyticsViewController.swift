@@ -8,10 +8,12 @@
 import UIKit
 
 class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener {
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
     let CELL_FOOD = "foodCell"
     
+    var foodList: [Food] = []
     var consumedFoodList: [Food] = []
     var expiredFoodList: [Food] = []
     
@@ -27,6 +29,9 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Set up segmented control
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        
         // Add the chart view as a subview
         if consumedFoodList.count + expiredFoodList.count == 0 {
             chartView = setUpLabelView()
@@ -36,12 +41,19 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         view.addSubview(chartView)
     }
     
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        updateTableView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         
         // Update chart view
         updateChartView()
+        
+        // Update table view
+        updateTableView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,8 +98,8 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         pieChartView.center = CGPoint(x: view.center.x, y: view.center.y*0.63)
         
         // Set the segments for the pie chart
-        let consumedFoodSegment = Segment(name: "Consumed Food", colour: UIColor.systemGreen, value: CGFloat(consumedFoodList.count))
-        let expiredFoodSegment = Segment(name: "Expired Food", colour: UIColor.systemRed, value: CGFloat(expiredFoodList.count))
+        let consumedFoodSegment = Segment(name: "Consumed Food", colour: UIColor.systemYellow, value: CGFloat(consumedFoodList.count))
+        let expiredFoodSegment = Segment(name: "Expired Food", colour: UIColor.systemBlue, value: CGFloat(expiredFoodList.count))
         pieChartView.segments = [consumedFoodSegment, expiredFoodSegment]
         
         return pieChartView
@@ -97,21 +109,23 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: - Database
     
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
-        // do nothing
+        // General/Normal food items are not shown in this tab/table, hence do nothing
     }
     
+    // Update consumed food list when database consumed food items change
     func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food]) {
         consumedFoodList = consumedFoodItems
         tableView.reloadData()
     }
     
+    // Update expired food list when database expired food items change
     func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food]) {
         expiredFoodList = expiredFoodItems
         tableView.reloadData()
     }
     
     func onUsersChange(change: DatabaseChange, users: [User]) {
-        // do nothing
+        // This tab/view does not need to show users, hence do nothing
     }
     
     
@@ -122,24 +136,40 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return consumedFoodList.count
+        return foodList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Configure and return a food cell
+        // Configure a food cell
         let foodCell = tableView.dequeueReusableCell(withIdentifier: CELL_FOOD, for: indexPath)
         var content = foodCell.defaultContentConfiguration()
         
-        let food = consumedFoodList[indexPath.row]
+        // Show only food items in the food list
+        let food = foodList[indexPath.row]
         content.text = food.name
         
         foodCell.contentConfiguration = content
         return foodCell
     }
     
-    // Override to support conditional editing of the table view.
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
+    // Update the table content based on the selected segment
+    func updateTableView() {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            foodList = consumedFoodList
+        case 1:
+            foodList = expiredFoodList
+        default:
+            break
+        }
+        tableView.reloadData()
     }
     
 }
+
+
+/**
+ References
+ - Segmented control with table view: https://stackoverflow.com/questions/71361577/segmented-control-with-a-uitableview
+ - Replacing chart view: https://stackoverflow.com/questions/30831444/swift-remove-subviews-from-superview
+ */

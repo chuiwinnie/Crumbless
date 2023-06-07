@@ -27,6 +27,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Initialise filtered food list to food list
         filteredFoodList = foodList
         
         // Set up search controller
@@ -51,9 +52,10 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         databaseController?.removeListener(listener: self)
     }
     
+    
     // MARK: - Database
     
-    // Update food list table on database food items change
+    // Update food list when database food items change
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
         foodList = foodItems
         updateSearchResults(for: navigationItem.searchController!)
@@ -68,7 +70,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     func onUsersChange(change: DatabaseChange, users: [User]) {
-        // This tab/table does not need to show users, hence do nothing
+        // This tab/view does not need to show users, hence do nothing
     }
     
     

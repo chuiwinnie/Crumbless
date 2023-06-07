@@ -275,10 +275,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Xr-a5-qDX">
-                                <rect key="frame" x="5" y="499" width="383" height="260"/>
+                                <rect key="frame" x="5" y="524" width="383" height="235"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="u7l-se-qjZ"/>
+                                    <constraint firstAttribute="height" constant="235" id="PiI-dF-mvA"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="foodCell" textLabel="cfI-rg-7m1" style="IBUITableViewCellStyleDefault" id="iZO-ec-WPX">
@@ -304,17 +304,28 @@
                                     <outlet property="delegate" destination="9Z8-gj-wE7" id="4e6-SZ-GBe"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uHc-C6-qLV">
+                                <rect key="frame" x="30" y="483" width="333" height="32"/>
+                                <segments>
+                                    <segment title="Consumed"/>
+                                    <segment title="Expired"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Osy-80-fRG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Xr-a5-qDX" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="5" id="5Ra-ov-Wc0"/>
+                            <constraint firstItem="6Xr-a5-qDX" firstAttribute="top" secondItem="uHc-C6-qLV" secondAttribute="bottom" constant="10" id="CrW-xN-1o2"/>
                             <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="6Xr-a5-qDX" secondAttribute="trailing" constant="5" id="ShR-Lj-5eE"/>
+                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="uHc-C6-qLV" secondAttribute="trailing" constant="30" id="ZJP-4o-NkC"/>
+                            <constraint firstItem="uHc-C6-qLV" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="30" id="oON-uK-MNs"/>
                             <constraint firstItem="Osy-80-fRG" firstAttribute="bottom" secondItem="6Xr-a5-qDX" secondAttribute="bottom" constant="10" id="x2Z-ty-mUj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Analytics" id="KLt-qW-qJL"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="uHc-C6-qLV" id="Jhm-vC-r9h"/>
                         <outlet property="tableView" destination="6Xr-a5-qDX" id="6Qi-9d-vJc"/>
                     </connections>
                 </viewController>
