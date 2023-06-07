@@ -65,6 +65,7 @@ class SettingsTableViewController: UITableViewController, SelectDateFormatDelega
             }
             
             accountCell.contentConfiguration = content
+            accountCell.accessoryType = .disclosureIndicator
             return accountCell
         } else if indexPath.section == SECTION_DARK_MODE {
             // Configure a dark mode cell
@@ -89,6 +90,7 @@ class SettingsTableViewController: UITableViewController, SelectDateFormatDelega
             content.secondaryText = userDefaults?.string(forKey: "dateFormat") ?? "DD-MM-YYYY"
             
             dateFormatCell.contentConfiguration = content
+            dateFormatCell.accessoryType = .disclosureIndicator
             return dateFormatCell
         }
     }
