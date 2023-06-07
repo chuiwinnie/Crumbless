@@ -9,13 +9,19 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    func formatDate(date: Date) -> String {
+    func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = UserDefaults.standard.string(forKey: "dateFormat") ?? "dd-MM-yyyy"
         return dateFormatter.string(from: date)
     }
     
-    func formatTime(date: Date) -> String {
+    func stringToDate(dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = UserDefaults.standard.string(forKey: "dateFormat") ?? "dd-MM-yyyy"
+        return dateFormatter.date(from: dateString) ?? Date()
+    }
+    
+    func timeToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
         return dateFormatter.string(from: date)
