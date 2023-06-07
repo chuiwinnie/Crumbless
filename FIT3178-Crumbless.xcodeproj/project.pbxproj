@@ -126,41 +126,89 @@
 				80186BBD29F8AA01009B410C /* AppDelegate.swift */,
 				80186BBF29F8AA01009B410C /* SceneDelegate.swift */,
 				80186BC129F8AA01009B410C /* ViewController.swift */,
-				80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */,
-				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
-				80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */,
-				80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */,
-				80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */,
 				803F8D172A0B30E60061E39E /* MulticastDelegate.swift */,
+				80BEDD122A31118B0046C2EF /* Extension */,
 				80186BC329F8AA01009B410C /* Main.storyboard */,
 				80186BC629F8AA02009B410C /* Assets.xcassets */,
 				80186BC829F8AA02009B410C /* LaunchScreen.storyboard */,
 				80186BCB29F8AA02009B410C /* Info.plist */,
+				80BEDD0D2A3110CB0046C2EF /* Database */,
+				80BEDD0E2A3110D90046C2EF /* FoodList */,
+				80BEDD0F2A3110F10046C2EF /* RecipeSearch */,
+				80BEDD102A3111020046C2EF /* Analytics */,
+				80BEDD112A31110F0046C2EF /* Settings */,
+			);
+			path = "FIT3178-Crumbless";
+			sourceTree = "<group>";
+		};
+		80BEDD0D2A3110CB0046C2EF /* Database */ = {
+			isa = PBXGroup;
+			children = (
 				803F8D152A0B2FD20061E39E /* DatabaseProtocol.swift */,
 				803F8D132A0B2F840061E39E /* FirebaseController.swift */,
 				80186BD329F8B056009B410C /* Food.swift */,
+				803F8D252A149F570061E39E /* User.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		80BEDD0E2A3110D90046C2EF /* FoodList */ = {
+			isa = PBXGroup;
+			children = (
 				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
 				805766A62A1DA31C00CCD0A7 /* ExpiryAlertTableViewController.swift */,
 				805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */,
 				8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */,
+			);
+			path = FoodList;
+			sourceTree = "<group>";
+		};
+		80BEDD0F2A3110F10046C2EF /* RecipeSearch */ = {
+			isa = PBXGroup;
+			children = (
 				803F8CFA2A02017F0061E39E /* Recipe.swift */,
 				80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */,
 				80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */,
 				8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */,
 				803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */,
 				803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */,
+			);
+			path = RecipeSearch;
+			sourceTree = "<group>";
+		};
+		80BEDD102A3111020046C2EF /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
 				803F8D192A0BF0B30061E39E /* AnalyticsViewController.swift */,
 				80BEDD082A30DA920046C2EF /* PieChartView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		80BEDD112A31110F0046C2EF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
 				803F8D1B2A1467F50061E39E /* SettingsTableViewController.swift */,
-				803F8D252A149F570061E39E /* User.swift */,
 				803F8D212A148AE70061E39E /* AccountViewController.swift */,
 				803F8D1F2A1474D50061E39E /* LoginViewController.swift */,
 				803F8D232A148BE50061E39E /* SignUpViewController.swift */,
 				80BEDD042A3091AB0046C2EF /* DateFormatTableViewController.swift */,
 				80BEDD062A3093920046C2EF /* SelectDateFormatDelegate.swift */,
 			);
-			path = "FIT3178-Crumbless";
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		80BEDD122A31118B0046C2EF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */,
+				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
+				80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */,
+				80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */,
+				80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
