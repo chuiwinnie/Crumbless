@@ -95,15 +95,12 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         }
         
         // Convert expiry date field text to Date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let date = dateFormatter.date(from: expiryDate)!
+        let date = stringToDate(dateString: expiryDate)
         
         // Validate expiry alert
         let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
-        let validAlert = validateAlert(expiry: date, alert: alert, alertTime: alertTime)
-        if !validAlert {
-            displayMessage(title: "Invalid Alert", message: "Please set an alert before the expiry date.")
+        if alert != expiryAlertOptions.none.rawValue && !validateAlert(expiry: date, alert: alert, alertTime: alertTime) {
+            displayMessage(title: "Invalid Alert", message: "Please set an alert in between the current time and the expiry date")
             return
         }
         

@@ -29,7 +29,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Set food item details
         nameTextField.text = food.name
-        expiryDateTextField.text = formatDate(date: food.expiryDate ?? Date())
+        expiryDateTextField.text = dateToString(date: food.expiryDate ?? Date())
         selectedExpiryAlertOption = food.alert
         
         // Set up date picker for expiry date field
@@ -101,9 +101,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         }
         
         // Convert expiry date field text to Date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let date = dateFormatter.date(from: expiryDate)!
+        let date = stringToDate(dateString: expiryDate)
         
         // Validate expiry alert
         let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"

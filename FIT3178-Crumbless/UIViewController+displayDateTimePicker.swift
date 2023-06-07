@@ -45,7 +45,7 @@ extension UIViewController {
     
     // Update expiry date field if date picker date changed
     @objc func dateChange(datePicker: CustomDatePicker) {
-        datePicker.textField?.text = formatDate(date: datePicker.date)
+        datePicker.textField?.text = dateToString(date: datePicker.date)
     }
     
     // Set up time picker for expiry alert time text field
@@ -76,7 +76,7 @@ extension UIViewController {
     
     // Update expiry alert time field if time picker time changed
     @objc func timeChange(timePicker: CustomDatePicker) {
-        timePicker.textField?.text = formatTime(date: timePicker.date)
+        timePicker.textField?.text = timeToString(date: timePicker.date)
     }
     
 }
