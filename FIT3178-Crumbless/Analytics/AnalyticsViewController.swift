@@ -10,6 +10,7 @@ import UIKit
 class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeightContraint: NSLayoutConstraint!
     
     let CELL_FOOD = "foodCell"
     
@@ -31,6 +32,9 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         
         // Set up segmented control
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        
+        // Set table view height constraint
+        tableViewHeightContraint.constant = view.bounds.height * 0.25
         
         // Add the chart view as a subview
         if consumedFoodList.count + expiredFoodList.count == 0 {
@@ -64,7 +68,7 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     
-    // MARK: - Chart
+    // MARK: - Chart View
     
     func updateChartView() {
         // Create a new pie chart or message label

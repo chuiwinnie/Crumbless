@@ -275,10 +275,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Xr-a5-qDX">
-                                <rect key="frame" x="5" y="524" width="383" height="235"/>
+                                <rect key="frame" x="5" y="529" width="383" height="230"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="235" id="PiI-dF-mvA"/>
+                                    <constraint firstAttribute="height" constant="230" id="FiT-NA-zGe"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="foodCell" textLabel="cfI-rg-7m1" style="IBUITableViewCellStyleDefault" id="iZO-ec-WPX">
@@ -305,7 +305,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uHc-C6-qLV">
-                                <rect key="frame" x="30" y="483" width="333" height="32"/>
+                                <rect key="frame" x="30" y="488" width="333" height="32"/>
                                 <segments>
                                     <segment title="Consumed"/>
                                     <segment title="Expired"/>
@@ -327,6 +327,7 @@
                     <connections>
                         <outlet property="segmentedControl" destination="uHc-C6-qLV" id="Jhm-vC-r9h"/>
                         <outlet property="tableView" destination="6Xr-a5-qDX" id="6Qi-9d-vJc"/>
+                        <outlet property="tableViewHeightContraint" destination="FiT-NA-zGe" id="KOK-cs-Uk4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQr-Iu-SMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -650,11 +651,11 @@
             </objects>
             <point key="canvasLocation" x="1187" y="404"/>
         </scene>
-        <!--Setting-->
+        <!--Settings-->
         <scene sceneID="5YG-pd-87B">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S1q-pr-4XG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Setting" image="gearshape" catalog="system" id="3x4-4y-Bus"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape" catalog="system" id="3x4-4y-Bus"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bwF-de-KMl">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
