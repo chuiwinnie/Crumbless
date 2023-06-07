@@ -57,7 +57,15 @@ extension UIViewController {
     
     // Get the number of days remaining before food expiry
     func getDaysBeforeExpiry(expiryDate: Date) -> Int{
-        let daysBeforeExpiry = (Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day ?? -1) + 1
+        var daysBeforeExpiry = (Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day ?? -1) + 1
+        
+        // daysBeforeExpiry = 0 if the food is expiring today
+        let expiry = Calendar.current.dateComponents([.day, .year, .month], from: expiryDate)
+        let today = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+        if expiry == today {
+            daysBeforeExpiry = 0
+        }
+        
         return daysBeforeExpiry
     }
     
