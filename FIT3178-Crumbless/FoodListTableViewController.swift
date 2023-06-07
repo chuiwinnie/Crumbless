@@ -41,6 +41,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+        
+        // Set UI appearance (light or dark mode)
+        setAppearance()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

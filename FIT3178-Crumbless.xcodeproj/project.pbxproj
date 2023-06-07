@@ -42,6 +42,7 @@
 		805766A92A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */; };
 		80BEDCFF2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */; };
 		80BEDD012A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */; };
+		80BEDD032A30028B0046C2EF /* UIViewController+setAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectExpiryAlertDelegate.swift; sourceTree = "<group>"; };
 		80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+setExpiryAlert.swift"; sourceTree = "<group>"; };
 		80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayDateTimePicker.swift"; sourceTree = "<group>"; };
+		80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+setAppearance.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				80186BBD29F8AA01009B410C /* AppDelegate.swift */,
 				80186BBF29F8AA01009B410C /* SceneDelegate.swift */,
 				80186BC129F8AA01009B410C /* ViewController.swift */,
+				80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */,
 				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 				80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */,
 				80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */,
@@ -133,6 +136,7 @@
 				80186BD129F8AF39009B410C /* FoodListTableViewController.swift */,
 				80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */,
 				805766A62A1DA31C00CCD0A7 /* ExpiryAlertTableViewController.swift */,
+				805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */,
 				8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */,
 				803F8CFA2A02017F0061E39E /* Recipe.swift */,
 				80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */,
@@ -146,7 +150,6 @@
 				803F8D212A148AE70061E39E /* AccountViewController.swift */,
 				803F8D1F2A1474D50061E39E /* LoginViewController.swift */,
 				803F8D232A148BE50061E39E /* SignUpViewController.swift */,
-				805766A82A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift */,
 			);
 			path = "FIT3178-Crumbless";
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				803F8CFF2A0234200061E39E /* RecipeDetailsViewController.swift in Sources */,
 				803F8D242A148BE50061E39E /* SignUpViewController.swift in Sources */,
 				805766A92A1DAE5200CCD0A7 /* SelectExpiryAlertDelegate.swift in Sources */,
+				80BEDD032A30028B0046C2EF /* UIViewController+setAppearance.swift in Sources */,
 				80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */,
 				80BEDD012A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift in Sources */,
 				803F8D1C2A1467F50061E39E /* SettingsTableViewController.swift in Sources */,
