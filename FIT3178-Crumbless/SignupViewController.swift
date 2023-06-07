@@ -17,11 +17,23 @@ class SignUpViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
     
+    var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        // Set up indicator
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,12 +67,16 @@ class SignUpViewController: UIViewController {
             return
         }
         
+        // Start animating indicator
+        indicator.startAnimating()
+        
         databaseController?.signUp(name: name, email: email, password: password) { (signUpSuccess, error) in
             DispatchQueue.main.async {
                 if signUpSuccess {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
+                self.indicator.stopAnimating()
                 self.displayMessage(title: "Sign Up Failed", message: error)
             }
         }
@@ -80,4 +96,5 @@ class SignUpViewController: UIViewController {
     func passwordConfirmed (password: String, confirmedPassword: String) -> Bool {
         return password == confirmedPassword
     }
+    
 }
