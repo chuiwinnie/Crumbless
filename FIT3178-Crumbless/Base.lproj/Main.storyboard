@@ -980,11 +980,8 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Loading..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rWY-4n-Frw">
-                                <rect key="frame" x="30" y="464.33333333333326" width="333" height="300"/>
+                                <rect key="frame" x="30" y="464.33333333333326" width="333" height="294.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="0Ry-dk-j9Q"/>
-                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1003,6 +1000,7 @@
                             <constraint firstItem="Ok7-1t-EgU" firstAttribute="leading" secondItem="3gO-w3-ifE" secondAttribute="trailing" id="8fq-K5-IkJ"/>
                             <constraint firstItem="wAB-Jl-eJY" firstAttribute="leading" secondItem="rsw-BF-LTR" secondAttribute="leading" constant="30" id="Bzl-7c-SIV"/>
                             <constraint firstItem="wAB-Jl-eJY" firstAttribute="top" secondItem="3gO-w3-ifE" secondAttribute="bottom" constant="20" id="CCv-Pt-Zul"/>
+                            <constraint firstItem="rsw-BF-LTR" firstAttribute="bottom" secondItem="rWY-4n-Frw" secondAttribute="bottom" constant="10" id="ELD-Ma-IKa"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="MVn-zg-pI3" secondAttribute="trailing" constant="30" id="G6q-BV-1mH"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="Z9m-yu-OJK" secondAttribute="trailing" constant="30" id="Gzi-uI-NdV"/>
                             <constraint firstItem="3gO-w3-ifE" firstAttribute="top" secondItem="rsw-BF-LTR" secondAttribute="top" constant="25" id="IaK-QF-ol1"/>

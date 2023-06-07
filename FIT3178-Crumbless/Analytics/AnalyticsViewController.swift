@@ -34,9 +34,11 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         
         // Add the chart view as a subview
         if consumedFoodList.count + expiredFoodList.count == 0 {
+            segmentedControl.isHidden = true
             chartView = setUpLabelView()
         } else {
             chartView = setUpPieChartView()
+            segmentedControl.isHidden = false
         }
         view.addSubview(chartView)
     }
@@ -68,8 +70,10 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         // Create a new pie chart or message label
         var newChartView: UIView
         if consumedFoodList.count + expiredFoodList.count == 0 {
+            segmentedControl.isHidden = true
             newChartView = setUpLabelView()
         } else {
+            segmentedControl.isHidden = false
             newChartView = setUpPieChartView()
         }
         
@@ -83,17 +87,18 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func setUpLabelView() -> UILabel {
         // Create a no items message label view
-        let labelView = UILabel.init(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: 20))
+        let labelView = UILabel.init(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: view.bounds.width*0.8))
         labelView.text = "No food items consumed or expired yet."
         labelView.textAlignment = .center
+        labelView.numberOfLines = 0
         labelView.center = CGPoint(x: view.center.x, y: view.center.y*0.63)
         
         return labelView
     }
     
-    func setUpPieChartView() -> PieChartView {
+    func setUpPieChartView() -> DonutChartView {
         // Create a pie chart view
-        let pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: view.bounds.width))
+        let pieChartView = DonutChartView(frame: CGRect(x: 0, y: 0, width: view.bounds.width*0.8, height: view.bounds.width))
         pieChartView.backgroundColor = .clear
         pieChartView.center = CGPoint(x: view.center.x, y: view.center.y*0.63)
         

@@ -14,8 +14,8 @@ struct Segment {
     let value: CGFloat
 }
 
-// Custom Pie Chart View class
-class PieChartView: UIView {
+// Custom Donut Chart View class
+class DonutChartView: UIView {
     var segments: [Segment] = []
     
     override func draw(_ rect: CGRect) {
@@ -24,6 +24,13 @@ class PieChartView: UIView {
         // Get the center point and radius of the view
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let radius = min(bounds.width, bounds.height) / 2
+        
+        // Set the radius and colour for the hole
+        let holeRadius = radius * 0.7
+        var holeColour = UIColor.white
+        if UserDefaults.standard.bool(forKey: "darkMode") {
+            holeColour = UIColor.black
+        }
         
         // Set up the initial angle (12 o'clock position = -90 degrees)
         var startAngle: CGFloat = -.pi / 2
@@ -39,24 +46,69 @@ class PieChartView: UIView {
             // Calculate the end angle of the current segment
             let endAngle = startAngle + (2 * .pi * (segment.value / totalValue))
             
-            // Create a path for the segment
+            // Draw path for the segment
             let path = UIBezierPath()
             path.move(to: center)
             path.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             path.close()
             
-            // Set the fill colour for the segment
-            segment.colour.setFill()
-            
             // Fill the segment shaped by path
+            segment.colour.setFill()
             path.fill()
+            
+            // Draw path for the hole
+            let holePath = UIBezierPath()
+            holePath.move(to: center)
+            holePath.addArc(withCenter: center, radius: holeRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+            holePath.close()
+            
+            // Fill the hole
+            holeColour.setFill()
+            holePath.fill()
+            holeColour.setStroke()
+            holePath.stroke()
             
             // Update the start angle for the next segment
             startAngle = endAngle
         }
         
+        // Draw the centre text
+        let consumedCount = segments[0].value
+        let expiredCount = segments[1].value
+        let totalCount = consumedCount + expiredCount
+        drawCentre(consumed: consumedCount, total: totalCount)
+        
         // Draw the legend
         drawLegend()
+    }
+    
+    func drawCentre(consumed: CGFloat, total: CGFloat) {
+        // Calculate the percentage of consumed food
+        let consumedPercentage = Int((consumed / total) * 100)
+        let centreText = "Consumed \n\(consumedPercentage)%"
+        
+        // Create the centre text rectangle
+        let centreOrigin = CGPoint(x: bounds.width*0.15, y: bounds.height*0.4)
+        let centreRectangle = CGRect(origin: centreOrigin, size: CGSize(width: bounds.width*0.7, height: bounds.width/2))
+        
+        // Create the centre text
+        var centreTextColour = UIColor.black
+        if UserDefaults.standard.bool(forKey: "darkMode") {
+            centreTextColour = UIColor.white
+        }
+        var centreTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 40),
+            .foregroundColor: centreTextColour,
+        ]
+        
+        // Set paragraph style
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineSpacing = 3
+        centreTextAttributes[.paragraphStyle] = paragraphStyle
+        
+        let centreTextAttributedString = NSAttributedString(string: centreText, attributes: centreTextAttributes)
+        centreTextAttributedString.draw(in: centreRectangle)
     }
     
     func drawLegend() {
@@ -105,8 +157,10 @@ class PieChartView: UIView {
  References
  - Drawing path: https://developer.apple.com/documentation/uikit/uibezierpath
  - Drawing and filling shapes defined by path: https://stackoverflow.com/questions/31569051/how-to-draw-a-line-in-the-simplest-way-in-swift
+ - Setting stroke and fill colours: https://stackoverflow.com/questions/25533091/how-to-change-the-color-of-a-uibezierpath-in-swift
  - Calculating pie chart angles: https://stackoverflow.com/questions/29179692/how-can-i-convert-from-degrees-to-radians
  - Creating rectangles for legend elements: https://developer.apple.com/documentation/corefoundation/cgrect
  - Positioning legend element rectangles: https://developer.apple.com/documentation/corefoundation/cgpoint
  - Writing legend text: https://developer.apple.com/documentation/foundation/nsattributedstring
+ - Wrapping multiline text: https://stackoverflow.com/questions/24134905/how-do-i-set-adaptive-multiline-uilabel-text
  */
