@@ -27,6 +27,9 @@ class SettingsTableViewController: UITableViewController, SelectDateFormatDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // User large navigation bar title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController

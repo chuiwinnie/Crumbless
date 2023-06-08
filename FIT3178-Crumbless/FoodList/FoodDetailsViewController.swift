@@ -23,6 +23,9 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Disable large navigation bar title
+        navigationItem.largeTitleDisplayMode = .never
+        
         // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController

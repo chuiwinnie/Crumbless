@@ -21,6 +21,10 @@ class RecipeSearchTableViewController: UITableViewController, AddToRecipeSearchD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // User large navigation bar title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.sizeToFit()
+        
         // Disable search recipe button if no food items added to search
         updateButtonDisplay()
     }

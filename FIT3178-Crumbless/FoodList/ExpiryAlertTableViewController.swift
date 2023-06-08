@@ -18,6 +18,10 @@ class ExpiryAlertTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Disable large navigation bar title
+        navigationItem.largeTitleDisplayMode = .never
+        
         showSelectedOption()
     }
     

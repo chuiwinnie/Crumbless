@@ -29,6 +29,9 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Disable large navigation bar title
+        navigationItem.largeTitleDisplayMode = .never
+        
         // Set up and start indicator
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -137,6 +140,7 @@ class RecipeSearchResultsTableViewController: UITableViewController {
             content.text = recipe.title
             
             recipeCell.contentConfiguration = content
+            recipeCell.accessoryType = .disclosureIndicator
             return recipeCell
         } else {
             // Configure an info cell

@@ -27,6 +27,9 @@ class RecipeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Disable large navigation bar title
+        navigationItem.largeTitleDisplayMode = .never
+        
         // Set up and start indicator
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false

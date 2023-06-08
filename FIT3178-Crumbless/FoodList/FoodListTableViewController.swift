@@ -23,6 +23,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // User large navigation bar title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
@@ -261,4 +264,5 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
  - Right aligning text for number of days before food expiry: https://stackoverflow.com/questions/24034300/swift-uilabel-text-alignment
  - Adding chevron to the right of each food cell: https://stackoverflow.com/questions/18717830/how-to-get-system-images-programmatically-example-disclosure-chevron
  - Creating stack view for food cell accessory view: https://www.kodeco.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views#toc-anchor-011
+ - Using large navigation bar title: https://www.hackingwithswift.com/example-code/uikit/how-to-enable-large-titles-in-your-navigation-bar
  */
