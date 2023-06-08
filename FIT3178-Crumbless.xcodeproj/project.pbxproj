@@ -18,7 +18,7 @@
 		80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */; };
 		80186BD829F8BB59009B410C /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */; };
 		80186BDA29F8C4E2009B410C /* UIViewController+formatDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */; };
-		80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */; };
+		80186BDC29F8C7ED009B410C /* AddToRecipeSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDB29F8C7ED009B410C /* AddToRecipeSearchDelegate.swift */; };
 		80186BDE29F8D82D009B410C /* RecipeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */; };
 		8025C5072A01C4C5005C381F /* FoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */; };
 		8025C50D2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */; };
@@ -62,7 +62,7 @@
 		80186BD529F8B9DA009B410C /* AddNewFoodItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemViewController.swift; sourceTree = "<group>"; };
 		80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
 		80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+formatDateTime.swift"; sourceTree = "<group>"; };
-		80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodItemDelegate.swift; sourceTree = "<group>"; };
+		80186BDB29F8C7ED009B410C /* AddToRecipeSearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToRecipeSearchDelegate.swift; sourceTree = "<group>"; };
 		80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchTableViewController.swift; sourceTree = "<group>"; };
 		8025C5062A01C4C5005C381F /* FoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailsViewController.swift; sourceTree = "<group>"; };
 		8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemToRecipeSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 			children = (
 				803F8CFA2A02017F0061E39E /* Recipe.swift */,
 				80186BDD29F8D82D009B410C /* RecipeSearchTableViewController.swift */,
-				80186BDB29F8C7ED009B410C /* AddNewFoodItemDelegate.swift */,
+				80186BDB29F8C7ED009B410C /* AddToRecipeSearchDelegate.swift */,
 				8025C50C2A01EEF3005C381F /* AddItemToRecipeSearchTableViewController.swift */,
 				803F8CF82A01FE650061E39E /* RecipeSearchResultsTableViewController.swift */,
 				803F8CFE2A0234200061E39E /* RecipeDetailsViewController.swift */,
@@ -203,10 +203,10 @@
 			isa = PBXGroup;
 			children = (
 				80BEDD022A30028B0046C2EF /* UIViewController+setAppearance.swift */,
-				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 				80BEDD002A2FDFFC0046C2EF /* UIViewController+displayDateTimePicker.swift */,
 				80186BD929F8C4E2009B410C /* UIViewController+formatDateTime.swift */,
 				80BEDCFE2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift */,
+				80186BD729F8BB59009B410C /* UIViewController+displayMessage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 				80BEDCFF2A2FDADB0046C2EF /* UIViewController+setExpiryAlert.swift in Sources */,
 				80186BD629F8B9DA009B410C /* AddNewFoodItemViewController.swift in Sources */,
 				80186BC029F8AA01009B410C /* SceneDelegate.swift in Sources */,
-				80186BDC29F8C7ED009B410C /* AddNewFoodItemDelegate.swift in Sources */,
+				80186BDC29F8C7ED009B410C /* AddToRecipeSearchDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

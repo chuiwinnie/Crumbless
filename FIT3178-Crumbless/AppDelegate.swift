@@ -12,8 +12,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var databaseController: DatabaseProtocol?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Initialise database controller
         databaseController = FirebaseController()
+        
+        // Set up local notification
         UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
     

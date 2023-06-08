@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Delegate for selecting preferred date format
+// Delegate for selecting the preferred date format
 protocol SelectDateFormatDelegate: AnyObject {
     var selectedDateFormatOption: String? {get set}
 }

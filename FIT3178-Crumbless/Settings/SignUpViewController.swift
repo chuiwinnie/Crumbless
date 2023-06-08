@@ -36,10 +36,6 @@ class SignUpViewController: UIViewController {
         ])
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     @IBAction func signUp (_ sender: Any) {
         guard var name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let confirmedPassword = confirmPasswordTextField.text else {
             return
@@ -47,7 +43,8 @@ class SignUpViewController: UIViewController {
         
         name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if name.isEmpty || !isValidEmail(email: email) || !isValidPassword(password: password) || confirmedPassword.isEmpty || !passwordConfirmed(password: password, confirmedPassword: confirmedPassword) {
+        // Validate username, email, password and confirm password fields
+        if name.isEmpty || !isValidEmail(email: email) || !isValidPassword(password: password) || !passwordConfirmed(password: password, confirmedPassword: confirmedPassword) {
             var errorMsg = "Please ensure all fields are valid:"
             if name.isEmpty {
                 errorMsg += "\n- Must enter a name"
@@ -59,7 +56,7 @@ class SignUpViewController: UIViewController {
                 errorMsg += "\n- Password must be 6 characters long or more"
             }
             if confirmedPassword.isEmpty {
-                errorMsg += "\n- Must confirm password"
+                errorMsg += "\n- Please confirm password"
             } else if !passwordConfirmed(password: password, confirmedPassword: confirmedPassword) {
                 errorMsg += "\n- Password does not match"
             }
@@ -82,17 +79,20 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    // Validate email
     func isValidEmail(email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
     
+    // Validate password
     func isValidPassword(password: String) -> Bool {
         let minPasswordLength = 6
         return password.count >= minPasswordLength
     }
     
+    // Check if password is confirmed
     func passwordConfirmed (password: String, confirmedPassword: String) -> Bool {
         return password == confirmedPassword
     }

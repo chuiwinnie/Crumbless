@@ -47,4 +47,5 @@ class Recipe: NSObject, Decodable {
         instructions = try? recipeContainer.decode([AnalysedInstructions].self, forKey: .analyzedInstructions)
         ingredients = try? recipeContainer.decode([ExtendedIngredients].self, forKey: .extendedIngredients)
     }
+    
 }

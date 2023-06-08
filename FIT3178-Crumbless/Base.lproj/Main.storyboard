@@ -120,10 +120,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-bZ-vci">
-                                <rect key="frame" x="30" y="717.66666666666663" width="333" height="34.333333333333371"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-bZ-vci">
+                                <rect key="frame" x="30" y="692" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Add Item to List"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Add Item to List">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="addItem:" destination="FPV-lq-njt" eventType="touchUpInside" id="C3K-ZO-1wW"/>
                                 </connections>
@@ -146,7 +148,6 @@
                             <constraint firstItem="6XP-do-jOM" firstAttribute="top" secondItem="q27-y1-1QP" secondAttribute="bottom" constant="30" id="1mU-x7-Khk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="q27-y1-1QP" secondAttribute="trailing" constant="30" id="6lB-QF-Mix"/>
                             <constraint firstItem="Vv6-4K-RYd" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="7EB-Ng-OUX"/>
-                            <constraint firstAttribute="bottom" secondItem="e7C-bZ-vci" secondAttribute="bottom" constant="100" id="7cs-lw-aeG"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="e7C-bZ-vci" secondAttribute="trailing" constant="30" id="7ib-pf-lnk"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="zeW-ak-SWO" secondAttribute="trailing" constant="30" id="8Yr-0L-hHw"/>
                             <constraint firstItem="h6d-QX-WSD" firstAttribute="top" secondItem="OaM-Sm-hFz" secondAttribute="bottom" constant="15" id="8yi-35-8tt"/>
@@ -161,6 +162,7 @@
                             <constraint firstItem="4gS-9q-gVy" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="OZv-YE-K8W"/>
                             <constraint firstItem="Vv6-4K-RYd" firstAttribute="top" secondItem="6XP-do-jOM" secondAttribute="bottom" constant="15" id="OgC-Wj-cmp"/>
                             <constraint firstItem="4gS-9q-gVy" firstAttribute="top" secondItem="zeW-ak-SWO" secondAttribute="bottom" constant="30" id="SPp-In-fLw"/>
+                            <constraint firstItem="WEe-84-le4" firstAttribute="bottom" secondItem="e7C-bZ-vci" secondAttribute="bottom" constant="40" id="htB-2e-XYH"/>
                             <constraint firstItem="q27-y1-1QP" firstAttribute="top" secondItem="4gS-9q-gVy" secondAttribute="bottom" constant="15" id="kD9-XD-jnS"/>
                             <constraint firstItem="xnw-7y-Teh" firstAttribute="leading" secondItem="WEe-84-le4" secondAttribute="leading" constant="30" id="mxD-5w-6YJ"/>
                             <constraint firstItem="WEe-84-le4" firstAttribute="trailing" secondItem="OaM-Sm-hFz" secondAttribute="trailing" constant="30" id="oPI-1i-nqJ"/>
@@ -194,11 +196,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="hJh-jO-0BL">
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" id="hJh-jO-0BL">
                             <rect key="frame" x="0.0" y="160.66666603088379" width="393" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Search Recipe"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Search Recipe">
+                                <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                            </buttonConfiguration>
                             <connections>
                                 <segue destination="A90-Hm-E40" kind="show" identifier="searchRecipeSegue" id="UIj-Rd-IU5"/>
                             </connections>
@@ -275,21 +279,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Xr-a5-qDX">
-                                <rect key="frame" x="5" y="529" width="383" height="230"/>
+                                <rect key="frame" x="10" y="529" width="368" height="230"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="FiT-NA-zGe"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="foodCell" textLabel="cfI-rg-7m1" style="IBUITableViewCellStyleDefault" id="iZO-ec-WPX">
-                                        <rect key="frame" x="0.0" y="50" width="383" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="368" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iZO-ec-WPX" id="Xr2-o2-JzE">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="368" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cfI-rg-7m1">
-                                                    <rect key="frame" x="20" y="0.0" width="343" height="43.666667938232422"/>
+                                                    <rect key="frame" x="20" y="0.0" width="328" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -305,7 +309,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uHc-C6-qLV">
-                                <rect key="frame" x="30" y="488" width="333" height="32"/>
+                                <rect key="frame" x="20" y="488" width="353" height="32"/>
                                 <segments>
                                     <segment title="Consumed"/>
                                     <segment title="Expired"/>
@@ -315,12 +319,12 @@
                         <viewLayoutGuide key="safeArea" id="Osy-80-fRG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Xr-a5-qDX" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="5" id="5Ra-ov-Wc0"/>
                             <constraint firstItem="6Xr-a5-qDX" firstAttribute="top" secondItem="uHc-C6-qLV" secondAttribute="bottom" constant="10" id="CrW-xN-1o2"/>
-                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="6Xr-a5-qDX" secondAttribute="trailing" constant="5" id="ShR-Lj-5eE"/>
-                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="uHc-C6-qLV" secondAttribute="trailing" constant="30" id="ZJP-4o-NkC"/>
-                            <constraint firstItem="uHc-C6-qLV" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="30" id="oON-uK-MNs"/>
+                            <constraint firstItem="uHc-C6-qLV" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="20" id="IQz-9M-8sm"/>
+                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="6Xr-a5-qDX" secondAttribute="trailing" constant="15" id="WTY-sX-lak"/>
+                            <constraint firstItem="6Xr-a5-qDX" firstAttribute="leading" secondItem="Osy-80-fRG" secondAttribute="leading" constant="10" id="WrI-AP-cL5"/>
                             <constraint firstItem="Osy-80-fRG" firstAttribute="bottom" secondItem="6Xr-a5-qDX" secondAttribute="bottom" constant="10" id="x2Z-ty-mUj"/>
+                            <constraint firstItem="Osy-80-fRG" firstAttribute="trailing" secondItem="uHc-C6-qLV" secondAttribute="trailing" constant="20" id="zEd-0D-Aoh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Analytics" id="KLt-qW-qJL"/>
@@ -367,7 +371,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="lip-5D-ITq" kind="show" id="bUj-Dg-uce"/>
+                                    <segue destination="lip-5D-ITq" kind="show" identifier="showAccountSegue" id="bUj-Dg-uce"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="darkModeCell" textLabel="3Do-5a-gpQ" style="IBUITableViewCellStyleDefault" id="RMa-Kn-61h">
@@ -414,6 +418,26 @@
                                     <segue destination="26U-mp-VSP" kind="show" identifier="showDateFormatSegue" id="YWY-5t-VHC"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="aboutCell" textLabel="vcp-98-Iaa" style="IBUITableViewCellStyleDefault" id="KF1-l3-aWh">
+                                <rect key="frame" x="0.0" y="181.00000381469727" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KF1-l3-aWh" id="h07-5T-Y8V">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vcp-98-Iaa">
+                                            <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="GjX-NQ-gyc" kind="show" identifier="showAboutSegue" id="yt5-q6-Z4i"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Y7e-Ku-bKw" id="254-H1-UsH"/>
@@ -434,40 +458,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvo-Mx-2Oi">
-                                <rect key="frame" x="30" y="590" width="333" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="lvo-Mx-2Oi">
+                                <rect key="frame" x="30" y="576" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Login" titleAlignment="automatic">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <segue destination="Be3-bi-Fo8" kind="show" id="R6w-6e-oye"/>
+                                    <segue destination="Be3-bi-Fo8" kind="show" identifier="showLoginSegue" id="R6w-6e-oye"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR7-2u-0ab">
-                                <rect key="frame" x="30" y="694" width="333" height="35"/>
+                                <rect key="frame" x="30" y="692" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Sign Up"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign Up">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ny1-jT-ujY" kind="show" id="fbx-Gp-7ez"/>
+                                    <segue destination="ny1-jT-ujY" kind="show" identifier="showSignUpSegue" id="fbx-Gp-7ez"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account yet?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWl-zq-QoX">
-                                <rect key="frame" x="30" y="655" width="333" height="24"/>
+                                <rect key="frame" x="30" y="653" width="333" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Log in to view account's details." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1Mm-cd-lwf">
-                                <rect key="frame" x="30" y="133" width="333" height="427"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Log in to view account's details." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mm-cd-lwf">
+                                <rect key="frame" x="30" y="133" width="333" height="413"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="destructive" translatesAutoresizingMaskIntoConstraints="NO" id="iuQ-tR-ueF">
-                                <rect key="frame" x="30" y="684" width="333" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="destructive" translatesAutoresizingMaskIntoConstraints="NO" id="iuQ-tR-ueF">
+                                <rect key="frame" x="30" y="714" width="333" height="37"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Sign Out"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign Out">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="signOut:" destination="lip-5D-ITq" eventType="touchUpInside" id="ra5-JC-NC3"/>
                                 </connections>
@@ -477,21 +507,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="iuQ-tR-ueF" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="1j0-el-4tw"/>
+                            <constraint firstItem="1Mm-cd-lwf" firstAttribute="top" secondItem="Flb-GO-5DF" secondAttribute="top" constant="30" id="2FX-d8-h2f"/>
+                            <constraint firstItem="Flb-GO-5DF" firstAttribute="bottom" secondItem="iuQ-tR-ueF" secondAttribute="bottom" constant="40" id="4yF-o5-xoY"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="bWl-zq-QoX" secondAttribute="trailing" constant="30" id="4yU-5v-41z"/>
                             <constraint firstItem="1Mm-cd-lwf" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="6Vk-d8-Wge"/>
-                            <constraint firstItem="1Mm-cd-lwf" firstAttribute="top" secondItem="Flb-GO-5DF" secondAttribute="top" constant="30" id="8YL-PB-2bh"/>
-                            <constraint firstItem="LR7-2u-0ab" firstAttribute="top" secondItem="bWl-zq-QoX" secondAttribute="bottom" constant="15" id="FQs-A5-XIH"/>
+                            <constraint firstItem="lvo-Mx-2Oi" firstAttribute="top" secondItem="1Mm-cd-lwf" secondAttribute="bottom" constant="30" id="C6O-Bm-Ps5"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="iuQ-tR-ueF" secondAttribute="trailing" constant="30" id="NIe-HC-xu9"/>
                             <constraint firstItem="bWl-zq-QoX" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="NWE-FI-vvs"/>
                             <constraint firstItem="LR7-2u-0ab" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="SGH-EJ-FOE"/>
+                            <constraint firstItem="bWl-zq-QoX" firstAttribute="top" secondItem="lvo-Mx-2Oi" secondAttribute="bottom" constant="40" id="WLC-nG-vus"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="LR7-2u-0ab" secondAttribute="trailing" constant="30" id="X57-Lm-MVF"/>
-                            <constraint firstItem="lvo-Mx-2Oi" firstAttribute="top" secondItem="1Mm-cd-lwf" secondAttribute="bottom" constant="30" id="Xy2-Db-t2W"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="bottom" secondItem="LR7-2u-0ab" secondAttribute="bottom" constant="40" id="YxT-dW-tHb"/>
-                            <constraint firstItem="Flb-GO-5DF" firstAttribute="bottom" secondItem="iuQ-tR-ueF" secondAttribute="bottom" constant="50" id="ZLG-g7-upI"/>
                             <constraint firstItem="lvo-Mx-2Oi" firstAttribute="leading" secondItem="Flb-GO-5DF" secondAttribute="leading" constant="30" id="dIr-um-Qel"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="1Mm-cd-lwf" secondAttribute="trailing" constant="30" id="dVS-uB-TQ3"/>
+                            <constraint firstItem="LR7-2u-0ab" firstAttribute="top" secondItem="bWl-zq-QoX" secondAttribute="bottom" constant="15" id="kBK-2h-dyI"/>
                             <constraint firstItem="Flb-GO-5DF" firstAttribute="trailing" secondItem="lvo-Mx-2Oi" secondAttribute="trailing" constant="30" id="oyM-Zx-rIF"/>
-                            <constraint firstItem="bWl-zq-QoX" firstAttribute="top" secondItem="lvo-Mx-2Oi" secondAttribute="bottom" constant="30" id="pIQ-vd-jqz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Account" id="Lag-Z5-TXU"/>
@@ -537,10 +567,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlC-N4-TlW">
-                                <rect key="frame" x="30" y="694" width="333" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="hlC-N4-TlW">
+                                <rect key="frame" x="30" y="692" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Login">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="login:" destination="Be3-bi-Fo8" eventType="touchUpInside" id="Qdo-45-INw"/>
                                 </connections>
@@ -572,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2a-7D-gVV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4111" y="1180"/>
+            <point key="canvasLocation" x="3184" y="1923"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="lsi-0I-Kt9">
@@ -711,10 +743,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEV-7g-ab3">
-                                <rect key="frame" x="30" y="717" width="333" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="bEV-7g-ab3">
+                                <rect key="frame" x="30" y="692" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Update Item"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Update Item">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="updateItem:" destination="KiI-v4-6Gw" eventType="touchUpInside" id="y5o-yB-0IG"/>
                                 </connections>
@@ -749,7 +783,7 @@
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bQ9-Tp-0vO" secondAttribute="trailing" constant="30" id="dLU-3t-bwp"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="bEV-7g-ab3" secondAttribute="trailing" constant="30" id="eBf-Au-3pV"/>
                             <constraint firstItem="2IA-wq-lgO" firstAttribute="leading" secondItem="vtN-jz-Kgr" secondAttribute="leading" constant="30" id="fB6-dk-tDX"/>
-                            <constraint firstAttribute="bottom" secondItem="bEV-7g-ab3" secondAttribute="bottom" constant="100" id="gPz-tj-ZO1"/>
+                            <constraint firstItem="vtN-jz-Kgr" firstAttribute="bottom" secondItem="bEV-7g-ab3" secondAttribute="bottom" constant="40" id="gZy-nd-xjn"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="2IA-wq-lgO" secondAttribute="trailing" constant="30" id="iWH-AT-dS1"/>
                             <constraint firstItem="bQ9-Tp-0vO" firstAttribute="top" secondItem="SJS-CV-fby" secondAttribute="bottom" constant="15" id="nXn-RL-I0r"/>
                             <constraint firstItem="vtN-jz-Kgr" firstAttribute="trailing" secondItem="o5m-By-RuR" secondAttribute="trailing" constant="30" id="oln-dx-Q6a"/>
@@ -875,7 +909,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="alq-sw-WgZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="88" y="1180"/>
+            <point key="canvasLocation" x="-837" y="1180"/>
         </scene>
         <!--Recipe Search Results-->
         <scene sceneID="guE-0I-Euf">
@@ -939,7 +973,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xE7-6J-bsI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-741.22137404580144" y="1179.5774647887324"/>
+            <point key="canvasLocation" x="88" y="1180"/>
         </scene>
         <!--Recipe Details View Controller-->
         <scene sceneID="Vow-xw-MKV">
@@ -950,13 +984,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAB-Jl-eJY">
-                                <rect key="frame" x="30" y="172" width="333" height="26.666666666666657"/>
+                                <rect key="frame" x="30" y="167" width="333" height="26.666666666666657"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Time: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gO-w3-ifE">
-                                <rect key="frame" x="30" y="128" width="120" height="24"/>
+                                <rect key="frame" x="30" y="123" width="120" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="9yd-9C-eWZ"/>
                                 </constraints>
@@ -965,31 +999,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-zg-pI3">
-                                <rect key="frame" x="30" y="428.66666666666669" width="333" height="25.666666666666686"/>
+                                <rect key="frame" x="30" y="423.66666666666669" width="333" height="25.666666666666686"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Loading ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z9m-yu-OJK">
-                                <rect key="frame" x="30" y="208.66666666666663" width="333" height="200"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Loading ..." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9m-yu-OJK">
+                                <rect key="frame" x="30" y="203.66666666666663" width="333" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="jXd-Rp-vEj"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Loading..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rWY-4n-Frw">
-                                <rect key="frame" x="30" y="464.33333333333326" width="333" height="294.66666666666674"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Loading..." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWY-4n-Frw">
+                                <rect key="frame" x="30" y="459.33333333333326" width="333" height="299.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok7-1t-EgU">
-                                <rect key="frame" x="150" y="131" width="213" height="21"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <rect key="frame" x="150" y="125" width="213" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1004,7 +1038,6 @@
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="bottom" secondItem="rWY-4n-Frw" secondAttribute="bottom" constant="10" id="ELD-Ma-IKa"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="MVn-zg-pI3" secondAttribute="trailing" constant="30" id="G6q-BV-1mH"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="Z9m-yu-OJK" secondAttribute="trailing" constant="30" id="Gzi-uI-NdV"/>
-                            <constraint firstItem="3gO-w3-ifE" firstAttribute="top" secondItem="rsw-BF-LTR" secondAttribute="top" constant="25" id="IaK-QF-ol1"/>
                             <constraint firstItem="MVn-zg-pI3" firstAttribute="top" secondItem="Z9m-yu-OJK" secondAttribute="bottom" constant="20" id="MkM-VI-mmL"/>
                             <constraint firstItem="rWY-4n-Frw" firstAttribute="top" secondItem="MVn-zg-pI3" secondAttribute="bottom" constant="10" id="O9r-UZ-zOQ"/>
                             <constraint firstItem="Z9m-yu-OJK" firstAttribute="top" secondItem="wAB-Jl-eJY" secondAttribute="bottom" constant="10" id="QYT-pe-bsf"/>
@@ -1012,11 +1045,12 @@
                             <constraint firstItem="Z9m-yu-OJK" firstAttribute="leading" secondItem="rsw-BF-LTR" secondAttribute="leading" constant="30" id="Rpt-73-g7O"/>
                             <constraint firstItem="rWY-4n-Frw" firstAttribute="leading" secondItem="rsw-BF-LTR" secondAttribute="leading" constant="30" id="To4-Lu-cPd"/>
                             <constraint firstItem="Ok7-1t-EgU" firstAttribute="leading" secondItem="3gO-w3-ifE" secondAttribute="trailing" id="VVc-Ws-vlC"/>
+                            <constraint firstItem="Ok7-1t-EgU" firstAttribute="top" secondItem="rsw-BF-LTR" secondAttribute="top" constant="22" id="ceR-Lq-F1f"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="wAB-Jl-eJY" secondAttribute="trailing" constant="30" id="kSP-NV-VdD"/>
                             <constraint firstItem="rsw-BF-LTR" firstAttribute="trailing" secondItem="Ok7-1t-EgU" secondAttribute="trailing" constant="30" id="lyU-Cb-Bal"/>
                             <constraint firstItem="MVn-zg-pI3" firstAttribute="leading" secondItem="rsw-BF-LTR" secondAttribute="leading" constant="30" id="msf-Ut-yyo"/>
+                            <constraint firstItem="3gO-w3-ifE" firstAttribute="top" secondItem="rsw-BF-LTR" secondAttribute="top" constant="20" id="x3T-zK-Z9f"/>
                             <constraint firstItem="Ok7-1t-EgU" firstAttribute="leading" secondItem="3gO-w3-ifE" secondAttribute="trailing" id="xKt-eG-FIT"/>
-                            <constraint firstItem="Ok7-1t-EgU" firstAttribute="top" secondItem="rsw-BF-LTR" secondAttribute="top" constant="28" id="zGx-Hw-rmY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AEc-ZZ-BzJ"/>
@@ -1028,9 +1062,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm9-dA-dhG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-741.22137404580144" y="1922.5352112676057"/>
+            <point key="canvasLocation" x="88" y="1923"/>
         </scene>
-        <!--Signup-->
+        <!--Sign Up-->
         <scene sceneID="cQE-UI-Wd7">
             <objects>
                 <viewController id="ny1-jT-ujY" customClass="SignUpViewController" customModule="FIT3178_Crumbless" customModuleProvider="target" sceneMemberID="viewController">
@@ -1060,10 +1094,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pg6-01-iAf">
-                                <rect key="frame" x="30" y="694" width="333" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="pg6-01-iAf">
+                                <rect key="frame" x="30" y="692" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Signup"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Signup">
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="signUp:" destination="ny1-jT-ujY" eventType="touchUpInside" id="JE0-Mg-vXr"/>
                                 </connections>
@@ -1123,7 +1159,7 @@
                             <constraint firstItem="Rtw-2y-Dob" firstAttribute="bottom" secondItem="pg6-01-iAf" secondAttribute="bottom" constant="40" id="zeP-pD-gYP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Signup" id="oN1-af-bNr"/>
+                    <navigationItem key="navigationItem" title="Sign Up" id="oN1-af-bNr"/>
                     <connections>
                         <outlet property="confirmPasswordTextField" destination="Wv4-Eq-PEP" id="59B-qN-4v3"/>
                         <outlet property="emailTextField" destination="Okw-vL-u79" id="SNs-Wg-vVI"/>
@@ -1178,7 +1214,281 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEx-o3-RPG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5170" y="1180"/>
+            <point key="canvasLocation" x="4111" y="1180"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="glk-d1-cbr">
+            <objects>
+                <viewController id="GjX-NQ-gyc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xfd-EI-iUJ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acknowledgements" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQS-IA-3dZ">
+                                <rect key="frame" x="30" y="118" width="333" height="24"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firebase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2N9-5X-aaJ">
+                                <rect key="frame" x="30" y="204.33333333333334" width="333" height="21.666666666666657"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raI-Z8-jfG">
+                                <rect key="frame" x="30" y="152" width="333" height="37.333333333333343"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="This application makes use of the following third party libraries:">
+                                        <attributes>
+                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJA-Jv-GTj">
+                                <rect key="frame" x="30" y="266" width="333" height="493"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <mutableString key="text">                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</mutableString>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="6.5"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License: Apache-2.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OG4-6w-HJm">
+                                <rect key="frame" x="30" y="236" width="333" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YdQ-ZU-7rS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YdQ-ZU-7rS" firstAttribute="trailing" secondItem="OG4-6w-HJm" secondAttribute="trailing" constant="30" id="25A-es-COB"/>
+                            <constraint firstItem="raI-Z8-jfG" firstAttribute="top" secondItem="VQS-IA-3dZ" secondAttribute="bottom" constant="10" id="3uJ-Sl-Azg"/>
+                            <constraint firstItem="gJA-Jv-GTj" firstAttribute="top" secondItem="OG4-6w-HJm" secondAttribute="bottom" constant="10" id="71N-r7-8Bb"/>
+                            <constraint firstItem="YdQ-ZU-7rS" firstAttribute="trailing" secondItem="VQS-IA-3dZ" secondAttribute="trailing" constant="30" id="DOo-lB-esb"/>
+                            <constraint firstItem="raI-Z8-jfG" firstAttribute="leading" secondItem="YdQ-ZU-7rS" secondAttribute="leading" constant="30" id="Dht-Th-Dcd"/>
+                            <constraint firstItem="2N9-5X-aaJ" firstAttribute="top" secondItem="raI-Z8-jfG" secondAttribute="bottom" constant="15" id="X6t-Q1-hIu"/>
+                            <constraint firstItem="YdQ-ZU-7rS" firstAttribute="bottom" secondItem="gJA-Jv-GTj" secondAttribute="bottom" constant="10" id="bVG-is-Dzh"/>
+                            <constraint firstItem="YdQ-ZU-7rS" firstAttribute="trailing" secondItem="gJA-Jv-GTj" secondAttribute="trailing" constant="30" id="fwR-yo-DBF"/>
+                            <constraint firstItem="VQS-IA-3dZ" firstAttribute="top" secondItem="YdQ-ZU-7rS" secondAttribute="top" constant="15" id="gv0-gL-g65"/>
+                            <constraint firstItem="2N9-5X-aaJ" firstAttribute="leading" secondItem="YdQ-ZU-7rS" secondAttribute="leading" constant="30" id="lmN-Tx-0dT"/>
+                            <constraint firstItem="VQS-IA-3dZ" firstAttribute="leading" secondItem="YdQ-ZU-7rS" secondAttribute="leading" constant="30" id="pAJ-F6-KRc"/>
+                            <constraint firstItem="YdQ-ZU-7rS" firstAttribute="trailing" secondItem="2N9-5X-aaJ" secondAttribute="trailing" constant="30" id="pn5-G3-kHH"/>
+                            <constraint firstItem="OG4-6w-HJm" firstAttribute="leading" secondItem="YdQ-ZU-7rS" secondAttribute="leading" constant="30" id="qgK-8E-L4l"/>
+                            <constraint firstAttribute="trailing" secondItem="raI-Z8-jfG" secondAttribute="trailing" constant="30" id="s2j-RD-Wga"/>
+                            <constraint firstItem="OG4-6w-HJm" firstAttribute="top" secondItem="2N9-5X-aaJ" secondAttribute="bottom" constant="10" id="sel-RY-Vwq"/>
+                            <constraint firstItem="gJA-Jv-GTj" firstAttribute="leading" secondItem="YdQ-ZU-7rS" secondAttribute="leading" constant="30" id="yPA-tc-Ng4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="LpY-rL-QqG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Zu-pJ-nAe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5046.5648854961828" y="1179.5774647887324"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

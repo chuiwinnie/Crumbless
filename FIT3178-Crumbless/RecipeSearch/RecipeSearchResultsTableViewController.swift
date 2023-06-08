@@ -14,12 +14,15 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     let CELL_RECIPE = "recipeCell"
     let CELL_INFO = "recipeNumberCell"
     
-//    let apiKey = "25231069356d414fa201177ef0c1dfbd"
-    let apiKey = "9967866fa4b14ddf91122861be29bf3f"
+    // API keys for searching recipes using Spoonacular
+    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+    // let apiKey = "9967866fa4b14ddf91122861be29bf3f"
+    
+    // Limit the maximum number of recipe search results
     let MAX_ITEMS_PER_REQUEST = 50
     
-    var recipeList: [Recipe] = []
     var ingredients: [Food] = []
+    var recipeList: [Recipe] = []
     
     var indicator = UIActivityIndicatorView()
     
@@ -36,13 +39,13 @@ class RecipeSearchResultsTableViewController: UITableViewController {
         ])
         indicator.startAnimating()
         
-        // Search recipes with ingredients
+        // Search recipes with added ingredients
         Task {
             await requestRecipes()
         }
     }
     
-    // Make recipes by ingredients request to API & parse results
+    // Make search recipes by ingredients request to API
     func requestRecipes() async {
         // Create URL for API request
         var searchURLComponents = URLComponents()
@@ -51,7 +54,7 @@ class RecipeSearchResultsTableViewController: UITableViewController {
         searchURLComponents.path = "/recipes/findByIngredients"
         searchURLComponents.queryItems = [
             URLQueryItem(name: "ingredients", value: getIngredientsName()),
-            URLQueryItem(name: "number", value: "\(MAX_ITEMS_PER_REQUEST)"),  // Specify up to 50 results per requests
+            URLQueryItem(name: "number", value: "\(MAX_ITEMS_PER_REQUEST)"),
             URLQueryItem(name: "apiKey", value: "\(apiKey)")
         ]
         
@@ -64,6 +67,7 @@ class RecipeSearchResultsTableViewController: UITableViewController {
         
         // Create async data task
         do {
+            // Request recipes by ingredients
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
             
             // Stop loading indicator
@@ -76,8 +80,10 @@ class RecipeSearchResultsTableViewController: UITableViewController {
                 let decoder = JSONDecoder()
                 let recipeResults = try decoder.decode(Array<Recipe>.self, from: data)
                 
-                // Get a list of recipes
+                // Add all returned recipes to recipe list
                 recipeList.append(contentsOf: recipeResults)
+                
+                // Show recipes in table view
                 DispatchQueue.main.async {
                     _ = self.tableView.indexPathsForSelectedRows
                     self.tableView.reloadData()
@@ -85,16 +91,16 @@ class RecipeSearchResultsTableViewController: UITableViewController {
             } catch let error {
                 print(error)
             }
-            
         } catch let error {
             print(error)
         }
     }
     
-    // Get ingredients name for API request
+    // Get ingredient names for API request
     func getIngredientsName() -> String {
         var ingredientsName = ""
         
+        // Append all ingredient names in a single string in the required format
         for ingredient in ingredients {
             ingredientsName += ingredient.name! + ",+"
         }
@@ -122,19 +128,22 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_RECIPE {
-            // Configure and return a food cell
+            // Configure a food cell
             let recipeCell = tableView.dequeueReusableCell(withIdentifier: CELL_RECIPE, for: indexPath)
             var content = recipeCell.defaultContentConfiguration()
             
+            // Set the text of each cell as the recipe name
             let recipe = recipeList[indexPath.row]
             content.text = recipe.title
             
             recipeCell.contentConfiguration = content
             return recipeCell
         } else {
+            // Configure an info cell
             let infoCell = tableView.dequeueReusableCell(withIdentifier: CELL_INFO, for: indexPath)
             var content = infoCell.defaultContentConfiguration()
             
+            // Display the number of recipes found, if any
             if recipeList.isEmpty {
                 content.text = "No recipes found."
             } else {
@@ -149,13 +158,13 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Set the recipe to display details for before navigating to the recipe details page
         if segue.identifier == "showRecipeDetailsSegue" {
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                 let controller = segue.destination as! RecipeDetailsViewController
                 
-                // Set recipe ID & title in the recipe details view
+                // Set recipe ID and title in the recipe details page
                 let recipe = recipeList[indexPath.row]
                 controller.recipeId = recipe.id
                 controller.recipeTitle = recipe.title

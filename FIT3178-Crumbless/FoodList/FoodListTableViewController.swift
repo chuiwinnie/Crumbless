@@ -27,7 +27,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
-        // Initialise filtered food list to food list
+        // Copy food list to filtered food list for searching
         filteredFoodList = foodList
         
         // Set up search controller
@@ -70,7 +70,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     func onUsersChange(change: DatabaseChange, users: [User]) {
-        // This tab/view does not need to show users, hence do nothing
+        // Users are not show in tab/table, hence do nothing
     }
     
     
@@ -112,7 +112,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             foodCell.accessoryView = accessoryView
             return foodCell
         } else {
-            // Configure a info cell
+            // Configure aN info cell
             let infoCell = tableView.dequeueReusableCell(withIdentifier: CELL_INFO, for: indexPath)
             var content = infoCell.defaultContentConfiguration()
             
@@ -130,9 +130,11 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     
     // Create and return the accessory view to attach to each food cell
     func getFoodCellAccessoryView(expiryDate: Date) -> UIView {
+        // Calculate the number of days before food expiry
+        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
+        
         // Create label for remaining number of days
         let remainingDaysLabel = UILabel.init(frame: CGRect(x:0, y:0, width:80, height:20))
-        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
         remainingDaysLabel.text = String(remainingDays)
         if remainingDays == 0 {
             remainingDaysLabel.text = "Today"
@@ -157,7 +159,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Only allow editing for food section
+        // Only allow editing food cells
         if indexPath.section == SECTION_FOOD {
             return true
         } else {
@@ -166,22 +168,22 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Delete a food item
+        // Delete food item
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
             
-            // Cancel relevant expiry alert
+            // Cancel local notification if expiry alert set
             self.cancelAlert(id: food.id ?? "NA")
         }
         deleteAction.backgroundColor = .systemRed
         
-        // Mark a food item as expired
+        // Mark food item as expired
         let expireAction = UIContextualAction(style: .normal, title: "Expired") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
             
-            // Cancel relevant expiry alert
+            // Cancel local notification if expiry alert set
             self.cancelAlert(id: food.id ?? "NA")
             
             // Add expired food
@@ -189,12 +191,12 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         expireAction.backgroundColor = .systemYellow
         
-        // Mark a food item as consumed
+        // Mark food item as consumed
         let consumeAction = UIContextualAction(style: .normal, title: "Used") { (action, view, handler) in
             let food = self.filteredFoodList[indexPath.row]
             self.databaseController?.deleteFood(food: food)
             
-            // Cancel relevant expiry alert
+            // Cancel local notification if expiry alert set
             self.cancelAlert(id: food.id ?? "NA")
             
             // Add consumed food
@@ -202,7 +204,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         consumeAction.backgroundColor = .systemGreen
         
-        // Add all three options to swipe actions
+        // Add all three swipe actions
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, expireAction, consumeAction])
         configuration.performsFirstActionWithFullSwipe = true
         return configuration
@@ -211,8 +213,9 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     
     // MARK: - Search Bar
     
+    // Update search results based on entered search text
     func updateSearchResults(for searchController: UISearchController) {
-        // Reset food list to show all items if not searching
+        // Reset filtered food list once cancelled searching
         if !searchController.isActive {
             filteredFoodList = foodList
             tableView.reloadData()
@@ -223,12 +226,13 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
             return
         }
         
-        // Show only food items with matching name when searching
         if searchText.count > 0 {
+            // Show only food items with name that matches the entered search text
             filteredFoodList = foodList.filter({ (food: Food) -> Bool in
                 return (food.name?.lowercased().contains(searchText) ?? false)
             })
         } else {
+            // Show all food items if no search text entered
             filteredFoodList = foodList
         }
         
@@ -239,7 +243,7 @@ class FoodListTableViewController: UITableViewController, UISearchResultsUpdatin
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Set the food to display before showing the food details page
+        // Set the food to display details for before navigating to the food details page
         if segue.identifier == "showFoodDetailsSegue" {
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                 let destination = segue.destination as! FoodDetailsViewController

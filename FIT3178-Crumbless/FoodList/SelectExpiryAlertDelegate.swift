@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Delegate for selecting expiry alert when adding/updating food
+// Delegate for selecting expiry alert when adding/updating food items
 protocol SelectExpiryAlertDelegate: AnyObject {
     var selectedExpiryAlertOption: String? { get set }
 }

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDelegate {
+class RecipeSearchTableViewController: UITableViewController, AddToRecipeSearchDelegate {
+    @IBOutlet weak var searchRecipeButton: UIButton!
+    
     let SECTION_FOOD = 0
     let SECTION_INFO = 1
     
@@ -16,10 +18,10 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
     
     var foodList: [Food] = []
     
-    @IBOutlet weak var searchRecipeButton: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Disable search recipe button if no food items added to search
         updateButtonDisplay()
     }
     
@@ -28,6 +30,7 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
         tableView.reloadData()
     }
     
+    // Enable or disable search recipe button based on whether food items have been added to search
     func updateButtonDisplay() {
         if foodList.isEmpty {
             searchRecipeButton.isEnabled = false
@@ -56,7 +59,7 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_FOOD {
-            // Configure and return a food cell
+            // Configure a food cell
             let foodCell = tableView.dequeueReusableCell(withIdentifier: CELL_FOOD, for: indexPath)
             var content = foodCell.defaultContentConfiguration()
             
@@ -75,9 +78,11 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
             foodCell.accessoryView = accessoryView
             return foodCell
         } else {
+            // Configure an info cell
             let infoCell = tableView.dequeueReusableCell(withIdentifier: CELL_INFO, for: indexPath)
             var content = infoCell.defaultContentConfiguration()
             
+            // Indicate how many food items are added to search, if any
             if foodList.isEmpty {
                 content.text = "No food items added to the recipe search.\nTap + to add items to the search."
             } else {
@@ -91,9 +96,11 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
     
     // Create and return the accessory view to attach to each food cell
     func getFoodCellAccessoryView(expiryDate: Date) -> UIView {
+        // Calculate the number of days before food expiry
+        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
+        
         // Create label for remaining number of days
         let remainingDaysLabel = UILabel.init(frame: CGRect(x:0, y:0, width:80, height:20))
-        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
         remainingDaysLabel.text = String(remainingDays)
         if remainingDays == 0 {
             remainingDaysLabel.text = "Today"
@@ -111,8 +118,8 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
         return accessoryView
     }
     
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Only allows editing for food cells
         if indexPath.section == SECTION_FOOD {
             return true
         } else {
@@ -120,8 +127,8 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
         }
     }
     
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // Delete a food item from search
         if editingStyle == .delete && indexPath.section == SECTION_FOOD {
             tableView.performBatchUpdates({
                 if let index = self.foodList.firstIndex(of: foodList[indexPath.row]) {
@@ -132,21 +139,23 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
             }, completion: nil)
         }
         
+        // Update search recipe button display
         updateButtonDisplay()
     }
     
     
     // MARK: - Delegate
+    
+    // Add a food item to recipe search
     func addFood(_ food: Food) -> Bool {
+        // Add food to food list, insert row to table and update info cell
         tableView.performBatchUpdates({
-            // Safe because search can't be active when Add button is tapped.
             foodList.append(food)
-            
             tableView.insertRows(at: [IndexPath(row: foodList.count - 1, section: SECTION_FOOD)], with: .automatic)
-            
             tableView.reloadSections([SECTION_INFO], with: .automatic)
         }, completion: nil)
         
+        // Update search recipe button display
         updateButtonDisplay()
         
         return true
@@ -155,12 +164,13 @@ class RecipeSearchTableViewController: UITableViewController, AddNewFoodItemDele
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addItemToRecipeSearchSegue" {
+            // Set up delegate for adding food items to recipe search before navigating to the add item to recipe search page
             let destination = segue.destination as! AddItemToRecipeSearchTableViewController
-            destination.addItemToRecipeSearchDelegate = self
+            destination.addToRecipeSearchDelegate = self
         } else if segue.identifier == "searchRecipeSegue" {
+            // Set the ingredients to search recipes for before navigating to the recipe search results page
             let destination = segue.destination as! RecipeSearchResultsTableViewController
             destination.ingredients = foodList
         }

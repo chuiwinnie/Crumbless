@@ -14,20 +14,22 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
     let CELL_FOOD = "foodCell"
     let CELL_INFO = "foodNumberCell"
     
-    var foodList: [Food] = []
-    var filteredFoodList: [Food] = []
-    
     var listenerType = ListenerType.foodItems
     weak var databaseController: DatabaseProtocol?
     
-    weak var addItemToRecipeSearchDelegate: AddNewFoodItemDelegate?
+    weak var addToRecipeSearchDelegate: AddToRecipeSearchDelegate?
+    
+    var foodList: [Food] = []
+    var filteredFoodList: [Food] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up database controller
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Copy food list to filtered food list for searching
         filteredFoodList = foodList
         
         // Set up search controller
@@ -49,21 +51,24 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         databaseController?.removeListener(listener: self)
     }
     
+    
+    // MARK: - Database
+    
     func onFoodItemsChange(change: DatabaseChange, foodItems: [Food]) {
         foodList = foodItems
         updateSearchResults(for: navigationItem.searchController!)
     }
     
     func onConsumedFoodItemsChange(change: DatabaseChange, consumedFoodItems: [Food]) {
-        // do nothing
+        // Consumed food items are not shown in this tab/table, hence do nothing
     }
     
     func onExpiredFoodItemsChange(change: DatabaseChange, expiredFoodItems: [Food]) {
-        // do nothing
+        // Expired food items are not shown in this tab/table, hence do nothing
     }
     
     func onUsersChange(change: DatabaseChange, users: [User]) {
-        // do nothing
+        // Users are not show in tab/table, hence do nothing
     }
     
     
@@ -98,16 +103,18 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
             let expiryDate = food.expiryDate
             content.secondaryText = dateToString(date: expiryDate ?? Date())
             
-            // Set the accessory view of each cell as the number of days left before the expiry date with a chevron symbol
+            // Set the accessory view of each cell as the number of days left before the expiry date
             let accessoryView = getFoodCellAccessoryView(expiryDate: expiryDate ?? Date())
             
             foodCell.contentConfiguration = content
             foodCell.accessoryView = accessoryView
             return foodCell
         } else {
+            // Configure an info cell
             let infoCell = tableView.dequeueReusableCell(withIdentifier: CELL_INFO, for: indexPath)
             var content = infoCell.defaultContentConfiguration()
             
+            // Indicate how many food items are in the food list, if any
             if foodList.isEmpty {
                 content.text = "No items in the food item list."
             } else {
@@ -121,9 +128,11 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
     
     // Create and return the accessory view to attach to each food cell
     func getFoodCellAccessoryView(expiryDate: Date) -> UIView {
+        // Calculate the number of days before food expiry
+        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
+        
         // Create label for remaining number of days
         let remainingDaysLabel = UILabel.init(frame: CGRect(x:0, y:0, width:80, height:20))
-        let remainingDays = getDaysBeforeExpiry(expiryDate: expiryDate)
         remainingDaysLabel.text = String(remainingDays)
         if remainingDays == 0 {
             remainingDaysLabel.text = "Today"
@@ -141,15 +150,17 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         return accessoryView
     }
     
-    // Override to support selecting a row within the table view.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Make info cell non-selectable
         if indexPath.section == SECTION_INFO {
             return
         }
         
-        if let addItemToRecipeSearchDelegate = addItemToRecipeSearchDelegate {
+        // Add the food to recipe search if its cell is selected
+        if let addItemToRecipeSearchDelegate = addToRecipeSearchDelegate {
             let itemAdded = addItemToRecipeSearchDelegate.addFood(filteredFoodList[indexPath.row])
             
+            // Remove food from list once added to recipe search
             if itemAdded {
                 if let index = foodList.firstIndex(of: filteredFoodList[indexPath.row]) {
                     self.foodList.remove(at: index)
@@ -159,7 +170,6 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
                 self.tableView.reloadSections([SECTION_INFO], with: .automatic)
                 
                 navigationController?.popViewController(animated: false)
-                
                 return
             }
         }
@@ -170,7 +180,9 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
     
     // MARK: - Search Bar
     
+    // Update search results based on entered search text
     func updateSearchResults(for searchController: UISearchController) {
+        // Reset filtered food list once cancelled searching
         if !searchController.isActive {
             filteredFoodList = foodList
             tableView.reloadData()
@@ -182,10 +194,12 @@ class AddItemToRecipeSearchTableViewController: UITableViewController, UISearchR
         }
         
         if searchText.count > 0 {
+            // Show only food items with name that matches the entered search text
             filteredFoodList = foodList.filter({ (food: Food) -> Bool in
                 return (food.name?.lowercased().contains(searchText) ?? false)
             })
         } else {
+            // Show all food items if no search text entered
             filteredFoodList = foodList
         }
         

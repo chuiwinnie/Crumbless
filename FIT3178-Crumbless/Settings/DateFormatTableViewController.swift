@@ -10,19 +10,21 @@ import UIKit
 class DateFormatTableViewController: UITableViewController {
     let CELL_DATE_FORMAT = "dateFormatCell"
     
-    let dateFormatTableOptions = ["dd-MM-yyyy", "MM-dd-yyyy", "yyyy-MM-dd", "dd/MM/yyyy", "MM/dd/yyyy", "dd/MM/yy", "MM/dd/yy", "dd MMMM yyyy", "MMMM dd yyyy", "dd MMM yyyy", "MMM dd yyyy"]
+    weak var selectDateFormatDelegate: SelectDateFormatDelegate?
+    
+    let dateFormatTableOptions = ["dd-MM-yyyy", "MM-dd-yyyy", "yyyy-MM-dd",
+                                  "dd/MM/yyyy", "MM/dd/yyyy", "dd/MM/yy", "MM/dd/yy",
+                                  "dd MMMM yyyy", "MMMM dd yyyy", "dd MMM yyyy", "MMM dd yyyy"]
     var selectedDateFormatIndex: Int?
     var selectedDateFormatOption: String?
     
-    weak var selectDateFormatDelegate: SelectDateFormatDelegate?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        showSelectedOption()
+        setSelectedOption()
     }
     
-    // Initialise selectedDateFormatIndex based on the previously selected preferred date format retrieved from SettingsTableViewController
-    func showSelectedOption() {
+    // Initialise selectedDateFormatIndex based on the previously selected preferred date format retrieved from the settings page
+    func setSelectedOption() {
         switch selectedDateFormatOption {
         case dateFormatTableOptions[0]:
             selectedDateFormatIndex = 0
@@ -51,18 +53,6 @@ class DateFormatTableViewController: UITableViewController {
         }
     }
     
-    // Update preferred date format in user defaults
-    func updateDateFormat(dateFormat: String) {
-        UserDefaults.standard.set(dateFormat, forKey: "dateFormat")
-    }
-    
-    // Get a date example with the specified date format
-    func getDateFormatExample(dateFormat: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
-        return dateFormatter.string(from: Date())
-    }
-    
     
     // MARK: - Table view data source
     
@@ -74,26 +64,33 @@ class DateFormatTableViewController: UITableViewController {
         return dateFormatTableOptions.count
     }
     
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         // Configure a date format cell
-         let dateFormatCell = tableView.dequeueReusableCell(withIdentifier: CELL_DATE_FORMAT, for: indexPath)
-         var content = dateFormatCell.defaultContentConfiguration()
-         
-         // Display date format and an example
-         let dateFormat = dateFormatTableOptions[indexPath.row]
-         content.text = dateFormat
-         content.secondaryText = "eg. " + getDateFormatExample(dateFormat: dateFormat)
-         
-         // Only add checkmark to the selected preferred date format
-         if(indexPath.row == selectedDateFormatIndex) {
-             dateFormatCell.accessoryType = UITableViewCell.AccessoryType.checkmark
-         } else {
-             dateFormatCell.accessoryType = UITableViewCell.AccessoryType.none
-         }
-         
-         dateFormatCell.contentConfiguration = content
-         return dateFormatCell
-     }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Configure a date format cell
+        let dateFormatCell = tableView.dequeueReusableCell(withIdentifier: CELL_DATE_FORMAT, for: indexPath)
+        var content = dateFormatCell.defaultContentConfiguration()
+        
+        // Display each available date format with an example
+        let dateFormat = dateFormatTableOptions[indexPath.row]
+        content.text = dateFormat
+        content.secondaryText = "eg. " + getDateFormatExample(dateFormat: dateFormat)
+        
+        // Only add checkmark to the selected preferred date format
+        if(indexPath.row == selectedDateFormatIndex) {
+            dateFormatCell.accessoryType = UITableViewCell.AccessoryType.checkmark
+        } else {
+            dateFormatCell.accessoryType = UITableViewCell.AccessoryType.none
+        }
+        
+        dateFormatCell.contentConfiguration = content
+        return dateFormatCell
+    }
+    
+    // Get a date example with the specified date format
+    func getDateFormatExample(dateFormat: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.string(from: Date())
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update selectedDateFormatIndex and checkmark based on selected preferred date format
@@ -103,9 +100,14 @@ class DateFormatTableViewController: UITableViewController {
         // Update preferred date format
         updateDateFormat(dateFormat: dateFormatTableOptions[selectedDateFormatIndex ?? 0])
         
-        // Inform SettingsTableViewController of the newly selected preferred date format and navigate back
+        // Inform the settings page of the newly selected preferred date format and navigate back
         selectDateFormatDelegate?.selectedDateFormatOption = dateFormatTableOptions[selectedDateFormatIndex ?? 0]
         navigationController?.popViewController(animated: true)
+    }
+    
+    // Update preferred date format in user defaults
+    func updateDateFormat(dateFormat: String) {
+        UserDefaults.standard.set(dateFormat, forKey: "dateFormat")
     }
     
 }

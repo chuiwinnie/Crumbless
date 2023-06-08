@@ -25,9 +25,6 @@ class AccountViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
-        // Disable account details text view editing
-        textView.isEditable = false
-        
         // Set up indicator
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -39,14 +36,15 @@ class AccountViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Show either user account details or login/signup options based on login status
         if databaseController?.userSignedIn ?? false {
+            // Display user account details and sign out option if logged in
             setAccountDetailsTextView()
             loginButton.isHidden = true
             signUpLabel.isHidden = true
             signUpButton.isHidden = true
             signOutButton.isHidden = false
         } else {
+            // Show login and sign up options if not logged in
             loginButton.isHidden = false
             signUpLabel.isHidden = false
             signUpButton.isHidden = false
@@ -54,32 +52,7 @@ class AccountViewController: UIViewController {
         }
     }
     
-    @IBAction func signOut(_ sender: Any) {
-        // Confirm sign out
-        let alertController = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        
-        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
-            // Start animating indicator
-            self.indicator.startAnimating()
-            
-            // Sign out if confirmed
-            self.databaseController?.signOut() { (signOutSuccess, error) in
-                DispatchQueue.main.async {
-                    if signOutSuccess {
-                        self.navigationController?.popViewController(animated: true)
-                        return
-                    }
-                    self.indicator.stopAnimating()
-                    self.displayMessage(title: "Sign Out Failed", message: error)
-                }
-            }
-        }))
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
+    // Display user account details
     func setAccountDetailsTextView() {
         // Set paragraph style
         let style = NSMutableParagraphStyle()
@@ -106,6 +79,33 @@ class AccountViewController: UIViewController {
         if (UserDefaults.standard.bool(forKey: "darkMode")) {
             textView.textColor = .white
         }
+    }
+    
+    @IBAction func signOut(_ sender: Any) {
+        // Display message to confirm sign out
+        let alertController = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        
+        // Sign out confirmed
+        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
+            // Start animating indicator
+            self.indicator.startAnimating()
+            
+            // Sign out
+            self.databaseController?.signOut() { (signOutSuccess, error) in
+                DispatchQueue.main.async {
+                    if signOutSuccess {
+                        self.navigationController?.popViewController(animated: true)
+                        return
+                    }
+                    self.indicator.stopAnimating()
+                    self.displayMessage(title: "Sign Out Failed", message: error)
+                }
+            }
+        }))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
 }

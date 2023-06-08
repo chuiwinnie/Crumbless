@@ -52,7 +52,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Update expiry alert field option if selected
+        // Update the expiry alert field
         expiryAlertTextField.isEnabled = true
         if let option = selectedExpiryAlertOption {
             expiryAlertTextField.text = option
@@ -71,7 +71,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Perform showExpiryAlertSegue if expiry alert field selected
+        // Navigate to the expiry alert page if expiry alert field selected
         if textField == expiryAlertTextField {
             performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
             expiryAlertTextField.isEnabled = false
@@ -111,7 +111,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Add food to database
         let food = databaseController?.addFood(name: name, expiryDate: date, alert: alert, alertTime: alertTime)
         
-        // Schedule local notification
+        // Schedule local notification for expiry alert
         if alert != expiryAlertOptions.none.rawValue {
             let id = food?.id ?? "NA"
             scheduleAlert(id: id, name: name, alert: alert, alertTime: alertTime, expiryDate: date)
@@ -124,7 +124,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Set the previously selected expiry alert option before showing the expiry alert table view
+        // Set the previously selected expiry alert option before navigating to the expiry alert page
         if segue.identifier == "showExpiryAlertSegue" {
             let destination = segue.destination as! ExpiryAlertTableViewController
             destination.selectExpiryAlertDelegate = self

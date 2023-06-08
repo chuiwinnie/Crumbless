@@ -8,6 +8,14 @@
 import UIKit
 
 class RecipeDetailsViewController: UIViewController {
+    @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak var instructionsTextView: UITextView!
+    
+    // API keys for searching recipes using Spoonacular
+    let apiKey = "25231069356d414fa201177ef0c1dfbd"
+    // let apiKey = "9967866fa4b14ddf91122861be29bf3f"
+    
     var recipeId: Int = 0
     var recipeTitle: String = ""
     var totalTime: Int = 0
@@ -15,13 +23,6 @@ class RecipeDetailsViewController: UIViewController {
     var instructions: [String] = []
     
     var indicator = UIActivityIndicatorView()
-    
-    //    let apiKey = "25231069356d414fa201177ef0c1dfbd"
-    let apiKey = "9967866fa4b14ddf91122861be29bf3f"
-    
-    @IBOutlet weak var totalTimeLabel: UILabel!
-    @IBOutlet weak var ingredientsTextView: UITextView!
-    @IBOutlet weak var instructionsTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,24 +37,24 @@ class RecipeDetailsViewController: UIViewController {
         ])
         indicator.startAnimating()
         
-        // Set recipe title
+        // Set page title as recipe title
         navigationItem.title = recipeTitle
         
         // Search recipe with id
         Task {
             await requestRecipe()
             
-            // Set recipe total time
+            // Display recipe total time
             totalTimeLabel.text = "\(totalTime) minutes"
             
-            // Format instructions
+            // Format and display instructions
             var formattedInstructions = ""
             for index in 0...instructions.count-1 {
                 formattedInstructions.append("\(index+1). " + instructions[index] + "\n\n")
             }
             instructionsTextView.text = formattedInstructions
             
-            // Format ingredients
+            // Format and display ingredients
             var formattedIngredients = ""
             for ingredient in ingredients {
                 formattedIngredients.append("\u{2022} " + ingredient + "\n\n")
@@ -63,7 +64,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     
-    // Make specific recipe details request to API & parse result
+    // Make search specific recipe details request to API
     func requestRecipe() async {
         // Create URL for API request
         var searchURLComponents = URLComponents()
@@ -84,6 +85,7 @@ class RecipeDetailsViewController: UIViewController {
         
         // Create async data task
         do {
+            // Request recipe by id
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
             
             // Stop loading indicator
@@ -119,7 +121,6 @@ class RecipeDetailsViewController: UIViewController {
             } catch let error {
                 print(error)
             }
-            
         } catch let error {
             print(error)
         }

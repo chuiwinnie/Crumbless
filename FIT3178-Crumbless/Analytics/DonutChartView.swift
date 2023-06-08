@@ -1,5 +1,5 @@
 //
-//  PieChartView.swift
+//  DonutChartView.swift
 //  FIT3178-Crumbless
 //
 //  Created by Winnie Chui on 8/6/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Struct for a segment in the pie chart
+// Struct for a segment in the donut chart
 struct Segment {
     let name: String
     let colour: UIColor
@@ -75,27 +75,23 @@ class DonutChartView: UIView {
         // Draw the centre text
         let consumedCount = segments[0].value
         let expiredCount = segments[1].value
-        let totalCount = consumedCount + expiredCount
-        drawCentre(consumed: consumedCount, total: totalCount)
+        drawCentre(consumed: consumedCount, expired: expiredCount)
         
         // Draw the legend
         drawLegend()
     }
     
-    func drawCentre(consumed: CGFloat, total: CGFloat) {
-        // Calculate the percentage of consumed food
-        let consumedPercentage = Int((consumed / total) * 100)
-        let centreText = "Consumed \n\(consumedPercentage)%"
-        
-        // Create the centre text rectangle
+    func drawCentre(consumed: CGFloat, expired: CGFloat) {
+        // Create the centre rectangle
         let centreOrigin = CGPoint(x: bounds.width*0.15, y: bounds.height*0.4)
         let centreRectangle = CGRect(origin: centreOrigin, size: CGSize(width: bounds.width*0.7, height: bounds.width/2))
         
+        // Calculate the percentage of consumed food
+        let consumedPercentage = Int((consumed / (consumed+expired)) * 100)
+        
         // Create the centre text
-        var centreTextColour = UIColor.black
-        if UserDefaults.standard.bool(forKey: "darkMode") {
-            centreTextColour = UIColor.white
-        }
+        let centreText = "Consumed \n\(consumedPercentage)%"
+        let centreTextColour = getTextColour()
         var centreTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.boldSystemFont(ofSize: 40),
             .foregroundColor: centreTextColour,
@@ -107,21 +103,33 @@ class DonutChartView: UIView {
         paragraphStyle.lineSpacing = 3
         centreTextAttributes[.paragraphStyle] = paragraphStyle
         
+        // Write centre text in centre rectangle
         let centreTextAttributedString = NSAttributedString(string: centreText, attributes: centreTextAttributes)
         centreTextAttributedString.draw(in: centreRectangle)
     }
     
+    func getTextColour() -> UIColor {
+        if UserDefaults.standard.bool(forKey: "darkMode") {
+            // Use white text if in dark mode
+            return UIColor.white
+        } else {
+            // Use black text if in light mode
+            return UIColor.black
+        }
+    }
+    
     func drawLegend() {
         let legendOrigin = CGPoint(x: 10, y: bounds.height - 20)
+        var legendRectangle = CGRect(origin: legendOrigin, size: CGSize.zero)
         let legendItemSize = CGSize(width: 20, height: 20)
         let legendSpacing: CGFloat = 5
-        var legendRectangle = CGRect(origin: legendOrigin, size: CGSize.zero)
         
+        // Draw legend for each segment
         for segment in segments {
             let legendColour = segment.colour
             let legendText = "\(segment.name): \(Int(segment.value))"
             
-            // Create and draw the legend item rectangle
+            // Create and draw legend item rectangle
             let legendItemRectangle = CGRect(origin: legendRectangle.origin, size: legendItemSize)
             let legendColourPath = UIBezierPath(rect: legendItemRectangle)
             legendColour.setFill()
@@ -132,11 +140,8 @@ class DonutChartView: UIView {
             let legendTextWidth = legendText.size(withAttributes: [.font: UIFont.systemFont(ofSize: 14)]).width
             let legendTextRectangle = CGRect(origin: legendTextOrigin, size: CGSize(width: legendTextWidth, height: legendItemSize.height))
             
-            // Write the legend text
-            var legendTextColour = UIColor.black
-            if UserDefaults.standard.bool(forKey: "darkMode") {
-                legendTextColour = UIColor.white
-            }
+            // Write the legend text in the legend text rectangle
+            let legendTextColour = getTextColour()
             let legendTextAttributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 14),
                 .foregroundColor: legendTextColour
@@ -144,7 +149,7 @@ class DonutChartView: UIView {
             let legendTextAttributedString = NSAttributedString(string: legendText, attributes: legendTextAttributes)
             legendTextAttributedString.draw(in: legendTextRectangle)
             
-            // Update the legend rectangle for the next segment legend
+            // Update the legend rectangle for the legend of the next segment
             let legendRectangleWidth = legendItemRectangle.width + legendTextWidth + legendSpacing * 5
             legendRectangle = legendRectangle.offsetBy(dx: legendRectangleWidth, dy: 0)
         }

@@ -58,7 +58,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Update expiry alert field option if selected
+        // Update the expiry alert field
         expiryAlertTextField.isEnabled = true
         if let option = selectedExpiryAlertOption {
             expiryAlertTextField.text = option
@@ -77,7 +77,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Perform showExpiryAlertSegue if expiry alert field selected
+        // Navigate to the expiry alert page if expiry alert field selected
         if textField == expiryAlertTextField {
             performSegue(withIdentifier: "showExpiryAlertSegue", sender: nil)
             expiryAlertTextField.isEnabled = false
@@ -121,7 +121,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         food.alertTime = alertTime
         databaseController?.updateFood(food: food)
         
-        // Reschedule local notification
+        // Reschedule local notification for expiry alert
         let id = food?.id ?? "NA"
         cancelAlert(id: id)
         if alert != expiryAlertOptions.none.rawValue {
@@ -135,7 +135,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Preset to previously selected expiry alert option before showing the expiry alert table view
+        // Set the previously selected expiry alert option before navigating to the expiry alert page
         if segue.identifier == "showExpiryAlertSegue" {
             let destination = segue.destination as! ExpiryAlertTableViewController
             destination.selectExpiryAlertDelegate = self
@@ -144,9 +144,3 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     }
     
 }
-
-
-/**
- References
- 
- */

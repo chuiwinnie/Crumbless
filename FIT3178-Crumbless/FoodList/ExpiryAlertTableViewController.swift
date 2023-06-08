@@ -16,17 +16,12 @@ class ExpiryAlertTableViewController: UITableViewController {
     
     weak var selectExpiryAlertDelegate: SelectExpiryAlertDelegate?
     
-    // Dimiss date picker from expiry date field if it is not dismissed already
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         showSelectedOption()
     }
     
-    // Initialise selectedExpiryAlertIndex based on the previously selected expiry alert option retrieved from AddNewFoodItemViewController
+    // Initialise selectedExpiryAlertIndex based on the previously selected expiry alert option retrieved from the add new food item page
     func showSelectedOption() {
         switch selectedExpiryAlertOption {
         case expiryAlertTableOptions[0]:
@@ -44,6 +39,11 @@ class ExpiryAlertTableViewController: UITableViewController {
         default:
             selectedExpiryAlertIndex = 0
         }
+    }
+    
+    // Dimiss date picker from expiry date field if it is not already dismissed
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     
@@ -65,7 +65,7 @@ class ExpiryAlertTableViewController: UITableViewController {
         let alert = expiryAlertTableOptions[indexPath.row]
         content.text = alert
         
-        // Only add checkmark to the selected alert option
+        // Only add checkmark to the selected expiry alert option
         if(indexPath.row == selectedExpiryAlertIndex) {
             expiryAlertCell.accessoryType = UITableViewCell.AccessoryType.checkmark
         } else {
@@ -81,7 +81,7 @@ class ExpiryAlertTableViewController: UITableViewController {
         selectedExpiryAlertIndex = indexPath.row
         tableView.reloadData()
         
-        // Inform AddNewFoodItemViewController of the newly selected expiry alert and navigate back
+        // Inform the add new food item page of the newly selected expiry alert and navigate back
         selectExpiryAlertDelegate?.selectedExpiryAlertOption = expiryAlertTableOptions[selectedExpiryAlertIndex ?? 0]
         navigationController?.popViewController(animated: true)
     }

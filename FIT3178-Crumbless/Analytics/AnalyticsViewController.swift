@@ -14,12 +14,12 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     
     let CELL_FOOD = "foodCell"
     
+    var listenerType = ListenerType.consumedOrExpiredFoodItems
+    weak var databaseController: DatabaseProtocol?
+    
     var foodList: [Food] = []
     var consumedFoodList: [Food] = []
     var expiredFoodList: [Food] = []
-    
-    var listenerType = ListenerType.consumedOrExpiredFoodItems
-    weak var databaseController: DatabaseProtocol?
     
     var chartView: UIView = UIView.init()
     
@@ -47,6 +47,7 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         view.addSubview(chartView)
     }
     
+    // Update the table content once the segmented control value changed
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         updateTableView()
     }
@@ -134,7 +135,7 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func onUsersChange(change: DatabaseChange, users: [User]) {
-        // This tab/view does not need to show users, hence do nothing
+        // Users are not shown in this tab/table, hence do nothing
     }
     
     

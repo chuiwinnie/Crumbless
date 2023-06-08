@@ -41,6 +41,7 @@ class LoginViewController: UIViewController {
         
         email = email.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        // Validate email and password fields
         if email.isEmpty || password.isEmpty {
             var errorMsg = "Please ensure all fields are filled:"
             if email.isEmpty {
