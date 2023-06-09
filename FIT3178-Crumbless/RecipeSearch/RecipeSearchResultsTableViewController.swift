@@ -177,3 +177,9 @@ class RecipeSearchResultsTableViewController: UITableViewController {
     }
     
 }
+
+
+/**
+ References
+ - Getting recipes by ingredients: https://spoonacular.com/food-api/docs#Search-Recipes-by-Ingredients
+ */

@@ -1,5 +1,5 @@
 //
-//  UIViewController+displayDateTimePicker.swift
+//  UIViewController+setUpDateTimePicker.swift
 //  FIT3178-Crumbless
 //
 //  Created by Winnie Chui on 7/6/2023.
@@ -15,7 +15,7 @@ extension UIViewController {
     }
     
     // Set up date picker for expiry date text field
-    func showExpiryDatePicker(expiryDateTextField: UITextField, expiryDate: Date) {
+    func setUpExpiryDatePicker(expiryDateTextField: UITextField, expiryDate: Date) {
         let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
         
         // Set up done button for closing date picker
@@ -38,18 +38,18 @@ extension UIViewController {
         expiryDateTextField.inputView = datePicker
     }
     
-    // Close text field date/time picker
+    // Close date/time picker
     @objc func doneButtonClicked() {
         view.endEditing(true)
     }
     
-    // Update expiry date field if date picker date changed
+    // Update expiry date field text if date picker date changed
     @objc func dateChange(datePicker: CustomDatePicker) {
         datePicker.textField?.text = dateToString(date: datePicker.date)
     }
     
     // Set up time picker for expiry alert time text field
-    func showExpiryAlertTimePicker(expiryAlertTimeTextField: UITextField, alertTime: String) {
+    func setUpExpiryAlertTimePicker(expiryAlertTimeTextField: UITextField, alertTime: String) {
         let toolbar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 45))
         
         // Set up done button for closing time picker
@@ -74,7 +74,7 @@ extension UIViewController {
         expiryAlertTimeTextField.inputView = timePicker
     }
     
-    // Update expiry alert time field if time picker time changed
+    // Update expiry alert time field text if time picker time changed
     @objc func timeChange(timePicker: CustomDatePicker) {
         timePicker.textField?.text = timeToString(date: timePicker.date)
     }

@@ -47,7 +47,7 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
         view.addSubview(chartView)
     }
     
-    // Update the table content once the segmented control value changed
+    // Update table content if segmented control value changed
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         updateTableView()
     }
@@ -182,4 +182,5 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
  References
  - Segmented control with table view: https://stackoverflow.com/questions/71361577/segmented-control-with-a-uitableview
  - Replacing chart view: https://stackoverflow.com/questions/30831444/swift-remove-subviews-from-superview
+ - Using large navigation bar title: https://www.hackingwithswift.com/example-code/uikit/how-to-enable-large-titles-in-your-navigation-bar
  */

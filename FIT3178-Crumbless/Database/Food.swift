@@ -16,7 +16,6 @@ class Food: NSObject, Codable {
     var alertTime: String?
 }
 
-// FoodCodingKeys to ensure they are exculded from the encode & decode process
 enum FoodCodingKeys: String, CodingKey {
     case id
     case name

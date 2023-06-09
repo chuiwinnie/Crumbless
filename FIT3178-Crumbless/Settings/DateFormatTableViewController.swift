@@ -115,3 +115,9 @@ class DateFormatTableViewController: UITableViewController {
     }
     
 }
+
+
+/**
+ References
+ - Showing checkmark for only 1 row: https://stackoverflow.com/questions/10192908/uitableview-checkmark-only-one-row-at-a-time
+ */

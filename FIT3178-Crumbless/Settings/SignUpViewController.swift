@@ -70,13 +70,17 @@ class SignUpViewController: UIViewController {
         // Start animating indicator
         indicator.startAnimating()
         
+        // Sign up
         databaseController?.signUp(name: name, email: email, password: password) { (signUpSuccess, error) in
             DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                
                 if signUpSuccess {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
-                self.indicator.stopAnimating()
+                
+                // Display error message if sign up failed
                 self.displayMessage(title: "Sign Up Failed", message: error)
             }
         }
@@ -101,3 +105,10 @@ class SignUpViewController: UIViewController {
     }
     
 }
+
+
+/**
+ References:
+ - Using returned values from async signup function: https://stackoverflow.com/questions/52287840/how-i-can-return-value-from-async-block-in-swift
+ - Validating email address: https://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
+ */

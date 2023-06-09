@@ -37,7 +37,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         
         // Set up date picker for expiry date field
         expiryDateTextField.delegate = self
-        showExpiryDatePicker(expiryDateTextField: expiryDateTextField, expiryDate: food.expiryDate ?? Date())
+        setUpExpiryDatePicker(expiryDateTextField: expiryDateTextField, expiryDate: food.expiryDate ?? Date())
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
@@ -49,7 +49,7 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self
         expiryAlertTimeTextField.text = food.alertTime
-        showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField, alertTime: food.alertTime ?? "09:00 am")
+        setUpExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField, alertTime: food.alertTime ?? "09:00 am")
         
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in
@@ -147,3 +147,10 @@ class FoodDetailsViewController: UIViewController, UITextFieldDelegate, SelectEx
     }
     
 }
+
+
+/**
+ References
+ - Adding chevron at the end of expiry alert text field: https://stackoverflow.com/questions/27903500/swift-add-icon-image-in-uitextfield
+ */
+

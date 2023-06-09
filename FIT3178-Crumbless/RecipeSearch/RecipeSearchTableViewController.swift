@@ -188,4 +188,5 @@ class RecipeSearchTableViewController: UITableViewController, AddToRecipeSearchD
  - Adding number of days before food expiry to the right of each food cell: https://stackoverflow.com/questions/49473959/ios-swift-uitableviewcell-with-left-detail-and-right-detail-and-subtitle
  - Right aligning text for number of days before food expiry: https://stackoverflow.com/questions/24034300/swift-uilabel-text-alignment
  - Creating stack view for food cell accessory view: https://www.kodeco.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views#toc-anchor-011
+ - Using large navigation bar title: https://www.hackingwithswift.com/example-code/uikit/how-to-enable-large-titles-in-your-navigation-bar
  */

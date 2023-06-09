@@ -60,16 +60,26 @@ class LoginViewController: UIViewController {
         // Start animating indicator
         indicator.startAnimating()
         
+        // Login
         databaseController?.login(email: email, password: password) { (loginSuccess, error) in
             DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                
                 if loginSuccess {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
-                self.indicator.stopAnimating()
+                
+                // Display error message if login failed
                 self.displayMessage(title: "Login Failed", message: error)
             }
         }
     }
     
 }
+
+
+/**
+ References
+ - Using returned values from async login function: https://stackoverflow.com/questions/52287840/how-i-can-return-value-from-async-block-in-swift
+ */

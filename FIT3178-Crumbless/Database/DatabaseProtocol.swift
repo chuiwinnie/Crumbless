@@ -12,8 +12,8 @@ import FirebaseFirestoreSwift
 
 enum DatabaseChange {
     case add
-    case remove
     case update
+    case remove
 }
 
 enum ListenerType {
@@ -36,17 +36,21 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
     
+    // Food itmes
     func addFood(name: String, expiryDate: Date, alert: String, alertTime: String) -> Food
     func updateFood(food: Food)
     func deleteFood(food: Food)
     
+    // Consumed food items
     func addConsumedFood(food: Food) -> Food
     
+    // Expired food items
     func addExpiredFood(food: Food) -> Food
     
+    // Users
     var user: User? { get }
     var userDefaults: UserDefaults? { get }
-    var userSignedIn: Bool? { get } 
+    var userSignedIn: Bool? { get }
     func login(email: String, password: String, completion: @escaping ((Bool, String) -> Void))
     func signUp(name: String, email: String, password: String, completion: @escaping ((Bool, String) -> Void))
     func signOut(completion: @escaping ((Bool, String) -> Void))

@@ -135,7 +135,7 @@ class SettingsTableViewController: UITableViewController, SelectDateFormatDelega
         return darkModeSwitch
     }
     
-    // Update appearance preference in user defaults
+    // Update appearance preference in user defaults if toggle switch changed
     @objc func darkModeSwitchChanged(darkModeSwitch: UISwitch) {
         if darkModeSwitch.isOn {
             userDefaults?.set(true, forKey: "darkMode")
@@ -164,5 +164,6 @@ class SettingsTableViewController: UITableViewController, SelectDateFormatDelega
 
 /**
  References
- - Dark mode toggle swtich: https://www.youtube.com/watch?v=JJLJIkN-Da8
+ - Implementing dark mode toggle swtich: https://www.youtube.com/watch?v=JJLJIkN-Da8
+ - Using large navigation bar title: https://www.hackingwithswift.com/example-code/uikit/how-to-enable-large-titles-in-your-navigation-bar
  */

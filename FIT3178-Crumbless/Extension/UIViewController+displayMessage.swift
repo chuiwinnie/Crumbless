@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    // Display message to user
     func displayMessage(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))

@@ -31,7 +31,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         
         // Set up date picker for expiry date field
         expiryDateTextField.delegate = self
-        showExpiryDatePicker(expiryDateTextField: expiryDateTextField, expiryDate: Date())
+        setUpExpiryDatePicker(expiryDateTextField: expiryDateTextField, expiryDate: Date())
         
         // Set up expiry alert field
         expiryAlertTextField.delegate = self
@@ -43,7 +43,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Set up time picker for expiry alert time field
         expiryAlertTimeTextField.delegate = self
         expiryAlertTimeTextField.text = "09:00 am"
-        showExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField, alertTime: "09:00 am")
+        setUpExpiryAlertTimePicker(expiryAlertTimeTextField: expiryAlertTimeTextField, alertTime: "09:00 am")
         
         // Request permission for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted, error) in

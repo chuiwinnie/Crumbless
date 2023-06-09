@@ -16,7 +16,6 @@ class User: NSObject, Codable  {
     var expiredFoodItems: [Food]?
 }
 
-// UserCodingKeys to ensure they are exculded from the encode & decode process
 enum UserCodingKeys: String, CodingKey {
     case name
     case email
