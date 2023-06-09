@@ -183,4 +183,5 @@ class AnalyticsViewController: UIViewController, UITableViewDataSource, UITableV
  - Segmented control with table view: https://stackoverflow.com/questions/71361577/segmented-control-with-a-uitableview
  - Replacing chart view: https://stackoverflow.com/questions/30831444/swift-remove-subviews-from-superview
  - Using large navigation bar title: https://www.hackingwithswift.com/example-code/uikit/how-to-enable-large-titles-in-your-navigation-bar
+ - Programatically setting table view height constraint: https://stackoverflow.com/questions/42794557/ios-dynamically-set-uitableview-height-in-swift
  */

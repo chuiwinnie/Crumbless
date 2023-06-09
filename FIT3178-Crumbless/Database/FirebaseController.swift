@@ -71,11 +71,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 fatalError("Firebase Authentication Failed with Error\(String(describing: error))")
             }
             
-            // Set up food list, consumed food list, expired food list and user
+            // Set up user, food list, consumed food list and expired food list
+            self.setupUsersListener()
             self.setupFoodListener()
             self.setupConsumedFoodListener()
             self.setupExpiredFoodListener()
-            self.setupUsersListener()
+            
         }
     }
     

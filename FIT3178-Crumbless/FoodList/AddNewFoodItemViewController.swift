@@ -107,7 +107,7 @@ class AddNewFoodItemViewController: UIViewController, UITextFieldDelegate, Selec
         // Validate expiry alert
         let alertTime = expiryAlertTimeTextField.text ?? "09:00 am"
         if alert != expiryAlertOptions.none.rawValue && !validateAlert(expiry: date, alert: alert, alertTime: alertTime) {
-            displayMessage(title: "Invalid Alert", message: "Please set an alert in between the current time and the expiry date")
+            displayMessage(title: "Invalid Alert", message: "Please set an alert after the current time")
             return
         }
         
