@@ -99,6 +99,9 @@ class AccountViewController: UIViewController {
             self.databaseController?.signOut() { (signOutSuccess, error) in
                 DispatchQueue.main.async {
                     if signOutSuccess {
+                        // Remove all expiry alerts for signed out user
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        
                         self.navigationController?.popViewController(animated: true)
                         return
                     }

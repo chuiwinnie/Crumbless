@@ -156,6 +156,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func getFoodList() -> [Food] {
+        return foodList
+    }
+    
     func getFoodById(_ id: String) -> Food? {
         for food in foodList {
             if food.id == id {
@@ -221,7 +225,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 
                 // Return login success
                 completion(true, "")
-                print("User (\(user?.email ?? "NA")) logs in successfully")
+                print("User (\(user?.email ?? "NA")) logged in successfully")
             } catch {
                 // Return login error
                 completion(false, "\(error.localizedDescription)")
@@ -253,7 +257,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 
                 // Return sign up success
                 completion(true, "")
-                print("User (\(user?.email ?? "NA")) signs up successfully")
+                print("User (\(user?.email ?? "NA")) signed up successfully")
             }
             catch {
                 // Return sign up error
@@ -328,7 +332,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 
                 // Return sign out success
                 completion(true, "")
-                print("User signs out successfully")
+                print("User signed out successfully")
             }
             catch {
                 // Return sign out error

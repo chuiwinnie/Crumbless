@@ -40,6 +40,7 @@ protocol DatabaseProtocol: AnyObject {
     func addFood(name: String, expiryDate: Date, alert: String, alertTime: String) -> Food
     func updateFood(food: Food)
     func deleteFood(food: Food)
+    func getFoodList() -> [Food]
     
     // Consumed food items
     func addConsumedFood(food: Food) -> Food

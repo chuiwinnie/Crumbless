@@ -66,6 +66,18 @@ class LoginViewController: UIViewController {
                 self.indicator.stopAnimating()
                 
                 if loginSuccess {
+                    // Remove all expiry alerts for previous anonymous user
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    
+                    // Schedule expiry alert for all food items for logged in user
+                    let foodList = self.databaseController?.getFoodList()
+                    for food in foodList ?? [] {
+                        let alert = food.alert
+                        if alert != nil && alert != expiryAlertOptions.none.rawValue {
+                            self.scheduleAlert(id: food.id!, name: food.name!, alert: food.alert!, alertTime: food.alertTime!, expiryDate: food.expiryDate!)
+                        }
+                    }
+                    
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
